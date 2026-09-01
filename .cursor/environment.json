@@ -1,0 +1,11 @@
+{
+  "name": "personal-website-handler",
+  "install": "./.cursor/scripts/cloud-agent-install.sh",
+  "terminals": [
+    {
+      "name": "api",
+      "command": "./mvnw spring-boot:run"
+    }
+  ],
+  "ports": [8080]
+}
