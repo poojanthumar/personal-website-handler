@@ -4,7 +4,7 @@ import static org.springframework.security.test.web.servlet.request.SecurityMock
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrlPattern;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
@@ -49,7 +49,7 @@ class HostRoutingMvcTest {
 	void adminHomeUnauthenticatedRedirectsToLogin() throws Exception {
 		mockMvc.perform(get("/").header("Host", ADMIN))
 				.andExpect(status().isFound())
-				.andExpect(redirectedUrlPattern("**/login"));
+				.andExpect(redirectedUrl("/login"));
 	}
 
 	@Test
@@ -63,7 +63,7 @@ class HostRoutingMvcTest {
 	void adminExplorerRequiresAuth() throws Exception {
 		mockMvc.perform(get("/explorer").header("Host", ADMIN))
 				.andExpect(status().isFound())
-				.andExpect(redirectedUrlPattern("**/login"));
+				.andExpect(redirectedUrl("/login"));
 	}
 
 	@Test
