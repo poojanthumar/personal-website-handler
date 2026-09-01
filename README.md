@@ -1,46 +1,100 @@
 # personal-website-handler
 
-Spring Boot API for handling personal website contact form submissions.
+One Spring Boot process serves three sites from the HTTP `Host` header:
+
+| Host | Site |
+|------|------|
+| `www.poojanthumar.in` (also `localhost`, `127.0.0.1`, `www.localhost`) | Personal portfolio |
+| `wedding.poojanthumar.in` (also `wedding.localhost`) | Wedding — homepage and Roka |
+| `admin.poojanthumar.in` (also `admin.localhost`) | Admin portal (login required) |
+
+Later ceremonies (engagement, date reveal, digital invites) are out of scope for this version.
 
 ## Requirements
 
 - Java 21
 - Maven Wrapper (`./mvnw`) — no system Maven install required
+- Local development uses **H2**. PostgreSQL is optional (`postgres` profile). The Oracle VM database is **not** required.
 
 ## Development
-
-Install dependencies and run tests:
-
-```bash
-./.cursor/scripts/cloud-agent-install.sh
-```
-
-Start the API server:
 
 ```bash
 ./mvnw spring-boot:run
 ```
 
-The server listens on `http://localhost:8080`.
-
-## API
-
-### Health check
+File-backed H2 (survives restarts):
 
 ```bash
-curl http://localhost:8080/actuator/health
+./mvnw spring-boot:run -Dspring-boot.run.profiles=dev
 ```
 
-### Submit a contact message
+The server listens on `http://127.0.0.1:8080`. Routing is by `Host` header, not by extra ports.
+
+### Test the three sites with curl
 
 ```bash
-curl -X POST http://localhost:8080/api/contact \
+curl -sS -D- -o /tmp/www.html -H 'Host: www.poojanthumar.in' http://127.0.0.1:8080/
+curl -sS -D- -o /tmp/wedding.html -H 'Host: wedding.poojanthumar.in' http://127.0.0.1:8080/
+curl -sS -D- -o /tmp/roka.html -H 'Host: wedding.poojanthumar.in' http://127.0.0.1:8080/roka
+curl -sS -D- -o /tmp/admin.html -H 'Host: admin.poojanthumar.in' http://127.0.0.1:8080/
+```
+
+Admin without a session should **302** to `/login`.
+
+Optional `/etc/hosts` aliases (`www.localhost`, `wedding.localhost`, `admin.localhost`) are configured in `application-dev.properties` if you prefer a browser over curl.
+
+### Contact API
+
+Submit (public JSON; used by the portfolio form as well as `/contact`):
+
+```bash
+curl -X POST http://127.0.0.1:8080/api/contact \
   -H 'Content-Type: application/json' \
   -d '{"name":"Ada Lovelace","email":"ada@example.com","message":"Hello from the website handler"}'
 ```
 
-### List submitted messages
+List (admin only; 401 without credentials):
 
 ```bash
-curl http://localhost:8080/api/contact
+curl -u "$ADMIN_USER:$ADMIN_PASSWORD" http://127.0.0.1:8080/api/contact
 ```
+
+HTML contact form posts to `/contact` on the www host (CSRF token required).
+
+### Environment variables
+
+| Variable | Default | Purpose |
+|----------|---------|---------|
+| `ADMIN_USER` | `admin` | Admin login name |
+| `ADMIN_PASSWORD` | `change-me` | Admin password (override in any real environment) |
+| `DATABASE_URL` | `jdbc:postgresql://localhost:5432/website` | Used with `postgres` profile |
+| `DATABASE_USER` | `website` | Postgres user |
+| `DATABASE_PASSWORD` | empty | Postgres password |
+
+Never commit a real admin password. Generate one and export `ADMIN_PASSWORD` before running in a shared environment.
+
+### PostgreSQL
+
+```bash
+./mvnw spring-boot:run -Dspring-boot.run.profiles=postgres
+```
+
+Schema is applied by Flyway (`src/main/resources/db/migration`). Hibernate `ddl-auto` is `validate`.
+
+### Tests
+
+```bash
+./mvnw test
+```
+
+Tests use in-memory H2 (`test` profile).
+
+### Health
+
+```bash
+curl http://127.0.0.1:8080/actuator/health
+```
+
+## Production reverse proxy (follow-up)
+
+This repository does **not** deploy to a VM, open tunnels, or add GitHub Actions deploy. A later step can put Caddy (or similar) in front of `127.0.0.1:8080`. See `deploy/Caddyfile.example`.

@@ -1,0 +1,16 @@
+# Example Caddy site config for a later production deploy.
+# This file is documentation only — this task does not deploy, SSH, or open tunnels.
+#
+# reverse_proxy all three public hostnames to the single Spring Boot process.
+
+www.poojanthumar.in {
+	reverse_proxy 127.0.0.1:8080
+}
+
+wedding.poojanthumar.in {
+	reverse_proxy 127.0.0.1:8080
+}
+
+admin.poojanthumar.in {
+	reverse_proxy 127.0.0.1:8080
+}
