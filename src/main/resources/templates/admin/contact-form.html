@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${create} ? 'New contact' : 'Edit contact'">Contact</title>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{admin/fragments :: nav}"></div>
+	<main class="wrap">
+		<h1 th:text="${create} ? 'New contact message' : 'Edit contact message'">Edit</h1>
+		<p class="err" th:if="${error}" th:text="${error}"></p>
+		<form th:if="${create}" method="post" th:action="@{/explorer/contacts}">
+			<label>Name <input name="name" required maxlength="200"></label>
+			<label>Email <input name="email" type="email" required maxlength="320"></label>
+			<label>Message <textarea name="message" rows="6" required></textarea></label>
+			<button type="submit">Create</button>
+		</form>
+		<form th:unless="${create}" method="post" th:action="@{|/explorer/contacts/${item.id}|}">
+			<label>Name <input name="name" required maxlength="200" th:value="${item.name}"></label>
+			<label>Email <input name="email" type="email" required maxlength="320" th:value="${item.email}"></label>
+			<label>Message <textarea name="message" rows="6" required th:text="${item.message}"></textarea></label>
+			<button type="submit">Save</button>
+		</form>
+		<form th:unless="${create}" class="danger" method="post" th:action="@{|/explorer/contacts/${item.id}/delete|}"
+			  onsubmit="return confirm('Delete this contact message permanently?');">
+			<label class="check">
+				<input type="checkbox" name="confirm" value="true" required>
+				I understand this cannot be undone
+			</label>
+			<button type="submit">Delete</button>
+		</form>
+	</main>
+</body>
+</html>

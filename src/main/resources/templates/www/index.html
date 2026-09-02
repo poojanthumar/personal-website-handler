@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Poojan Thumar</title>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/www.css}">
+</head>
+<body>
+	<header class="hero">
+		<p class="eyebrow">Software · systems · making things that last</p>
+		<h1>Poojan Thumar</h1>
+		<p class="lede">I build careful software — APIs, platforms, and the quiet infrastructure that keeps a product honest.</p>
+		<nav class="links">
+			<a href="https://github.com/poojanthumar">GitHub</a>
+			<a href="#about">About</a>
+			<a href="#contact">Contact</a>
+		</nav>
+	</header>
+
+	<main>
+		<section id="about">
+			<h2>About</h2>
+			<p>This is my personal site: a small place for who I am, how to reach me, and the work I am proud of. The wedding of our families lives on its own host; this page stays simple on purpose.</p>
+		</section>
+
+		<section id="contact">
+			<h2>Contact</h2>
+			<p class="ok" th:if="${contactSuccess}">Thank you — your message was received.</p>
+			<p class="err" th:if="${contactError}" th:text="${contactError}">Error</p>
+			<form method="post" th:action="@{/contact}" th:object="${contactRequest}">
+				<label>Name
+					<input type="text" th:field="*{name}" maxlength="200" required>
+				</label>
+				<p class="field-err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+				<label>Email
+					<input type="email" th:field="*{email}" maxlength="320" required>
+				</label>
+				<p class="field-err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
+				<label>Message
+					<textarea th:field="*{message}" rows="6" maxlength="8000" required></textarea>
+				</label>
+				<p class="field-err" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></p>
+				<button type="submit">Send</button>
+			</form>
+		</section>
+	</main>
+
+	<footer>
+		<p>© Poojan Thumar</p>
+	</footer>
+</body>
+</html>

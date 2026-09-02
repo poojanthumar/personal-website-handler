@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Data explorer</title>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{admin/fragments :: nav}"></div>
+	<main class="wrap">
+		<h1>Data explorer</h1>
+		<p class="muted">Browse entities this application owns.</p>
+		<ul class="cards">
+			<li th:each="entry : ${entities}">
+				<a th:href="@{|/explorer/${entry.key}|}">
+					<strong th:text="${entry.value}">Name</strong>
+					<span th:text="${entry.key}">key</span>
+				</a>
+			</li>
+		</ul>
+	</main>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Wedding content</title>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{admin/fragments :: nav}"></div>
+	<main class="wrap">
+		<h1>Wedding pages</h1>
+		<p class="ok" th:if="${notice}" th:text="${notice}"></p>
+		<p class="err" th:if="${error}" th:text="${error}"></p>
+		<p><a class="button" href="/explorer/wedding/new">Create</a></p>
+		<table>
+			<thead>
+				<tr>
+					<th>Key</th>
+					<th>Title</th>
+					<th>Couple</th>
+					<th>Updated</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="row : ${page.content}">
+					<td th:text="${row.pageKey}">home</td>
+					<td th:text="${row.title}">title</td>
+					<td th:text="${row.coupleNames}">names</td>
+					<td th:text="${row.updatedAt}">time</td>
+					<td><a th:href="@{|/explorer/wedding/${row.id}|}">Edit</a></td>
+				</tr>
+			</tbody>
+		</table>
+		<nav class="pager" th:if="${page.totalPages > 1}">
+			<a th:if="${page.hasPrevious()}" th:href="@{/explorer/wedding(page=${page.number - 1})}">Previous</a>
+			<span th:text="${page.number + 1} + ' / ' + ${page.totalPages}"></span>
+			<a th:if="${page.hasNext()}" th:href="@{/explorer/wedding(page=${page.number + 1})}">Next</a>
+		</nav>
+	</main>
+</body>
+</html>

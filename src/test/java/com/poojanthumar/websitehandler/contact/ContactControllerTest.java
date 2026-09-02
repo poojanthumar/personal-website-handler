@@ -1,5 +1,6 @@
 package com.poojanthumar.websitehandler.contact;
 
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.httpBasic;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -7,20 +8,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
 import org.springframework.http.MediaType;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@ActiveProfiles("test")
 class ContactControllerTest {
 
 	@Autowired
 	private MockMvc mockMvc;
 
+	@Autowired
+	private ContactMessageRepository repository;
+
 	@Test
-	void submitsAndListsContactMessages() throws Exception {
+	void submitsPersistsAndRejectsPublicList() throws Exception {
 		mockMvc.perform(post("/api/contact")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("""
@@ -34,8 +40,25 @@ class ContactControllerTest {
 				.andExpect(jsonPath("$.name").value("Ada Lovelace"))
 				.andExpect(jsonPath("$.email").value("ada@example.com"));
 
+		org.assertj.core.api.Assertions.assertThat(repository.findAll())
+				.anyMatch(row -> "Hello from the website handler".equals(row.getMessage()));
+
 		mockMvc.perform(get("/api/contact"))
+				.andExpect(status().isUnauthorized());
+
+		mockMvc.perform(get("/api/contact").with(httpBasic("admin", "test-password")))
 				.andExpect(status().isOk())
-				.andExpect(jsonPath("$[0].message").value("Hello from the website handler"));
+				.andExpect(jsonPath("$[?(@.message=='Hello from the website handler')]").exists());
+	}
+
+	@Test
+	void rejectsBlankContactFields() throws Exception {
+		mockMvc.perform(post("/api/contact")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("""
+						{"name":"","email":"ada@example.com","message":"hi"}
+						"""))
+				.andExpect(status().isBadRequest())
+				.andExpect(jsonPath("$.error").value("name is required"));
 	}
 }

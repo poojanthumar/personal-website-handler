@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Admin dashboard</title>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{admin/fragments :: nav}"></div>
+	<main class="wrap">
+		<h1>Dashboard</h1>
+		<p class="muted">Known application tables only — no SQL console.</p>
+		<ul class="cards">
+			<li>
+				<a href="/explorer/contacts">
+					<strong>Contact messages</strong>
+					<span th:text="${contactCount}">0</span> rows
+				</a>
+			</li>
+			<li>
+				<a href="/explorer/wedding">
+					<strong>Wedding content</strong>
+					<span th:text="${weddingCount}">0</span> rows
+				</a>
+			</li>
+		</ul>
+		<p><a href="/explorer">Open data explorer</a></p>
+	</main>
+</body>
+</html>

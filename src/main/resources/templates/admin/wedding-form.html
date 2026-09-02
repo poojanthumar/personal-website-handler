@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${create} ? 'New wedding page' : 'Edit wedding page'">Wedding</title>
+	<link rel="stylesheet" th:href="@{/css/admin.css}">
+</head>
+<body>
+	<div th:replace="~{admin/fragments :: nav}"></div>
+	<main class="wrap">
+		<h1 th:text="${create} ? 'New wedding page' : 'Edit wedding page'">Edit</h1>
+		<p class="err" th:if="${error}" th:text="${error}"></p>
+		<form th:if="${create}" method="post" th:action="@{/explorer/wedding}" th:object="${item}">
+			<label>Page key <input th:field="*{pageKey}" required maxlength="64" placeholder="home"></label>
+			<label>Title <input th:field="*{title}" required></label>
+			<label>Subtitle <input th:field="*{subtitle}"></label>
+			<label>Couple names <input th:field="*{coupleNames}"></label>
+			<label>Event date <input th:field="*{eventDate}"></label>
+			<label>Venue <input th:field="*{venue}"></label>
+			<label>Body <textarea th:field="*{body}" rows="6"></textarea></label>
+			<label>Extra copy <textarea th:field="*{extraCopy}" rows="4"></textarea></label>
+			<button type="submit">Create</button>
+		</form>
+		<form th:unless="${create}" method="post" th:action="@{|/explorer/wedding/${item.id}|}" th:object="${item}">
+			<label>Page key <input th:field="*{pageKey}" required maxlength="64"></label>
+			<label>Title <input th:field="*{title}" required></label>
+			<label>Subtitle <input th:field="*{subtitle}"></label>
+			<label>Couple names <input th:field="*{coupleNames}"></label>
+			<label>Event date <input th:field="*{eventDate}"></label>
+			<label>Venue <input th:field="*{venue}"></label>
+			<label>Body <textarea th:field="*{body}" rows="6"></textarea></label>
+			<label>Extra copy <textarea th:field="*{extraCopy}" rows="4"></textarea></label>
+			<button type="submit">Save</button>
+		</form>
+		<form th:unless="${create}" class="danger" method="post" th:action="@{|/explorer/wedding/${item.id}/delete|}"
+			  onsubmit="return confirm('Delete this wedding page permanently?');">
+			<label class="check">
+				<input type="checkbox" name="confirm" value="true" required>
+				I understand this cannot be undone
+			</label>
+			<button type="submit">Delete</button>
+		</form>
+	</main>
+</body>
+</html>
