@@ -49,6 +49,10 @@ if [[ "$healthy" != true ]]; then
 	false
 fi
 
+curl --fail --silent --show-error --head https://www.poojanthumar.in/ >/dev/null
+curl --fail --silent --show-error --head https://wedding.poojanthumar.in/ >/dev/null
+curl --fail --silent --show-error --head https://admin.poojanthumar.in/login >/dev/null
+
 trap - ERR
 printf '%s\n' "$previous_commit" > "$state_dir/production.previous"
 printf '%s\n' "$target_commit" > "$state_dir/production.current"

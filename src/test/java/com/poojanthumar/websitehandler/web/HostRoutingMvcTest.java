@@ -74,6 +74,21 @@ class HostRoutingMvcTest {
 	}
 
 	@Test
+	void wildcardDnsPreviewNamesResolveToTheirProductionSite() throws Exception {
+		mockMvc.perform(get("/").header("Host", "test-www.poojanthumar.in"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("www/index"));
+
+		mockMvc.perform(get("/").header("Host", "test-wedding.poojanthumar.in"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("wedding/page"));
+
+		mockMvc.perform(get("/login").header("Host", "test-admin.poojanthumar.in"))
+				.andExpect(status().isOk())
+				.andExpect(view().name("admin/login"));
+	}
+
+	@Test
 	void wwwContactFormPersistsWithCsrf() throws Exception {
 		mockMvc.perform(post("/contact")
 				.header("Host", WWW)

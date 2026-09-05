@@ -11,5 +11,5 @@ belong to `personal-ai-infra`; use the checked-in deployment script rather than 
 Never put secrets in source, commands, logs, or chat output.
 On the Oracle VM, read `deploy/status-on-vm.sh` before changing runtime state. Work on a
 `codex/*` branch in `/home/ubuntu/workspaces/personal-website-handler`, use the expiring
-preview, and deploy only committed code. Record and verify every release through the
+`test-<site>.poojanthumar.in` preview, and deploy only committed code. Record and verify every release through the
 checked-in scripts; never modify `/opt/website-handler` by hand.

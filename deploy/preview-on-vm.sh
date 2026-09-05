@@ -2,11 +2,18 @@
 set -euo pipefail
 
 repo_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-target_commit="${1:-HEAD}"
+site="${1:?usage: preview-on-vm.sh SITE [COMMIT]}"
+target_commit="${2:-HEAD}"
 preview_root=/home/ubuntu/website-preview
 state_dir=/home/ubuntu/website-deployments
 history="$state_dir/history.tsv"
 production_env=/opt/website-handler/.env
+preview_host="test-$site.poojanthumar.in"
+
+if [[ ! "$site" =~ ^[a-z0-9][a-z0-9-]*$ ]]; then
+	printf 'Site must contain only lowercase letters, numbers, and hyphens.\n' >&2
+	exit 1
+fi
 
 cd "$repo_root"
 target_commit="$(git rev-parse "$target_commit^{commit}")"
@@ -37,7 +44,6 @@ SPRING_PROFILES_ACTIVE=postgres,prod
 SERVER_ADDRESS=127.0.0.1
 SERVER_PORT=9080
 DATABASE_URL=jdbc:postgresql://localhost:5432/website_preview
-APP_HOSTS_WEDDING=test.wedding.poojanthumar.in,wedding.poojanthumar.in,wedding.localhost
 ENV
 chmod 600 "$preview_root/preview.env"
 
@@ -58,13 +64,25 @@ if [[ "$healthy" != true ]]; then
 	exit 1
 fi
 
+route_file="$(mktemp)"
+trap 'rm -f "$route_file"' EXIT
+cat > "$route_file" <<ROUTE
+$preview_host {
+	reverse_proxy 127.0.0.1:9080
+}
+ROUTE
+sudo install -m 644 -o root -g root "$route_file" /etc/caddy/preview.caddy
+sudo caddy validate --config /etc/caddy/Caddyfile
+sudo systemctl reload caddy.service
+
 sudo systemctl stop website-preview-expiry.timer 2>/dev/null || true
 sudo systemctl reset-failed website-preview-expiry.service website-preview-expiry.timer 2>/dev/null || true
 sudo systemd-run --quiet --unit=website-preview-expiry --on-active=24h \
-	/usr/bin/systemctl stop website-preview.service
+	"$repo_root/deploy/stop-preview-on-vm.sh"
 
 printf '%s\n' "$target_commit" > "$state_dir/preview.current"
+printf '%s\n' "$preview_host" > "$state_dir/preview.host"
 printf '%s\tpreview\tstarted\t-\t%s\n' \
 	"$(date -u +%Y-%m-%dT%H:%M:%SZ)" "$target_commit" >> "$history"
-printf 'previewing %s at https://test.wedding.poojanthumar.in (expires in 24 hours)\n' \
-	"$target_commit"
+printf 'previewing %s at https://%s (expires in 24 hours)\n' \
+	"$target_commit" "$preview_host"

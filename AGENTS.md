@@ -24,13 +24,16 @@ website fix authorizes the complete reversible delivery workflow unless the prom
 1. Fetch `origin`, create a `codex/<short-description>` branch from `origin/main`, and keep
    every change in a commit. Never edit the production checkout in `/opt/website-handler`.
 2. Run `./mvnw test`, then start the temporary wedding preview with
-   `./deploy/preview-on-vm.sh HEAD`. Report `https://test.wedding.poojanthumar.in`.
+   `./deploy/preview-on-vm.sh <site> HEAD`. Report
+   `https://test-<site>.poojanthumar.in` (for example, `test-wedding`, `test-www`, or
+   `test-admin`).
 3. Check the preview health endpoint. For UI work, inspect the rendered page before release.
 4. Merge the branch into `main`, push `main`, and run `./deploy/release-on-vm.sh <commit>`.
 5. Verify production health and the affected public host, then stop the preview with
    `./deploy/stop-preview-on-vm.sh`.
 
-The preview uses a separate PostgreSQL database copied from production and expires after
-24 hours. Read `./deploy/status-on-vm.sh` before every deployment. Production and preview
+One wildcard DNS record covers current and future `test-<site>` names. The preview uses a
+separate PostgreSQL database copied from production and expires after 24 hours. Read
+`./deploy/status-on-vm.sh` before every deployment. Production and preview
 history lives in `/home/ubuntu/website-deployments/history.tsv`. Use
 `./deploy/rollback-on-vm.sh` to restore the preceding successful production commit.
