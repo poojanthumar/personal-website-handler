@@ -33,7 +33,8 @@ website fix authorizes the complete reversible delivery workflow unless the prom
    `./deploy/stop-preview-on-vm.sh`.
 
 One wildcard DNS record covers current and future `test-<site>` names. The preview uses a
-separate PostgreSQL database copied from production and expires after 24 hours. Read
+fresh PostgreSQL database populated only by migrations and synthetic seed data; never copy
+production data into it. It expires after 24 hours. Read
 `./deploy/status-on-vm.sh` before every deployment. Production and preview
 history lives in `/home/ubuntu/website-deployments/history.tsv`. Use
 `./deploy/rollback-on-vm.sh` to restore the preceding successful production commit.

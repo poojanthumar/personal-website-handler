@@ -32,10 +32,6 @@ cp target/personal-website-handler-0.0.1-SNAPSHOT.jar \
 sudo systemctl stop website-preview.service 2>/dev/null || true
 sudo -u postgres dropdb --if-exists website_preview
 sudo -u postgres createdb --owner=website website_preview
-dump_file="/tmp/website-preview-$target_commit.dump"
-sudo -u postgres pg_dump --format=custom --file="$dump_file" website
-sudo -u postgres pg_restore --no-owner --dbname=website_preview "$dump_file"
-sudo -u postgres rm -f "$dump_file"
 
 grep -Ev '^(SPRING_PROFILES_ACTIVE|SERVER_ADDRESS|SERVER_PORT|DATABASE_URL|APP_HOSTS_WEDDING)=' \
 	"$production_env" > "$preview_root/preview.env"
