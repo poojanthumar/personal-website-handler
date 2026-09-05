@@ -15,37 +15,8 @@ if ! git merge-base --is-ancestor "$target_commit" origin/main; then
 	exit 1
 fi
 
-ssh -i "$ssh_key" -o BatchMode=yes "$vm_host" bash -s -- "$target_commit" <<'REMOTE'
-set -euo pipefail
-
-target_commit="$1"
-checkout=/opt/website-handler
-previous_commit="$(git -C "$checkout" rev-parse HEAD)"
-
-restore_previous() {
-	git -C "$checkout" checkout --detach "$previous_commit"
-	"$checkout/mvnw" -q -f "$checkout/pom.xml" -DskipTests package
-	sudo systemctl restart website-handler
-}
-trap restore_previous ERR
-
-git -C "$checkout" fetch --prune origin
-git -C "$checkout" checkout --detach "$target_commit"
-"$checkout/mvnw" -q -f "$checkout/pom.xml" -DskipTests package
-sudo systemctl restart website-handler
-
-for attempt in $(seq 1 30); do
-	if curl --fail --silent http://127.0.0.1:8080/actuator/health >/dev/null; then
-		trap - ERR
-		printf 'deployed %s (previous %s)\n' "$target_commit" "$previous_commit"
-		exit 0
-	fi
-	sleep 1
-done
-
-printf 'website health check failed after deploy\n' >&2
-exit 1
-REMOTE
+ssh -i "$ssh_key" -o BatchMode=yes "$vm_host" \
+	bash -s -- "$target_commit" < "$repo_root/deploy/release-on-vm.sh"
 
 curl --fail --silent --show-error --head https://www.poojanthumar.in/ >/dev/null
 curl --fail --silent --show-error --head https://wedding.poojanthumar.in/ >/dev/null
