@@ -7,6 +7,7 @@ vm_host="${ORACLE_VM_HOST:-ubuntu@100.105.56.99}"
 
 cd "$repo_root"
 ./mvnw test
+git fetch origin main
 
 target_commit="${1:-$(git rev-parse origin/main)}"
 if ! git merge-base --is-ancestor "$target_commit" origin/main; then
