@@ -60,6 +60,9 @@ curl -u "$ADMIN_USER:$ADMIN_PASSWORD" http://127.0.0.1:8080/api/contact
 ```
 
 HTML contact form posts to `/contact` on the www host (CSRF token required).
+Both contact entry points are restricted to the www host, silently discard a hidden
+honeypot field, and allow five accepted submissions per client IP every ten minutes.
+Configure this with `app.contact.max-requests` and `app.contact.rate-limit-window`.
 
 ### Environment variables
 
@@ -95,6 +98,18 @@ Tests use in-memory H2 (`test` profile).
 curl http://127.0.0.1:8080/actuator/health
 ```
 
-## Production reverse proxy (follow-up)
+## Production deployment
 
-This repository does **not** deploy to a VM, open tunnels, or add GitHub Actions deploy. A later step can put Caddy (or similar) in front of `127.0.0.1:8080`. See `deploy/Caddyfile.example`.
+Caddy proxies the public hosts to the application on `127.0.0.1:8080`. See
+`deploy/Caddyfile.example` for the routing shape.
+
+Production uses the `postgres,prod` profiles. The `prod` profile honors Caddy's
+forwarded HTTPS headers, marks session cookies secure, and suppresses detailed public
+health information. After committing and pushing `main`, deploy that commit with:
+
+```bash
+./deploy/deploy-vm.sh
+```
+
+The script runs tests, deploys only a commit on `origin/main`, rolls the VM back if
+the service health check fails, and verifies all three HTTPS hosts.

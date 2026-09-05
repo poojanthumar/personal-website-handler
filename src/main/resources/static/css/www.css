@@ -36,6 +36,13 @@ body {
 main { padding: 2.5rem 6vw 4rem; max-width: 44rem; }
 h2 { font-family: Fraunces, Georgia, serif; }
 label { display: flex; flex-direction: column; gap: 0.35rem; margin: 0.9rem 0; font-weight: 600; }
+.contact-honeypot {
+	position: absolute;
+	left: -10000px;
+	width: 1px;
+	height: 1px;
+	overflow: hidden;
+}
 input, textarea {
 	font: inherit;
 	padding: 0.65rem 0.75rem;

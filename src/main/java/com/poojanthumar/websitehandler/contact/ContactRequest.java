@@ -16,6 +16,16 @@ public record ContactRequest(
 
 		@NotBlank(message = "message is required")
 		@Size(max = 8000)
-		String message
+		String message,
+
+		@Size(max = 200)
+		String website
 ) {
+	public ContactRequest(String name, String email, String message) {
+		this(name, email, message, "");
+	}
+
+	public boolean hasFilledHoneypot() {
+		return website != null && !website.isBlank();
+	}
 }

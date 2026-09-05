@@ -32,6 +32,11 @@
 			<p class="ok" th:if="${contactSuccess}">Thank you — your message was received.</p>
 			<p class="err" th:if="${contactError}" th:text="${contactError}">Error</p>
 			<form method="post" th:action="@{/contact}" th:object="${contactRequest}">
+				<div class="contact-honeypot" aria-hidden="true">
+					<label>Website
+						<input type="text" th:field="*{website}" tabindex="-1" autocomplete="off">
+					</label>
+				</div>
 				<label>Name
 					<input type="text" th:field="*{name}" maxlength="200" required>
 				</label>

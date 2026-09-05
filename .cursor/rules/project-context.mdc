@@ -1,0 +1,11 @@
+---
+description: Website architecture, quality gates, and VM deployment context
+alwaysApply: true
+---
+
+# Website context
+
+Read `AGENTS.md` before work. This repo owns the Spring application and UI. Keep host
+boundaries explicit, use Flyway for schema changes, and run `./mvnw test`. VM operations
+belong to `personal-ai-infra`; use the checked-in deployment script rather than ad hoc copies.
+Never put secrets in source, commands, logs, or chat output.

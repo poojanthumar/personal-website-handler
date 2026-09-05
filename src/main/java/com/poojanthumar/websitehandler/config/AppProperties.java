@@ -1,5 +1,6 @@
 package com.poojanthumar.websitehandler.config;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,7 @@ public class AppProperties {
 
 	private final Admin admin = new Admin();
 	private final Hosts hosts = new Hosts();
+	private final Contact contact = new Contact();
 
 	public Admin getAdmin() {
 		return admin;
@@ -17,6 +19,10 @@ public class AppProperties {
 
 	public Hosts getHosts() {
 		return hosts;
+	}
+
+	public Contact getContact() {
+		return contact;
 	}
 
 	public static class Admin {
@@ -67,6 +73,27 @@ public class AppProperties {
 
 		public void setAdmin(List<String> admin) {
 			this.admin = admin;
+		}
+	}
+
+	public static class Contact {
+		private int maxRequests = 5;
+		private Duration rateLimitWindow = Duration.ofMinutes(10);
+
+		public int getMaxRequests() {
+			return maxRequests;
+		}
+
+		public void setMaxRequests(int maxRequests) {
+			this.maxRequests = maxRequests;
+		}
+
+		public Duration getRateLimitWindow() {
+			return rateLimitWindow;
+		}
+
+		public void setRateLimitWindow(Duration rateLimitWindow) {
+			this.rateLimitWindow = rateLimitWindow;
 		}
 	}
 }

@@ -12,6 +12,7 @@ import com.poojanthumar.websitehandler.config.SiteGuard;
 import com.poojanthumar.websitehandler.config.SiteResolver;
 import com.poojanthumar.websitehandler.contact.ContactRequest;
 import com.poojanthumar.websitehandler.contact.ContactService;
+import com.poojanthumar.websitehandler.contact.ContactAbuseGuard;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
@@ -21,10 +22,12 @@ public class WwwController {
 
 	private final SiteResolver siteResolver;
 	private final ContactService contactService;
+	private final ContactAbuseGuard abuseGuard;
 
-	public WwwController(SiteResolver siteResolver, ContactService contactService) {
+	public WwwController(SiteResolver siteResolver, ContactService contactService, ContactAbuseGuard abuseGuard) {
 		this.siteResolver = siteResolver;
 		this.contactService = contactService;
+		this.abuseGuard = abuseGuard;
 	}
 
 	@PostMapping("/contact")
@@ -35,6 +38,11 @@ public class WwwController {
 			model.addAttribute("contactError", "Please fix the highlighted fields.");
 			return "www/index";
 		}
+		if (abuseGuard.shouldDiscard(contactRequest)) {
+			redirectAttributes.addFlashAttribute("contactSuccess", true);
+			return "redirect:/";
+		}
+		abuseGuard.checkRateLimit(request);
 		contactService.submit(contactRequest);
 		redirectAttributes.addFlashAttribute("contactSuccess", true);
 		return "redirect:/";

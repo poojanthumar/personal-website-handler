@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.MockMvc;
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class ContactControllerTest {
+	private static final String WWW = "www.poojanthumar.in";
 
 	@Autowired
 	private MockMvc mockMvc;
@@ -28,6 +29,7 @@ class ContactControllerTest {
 	@Test
 	void submitsPersistsAndRejectsPublicList() throws Exception {
 		mockMvc.perform(post("/api/contact")
+				.header("Host", WWW)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("""
 						{
@@ -54,11 +56,50 @@ class ContactControllerTest {
 	@Test
 	void rejectsBlankContactFields() throws Exception {
 		mockMvc.perform(post("/api/contact")
+				.header("Host", WWW)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content("""
 						{"name":"","email":"ada@example.com","message":"hi"}
 						"""))
 				.andExpect(status().isBadRequest())
 				.andExpect(jsonPath("$.error").value("name is required"));
+	}
+
+	@Test
+	void contactSubmissionOnlyWorksOnWwwHost() throws Exception {
+		mockMvc.perform(post("/api/contact")
+				.header("Host", "wedding.poojanthumar.in")
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"name\":\"Ada\",\"email\":\"ada@example.com\",\"message\":\"Hello\"}"))
+				.andExpect(status().isNotFound());
+	}
+
+	@Test
+	void silentlyDiscardsHoneypotSubmission() throws Exception {
+		long before = repository.count();
+		mockMvc.perform(post("/api/contact")
+				.header("Host", WWW)
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"name\":\"Bot\",\"email\":\"bot@example.com\",\"message\":\"Spam\",\"website\":\"filled\"}"))
+				.andExpect(status().isCreated());
+		org.assertj.core.api.Assertions.assertThat(repository.count()).isEqualTo(before);
+	}
+
+	@Test
+	void rateLimitsRepeatedSubmissionsByClientAddress() throws Exception {
+		for (int i = 0; i < 5; i++) {
+			mockMvc.perform(post("/api/contact")
+					.header("Host", WWW)
+					.with(request -> { request.setRemoteAddr("198.51.100.24"); return request; })
+					.contentType(MediaType.APPLICATION_JSON)
+					.content("{\"name\":\"Ada\",\"email\":\"ada@example.com\",\"message\":\"Hello\"}"))
+					.andExpect(status().isCreated());
+		}
+		mockMvc.perform(post("/api/contact")
+				.header("Host", WWW)
+				.with(request -> { request.setRemoteAddr("198.51.100.24"); return request; })
+				.contentType(MediaType.APPLICATION_JSON)
+				.content("{\"name\":\"Ada\",\"email\":\"ada@example.com\",\"message\":\"Hello\"}"))
+				.andExpect(status().isTooManyRequests());
 	}
 }
