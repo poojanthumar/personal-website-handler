@@ -10,7 +10,8 @@ It is a Java 21 application using Thymeleaf, Spring Security, JPA, Flyway, and P
 - Use H2 for fast tests and PostgreSQL for production; run `./mvnw test` before delivery.
 - Production activates `postgres,prod`, binds to localhost:8080, and runs behind Caddy.
 - Never commit `.env`, credentials, generated databases, Maven output, or private content.
-- Infrastructure and VM runbooks live in `/Users/poojanthumar/Documents/Code/personal-ai-infra`.
+- Infrastructure and VM runbooks live in `/Users/poojanthumar/Documents/Code/personal-ai-infra`
+  on the Mac and `/home/ubuntu/workspaces/personal-ai-infra` on the Oracle VM.
 - Cross-task handoffs are documented in that repository's `COLLABORATION.md`.
 - Deployment target: `/opt/website-handler` on `ubuntu@100.105.56.99` over Tailscale.
 - Deploy only committed code through `deploy/deploy-vm.sh`; verify health and all public hosts.
