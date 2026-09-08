@@ -98,6 +98,27 @@ Tests use in-memory H2 (`test` profile).
 curl http://127.0.0.1:8080/actuator/health
 ```
 
+## AI-assisted UI previews
+
+Ask AI to make the UI change; preview is the default, and production release requires an
+explicit request. AI tests and commits the latest work, starts the appropriate preview,
+checks the rendered page, and provides its URL plus a short list of visible changes.
+Revisions update the same preview so you can see the latest result.
+
+The AI workflow uses `./deploy/preview-on-vm.sh <site> HEAD` from the clean current branch.
+Supported surfaces are `www`, `wedding`, and `admin`, with URLs such as
+`https://test-wedding.poojanthumar.in`. Only one preview is active at a time, and it expires
+after 24 hours. Wildcard DNS alone does not activate a preview: Caddy must have its exact
+route and the preview service must be running on localhost:9080.
+
+The development checkout is `/home/ubuntu/workspaces/personal-website-handler`;
+production runs from `/opt/website-handler`; preview runs from
+`/home/ubuntu/website-preview/current`. Editing the workspace does not update either service.
+The intended UI preview reads the same live production database, with read-only access
+and migrations/background writes disabled. The current script still recreates a separate
+preview database; shared-data access and its read-only controls are not implemented yet.
+See `AGENTS.md` for the full workflow.
+
 ## Production deployment
 
 Caddy proxies the public hosts to the application on `127.0.0.1:8080`. See

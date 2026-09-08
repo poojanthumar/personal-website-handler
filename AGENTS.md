@@ -16,26 +16,40 @@ It is a Java 21 application using Thymeleaf, Spring Security, JPA, Flyway, and P
 - Deployment target: `/opt/website-handler` on `ubuntu@100.105.56.99` over Tailscale.
 - Deploy only committed code through `deploy/deploy-vm.sh`; verify health and all public hosts.
 
-## Remote phone-to-production workflow
+## AI-assisted UI preview workflow
 
-When this repository is opened on the Oracle VM from Codex, assume a user request for a
-website fix authorizes the complete reversible delivery workflow unless the prompt says
-`preview only` or `do not deploy`:
+Website changes default to UI preview only. Do not merge into main, push main, or deploy
+production unless the user explicitly asks to release. The user reviews through AI-provided
+links and a short explanation, rather than managing preview commits manually.
 
-1. Fetch `origin`, create a `codex/<short-description>` branch from `origin/main`, and keep
-   every change in a commit. Never edit the production checkout in `/opt/website-handler`.
-2. Run `./mvnw test`, then start the temporary wedding preview with
-   `./deploy/preview-on-vm.sh <site> HEAD`. Report
-   `https://test-<site>.poojanthumar.in` (for example, `test-wedding`, `test-www`, or
-   `test-admin`).
-3. Check the preview health endpoint. For UI work, inspect the rendered page before release.
-4. Merge the branch into `main`, push `main`, and run `./deploy/release-on-vm.sh <commit>`.
-5. Verify production health and the affected public host, then stop the preview with
-   `./deploy/stop-preview-on-vm.sh`.
+1. Read `./deploy/status-on-vm.sh`, fetch origin, and create a `codex/<short-description>`
+   branch from origin/main. Keep changes committed. Never edit `/opt/website-handler`.
+2. Run `./mvnw test`. Preview the latest committed work on the current branch using
+   `./deploy/preview-on-vm.sh <site> HEAD`; do not supply an older or arbitrary commit.
+3. Check preview health and inspect the rendered UI. Report the exact preview page URL,
+   the short commit hash, and a concise list of visible changes so the user knows what
+   to review. For a revision, refresh the same preview with the newest committed work.
+4. Leave the preview available for review (it expires after 24 hours). Production remains
+   unchanged until the user explicitly requests release.
+5. On an explicit release request, merge and push main, deploy the approved commit through
+   the deployment scripts, verify production health and all public hosts, then stop preview.
 
-One wildcard DNS record covers current and future `test-<site>` names. The preview uses a
-fresh PostgreSQL database populated only by migrations and synthetic seed data; never copy
-production data into it. It expires after 24 hours. Read
-`./deploy/status-on-vm.sh` before every deployment. Production and preview
-history lives in `/home/ubuntu/website-deployments/history.tsv`. Use
-`./deploy/rollback-on-vm.sh` to restore the preceding successful production commit.
+Only one preview runs at a time, on localhost:9080. Wildcard DNS resolves test-<site>
+hostnames, but Caddy serves only the exact host activated by the preview script.
+Use test-www, test-wedding, or test-admin for the corresponding application surface.
+Preview is for checking UI changes; do not perform production mutations during review.
+
+The requested preview behavior is production-like rendering using the same live production
+PostgreSQL database, with only one preview at a time. Preview is for UI review: use a
+read-only database role, disable Flyway/schema changes and background writes in preview,
+and prevent mutation actions from changing production data. Never run preview migrations
+against production. Changes requiring schema migrations need a separate testing workflow.
+
+Implementation gap: `preview-on-vm.sh` currently recreates a separate preview database.
+It does not yet implement the requested shared production database or read-only controls.
+Before enabling shared-data preview, implement and verify these controls; do not merely
+replace DATABASE_URL while retaining production write credentials.
+
+Production and preview history lives in `/home/ubuntu/website-deployments/history.tsv`.
+The status script's saved preview URL/commit is historical when the service is inactive.
+Use `./deploy/rollback-on-vm.sh` when the user requests a production rollback.
