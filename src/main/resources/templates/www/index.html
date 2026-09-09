@@ -1,36 +1,84 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Poojan Thumar</title>
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,700&family=Source+Sans+3:wght@400;600&display=swap" rel="stylesheet">
-	<link rel="stylesheet" th:href="@{/css/www.css}">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Poojan Thumar — software, systems, and a little curiosity. Explore my work and say hello.">
+    <!-- Resolve the deferred CSRF token before a long page can flush the response. -->
+    <meta name="_csrf" th:content="${_csrf.token}">
+    <meta name="theme-color" content="#080a10">
+    <title>Poojan Thumar — Software &amp; curiosity</title>
+    <link rel="stylesheet" th:href="@{/css/www.css}">
+    <script defer th:src="@{/js/www.js}"></script>
 </head>
 <body>
-	<header class="hero">
-		<p class="eyebrow">Software · systems · making things that last</p>
-		<h1>Poojan Thumar</h1>
-		<p class="lede">I build careful software — APIs, platforms, and the quiet infrastructure that keeps a product honest.</p>
-		<nav class="links">
-			<a href="https://github.com/poojanthumar">GitHub</a>
-			<a href="#about">About</a>
-			<a href="#contact">Contact</a>
-		</nav>
-	</header>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header wrap">
+        <a class="identity" href="#home" aria-label="Poojan Thumar, home"><span class="identity-mark" aria-hidden="true">p.</span><span>Poojan Thumar</span></a>
+        <nav aria-label="Main navigation">
+            <a href="#work">Work</a><a href="#about">About</a><a href="#explore">Explore</a><a href="#contact">Say hello <span aria-hidden="true">↗</span></a>
+        </nav>
+    </header>
+    <main id="main">
+        <section class="hero" id="home" aria-labelledby="hero-title">
+            <div class="stars" aria-hidden="true"></div>
+            <div class="hero-copy wrap">
+                <p class="eyebrow"><span class="signal" aria-hidden="true"></span> A small corner of a vast universe</p>
+                <h1 id="hero-title">Poojan<br><span>Thumar.</span></h1>
+                <p class="lede">I build careful software.<br>And leave a little room for curiosity.</p>
+                <div class="hero-actions"><a class="button" href="#work">Explore my work <span aria-hidden="true">↗</span></a><a class="text-link" href="#about">A little about me <span aria-hidden="true">↓</span></a></div>
+            </div>
+            <div class="orbit-scene" aria-hidden="true">
+                <div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+                <span class="floating-icon icon-build">⌘</span><span class="floating-icon icon-play"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10h12c4 0 6 6 6 12 0 3-3 4-5 1l-3-3h-8l-3 3c-2 3-5 2-5-1 0-6 2-12 6-12Z"/><path d="M10 13v6m-3-3h6"/><circle cx="22" cy="14" r="1"/><circle cx="25" cy="17" r="1"/></svg></span><span class="floating-icon icon-wonder">✦</span>
+                <div class="horizon"></div><div class="horizon-glow"></div>
+            </div>
+            <div class="hero-bottom wrap"><span>Software · Systems · Exploration</span><button class="motion-toggle" type="button" aria-pressed="false" hidden>Pause motion <span aria-hidden="true">Ⅱ</span></button></div>
+        </section>
 
-	<main>
-		<section id="about">
-			<h2>About</h2>
-			<p>This is my personal site: a small place for who I am, how to reach me, and the work I am proud of. The wedding of our families lives on its own host; this page stays simple on purpose.</p>
-		</section>
+        <section class="section wrap" id="work" aria-labelledby="work-title">
+            <div class="section-top"><div><p class="eyebrow">01 / Work</p><h2 id="work-title">Things I put care into.</h2></div><a class="text-link" href="https://github.com/poojanthumar">Find me on GitHub <span aria-hidden="true">↗</span></a></div>
+            <div class="work-grid">
+                <article class="work-card work-feature">
+                    <div class="work-art" aria-hidden="true"><div class="window"><div class="window-bar"><i></i><i></i><i></i><span>personal space</span></div><div class="window-content"><span class="tiny-star">✳</span><span>A place to<br>make things<br><em>my own.</em></span><div class="window-line"></div></div></div><span class="art-caption">Made with care. Always evolving.</span></div>
+                    <div class="card-copy"><p class="eyebrow">On the workbench</p><h3>This corner of the internet</h3><p>A personal home for my work, a way to connect, and a space to keep exploring.</p><div class="card-bottom"><span class="tag">Personal website</span><a href="https://github.com/poojanthumar/personal-website-handler" aria-label="View personal website source on GitHub">View source <span aria-hidden="true">↗</span></a></div></div>
+                </article>
+                <div class="work-secondary">
+                    <article class="work-card small-card"><span class="work-symbol" aria-hidden="true">{ }</span><p class="eyebrow">Focus / 01</p><h3>APIs &amp; platforms</h3><p>Careful software, from the interfaces people use to the systems behind them.</p><span class="card-note">Software that holds together</span></article>
+                    <article class="work-card small-card"><span class="work-symbol" aria-hidden="true">⌘</span><p class="eyebrow">Focus / 02</p><h3>The quiet infrastructure</h3><p>The foundations that keep a product honest, and the details that help it last.</p><span class="card-note">Built with the long view in mind</span></article>
+                </div>
+            </div>
+        </section>
 
-		<section id="contact">
-			<h2>Contact</h2>
-			<p class="ok" th:if="${contactSuccess}">Thank you — your message was received.</p>
-			<p class="err" th:if="${contactError}" th:text="${contactError}">Error</p>
+        <section class="section wrap about-section" id="about" aria-labelledby="about-title">
+            <div><p class="eyebrow">02 / A little context</p><h2 id="about-title">A person behind<br>the pull requests.</h2></div>
+            <div class="about-copy"><p class="large-copy">Software, systems, and making things that last.</p><p>I’m Poojan. I build APIs, platforms, and the quiet infrastructure behind them. This is my personal space for the work I put care into and the things I’m curious about.</p><p>If you’ve found your way here, welcome. Take a look around — or just say hello.</p><a class="text-link" href="#contact">Let’s connect <span aria-hidden="true">↗</span></a></div>
+        </section>
+
+        <section class="explore-section" id="explore" aria-labelledby="explore-title">
+            <div class="wrap"><div class="explore-heading"><p class="eyebrow">03 / Beyond the work</p><h2 id="explore-title">Follow a little curiosity.</h2><p>Four directions. Pick one to explore.</p></div>
+                <div class="constellation" data-active="build">
+                    <div class="constellation-map">
+                        <svg class="connections" viewBox="0 0 600 340" aria-hidden="true"><path data-path="build" d="M300 170 L135 75"/><path data-path="play" d="M300 170 L470 90"/><path data-path="wander" d="M300 170 L110 265"/><path data-path="wonder" d="M300 170 L445 260"/><circle cx="300" cy="170" r="5"/></svg>
+                        <span class="map-center" aria-hidden="true">p.</span>
+                        <div class="interest-choices" aria-label="Explore interests">
+                            <button class="interest interest-build" data-interest="build" type="button" aria-pressed="true" aria-controls="interest-panel"><span class="interest-icon" aria-hidden="true">⌘</span><span>Build</span></button>
+                            <button class="interest interest-play" data-interest="play" type="button" aria-pressed="false" aria-controls="interest-panel"><span class="interest-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 10h12c4 0 6 6 6 12 0 3-3 4-5 1l-3-3h-8l-3 3c-2 3-5 2-5-1 0-6 2-12 6-12Z"/><path d="M10 13v6m-3-3h6"/><circle cx="22" cy="14" r="1"/><circle cx="25" cy="17" r="1"/></svg></span><span>Play</span></button>
+                            <button class="interest interest-wander" data-interest="wander" type="button" aria-pressed="false" aria-controls="interest-panel"><span class="interest-icon" aria-hidden="true"><svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"><circle cx="16" cy="16" r="12"/><path d="m21 11-3 7-7 3 3-7 7-3Z"/><path d="m14 14 4 4M16 2v3m0 22v3M2 16h3m22 0h3"/></svg></span><span>Wander</span></button>
+                            <button class="interest interest-wonder" data-interest="wonder" type="button" aria-pressed="false" aria-controls="interest-panel"><span class="interest-icon" aria-hidden="true">✦</span><span>Wonder</span></button>
+                        </div>
+                    </div>
+                    <div class="interest-panel" id="interest-panel" role="region" aria-live="polite" aria-atomic="true" aria-labelledby="interest-title"><p class="eyebrow" id="interest-kicker">01 / Build</p><h3 id="interest-title">From an idea<br>to something real.</h3><p id="interest-description">Software is a place to turn curiosity into something useful. Explore the work and the systems behind it.</p><a class="text-link" id="interest-link" href="#work">Explore my work <span aria-hidden="true">↗</span></a></div>
+                </div>
+                <noscript><p class="no-script">Build, Play, Wander, Wonder — curious about any of these? <a href="#contact">Let’s talk.</a> Interactive selections need JavaScript.</p></noscript>
+            </div>
+        </section>
+
+        <section class="section wrap contact-section" id="contact" aria-labelledby="contact-title">
+            <div class="contact-intro"><p class="eyebrow">04 / Make contact</p><h2 id="contact-title">Good things start<br>with a hello<span class="accent">.</span></h2><p>A thought, a project, or just a friendly wave.<br>I’d be happy to hear from you.</p><a class="text-link" href="https://github.com/poojanthumar">GitHub <span aria-hidden="true">↗</span></a></div>
+            <div class="contact-form">
+                <p class="ok contact-feedback" role="status" tabindex="-1" th:if="${contactSuccess}">Thank you — your message was received.</p>
+                <p class="err contact-feedback" role="alert" tabindex="-1" th:if="${contactError}" th:text="${contactError}">Error</p>
 			<form method="post" th:action="@{/contact}" th:object="${contactRequest}">
 				<div class="contact-honeypot" aria-hidden="true">
 					<label>Website
@@ -38,24 +86,22 @@
 					</label>
 				</div>
 				<label>Name
-					<input type="text" th:field="*{name}" maxlength="200" required>
+					<input type="text" autocomplete="name" th:field="*{name}" maxlength="200" required>
 				</label>
 				<p class="field-err" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
 				<label>Email
-					<input type="email" th:field="*{email}" maxlength="320" required>
+					<input type="email" autocomplete="email" th:field="*{email}" maxlength="320" required>
 				</label>
 				<p class="field-err" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></p>
 				<label>Message
 					<textarea th:field="*{message}" rows="6" maxlength="8000" required></textarea>
 				</label>
 				<p class="field-err" th:if="${#fields.hasErrors('message')}" th:errors="*{message}"></p>
-				<button type="submit">Send</button>
+				<button type="submit">Send message <span aria-hidden="true">↗</span></button>
 			</form>
-		</section>
-	</main>
-
-	<footer>
-		<p>© Poojan Thumar</p>
-	</footer>
+            </div>
+        </section>
+    </main>
+    <footer class="wrap"><a class="identity" href="#home"><span class="identity-mark" aria-hidden="true">p.</span><span>© Poojan Thumar</span></a><span>A little care. A little curiosity.</span><a class="text-link" href="#home">Back to top ↑</a></footer>
 </body>
 </html>
