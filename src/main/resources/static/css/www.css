@@ -1076,3 +1076,134 @@ footer .text-link {
         margin-top: 0;
     }
 }
+
+/* Shared actions and the two-page portfolio shell. */
+.ui-icon { width: 20px; height: 20px; flex: 0 0 auto; vertical-align: middle; }
+.text-link .ui-icon { width: 17px; height: 17px; margin-left: 7px; }
+.hello-action, .conversation-action, .professional-links a { display: inline-flex; align-items: center; gap: 9px; }
+.site-header nav { align-items: center; }
+.site-header nav [aria-current="page"] { color: var(--ink); box-shadow: 0 2px 0 -1px var(--accent); }
+.site-header .hello-action { border: 1px solid #bfe6c840; border-radius: 30px; padding: 9px 15px; }
+.hello-action .icon-hand { transform-origin: 70% 85%; }
+.hello-action:hover .icon-hand, .hello-action:focus-visible .icon-hand { animation: welcome-wave .65s ease-in-out 2; }
+.conversation-action:hover .ui-icon, .conversation-action:focus-visible .ui-icon { animation: conversation-pop .4s ease-out; }
+form button:hover .icon-send, form button:focus-visible .icon-send { transform: translate(3px, -3px); }
+form button .icon-send { transition: transform .2s; }
+form button:disabled { opacity: .65; cursor: wait; }
+@keyframes welcome-wave { 0%, 100% { transform: rotate(0deg); } 25% { transform: rotate(18deg); } 65% { transform: rotate(-14deg); } }
+@keyframes conversation-pop { 50% { transform: translateY(-4px) scale(1.08); } }
+.work-invitation { display: flex; align-items: center; justify-content: space-between; gap: 32px; padding-block: 56px; }
+.work-invitation h2 { font-size: clamp(24px, 2.6vw, 34px); }
+.work-invitation p:not(.eyebrow) { color: var(--muted); margin-bottom: 0; }
+.work-invitation .eyebrow { margin-bottom: 12px; }
+.work-invitation .button { white-space: nowrap; gap: 12px; }
+.arrival-wave { display: inline-grid; place-items: center; width: 56px; height: 56px; margin-bottom: 24px; border: 1px solid #bfe6c840; border-radius: 18px; color: var(--accent); background: #bfe6c808; }
+.arrival-wave .ui-icon { width: 28px; height: 28px; transform-origin: 70% 85%; }
+.journey-arrived:not(.motion-paused) .arrival-wave .ui-icon { animation: welcome-wave .7s ease-in-out 2; }
+
+/* Scroll-driven decoration stays outside the content's usable width. */
+.journey-main { position: relative; }
+.journey-rail { position: absolute; top: 0; right: 4px; bottom: 0; width: 64px; pointer-events: none; z-index: 4; visibility: hidden; }
+.journey-ready .journey-rail { visibility: visible; }
+.journey-track { position: absolute; inset: 0; width: 100%; height: 100%; fill: none; }
+.journey-base { stroke: #bfe6c81c; stroke-width: 1; }
+.journey-drawn { stroke: #bfe6c88c; stroke-width: 1.5; }
+.journey-craft { position: absolute; top: 0; left: 0; display: grid; place-items: center; width: 30px; height: 30px; color: #d1ecd8; border: 1px solid #bfe6c855; background: #111c21; border-radius: 10px; box-shadow: 0 0 22px #bfe6c822; will-change: transform; }
+.journey-craft .ui-icon { width: 20px; height: 20px; }
+.journey-dock { position: absolute; left: 0; top: 0; width: 24px; height: 24px; border: 1px solid #bfe6c888; border-radius: 50%; box-shadow: 0 0 0 6px #bfe6c80a; }
+.home-page .motion-toggle { position: fixed; right: 20px; bottom: 18px; z-index: 10; background: #121722f5; box-shadow: 0 3px 18px #0007; }
+.home-page .stars { top: -120px; bottom: -120px; }
+.motion-paused [data-reveal] { opacity: 1 !important; transform: none !important; }
+.motion-paused .journey-rail { opacity: .4; }
+.motion-paused .ui-icon { transition: none !important; }
+.home-page footer { padding-bottom: 70px; }
+
+/* Work remains a readable document, independent of animation. */
+.professional-layout { display: grid; grid-template-columns: 285px minmax(0, 1fr); gap: 80px; padding-block: 62px 100px; align-items: start; }
+.professional-profile { position: sticky; top: 36px; }
+.profile-monogram { display: grid; place-items: center; width: 80px; height: 80px; border: 1px solid #bfe6c833; background: radial-gradient(circle at 30% 20%, #27352d, #10151e); border-radius: 22px; font: 54px Georgia, serif; color: var(--accent); margin-bottom: 25px; }
+.professional-profile h1 { font-size: 38px; letter-spacing: -.045em; line-height: 1.12; margin-bottom: 18px; }
+.profile-role { font-size: 20px; line-height: 1.5; margin-bottom: 22px; }
+.profile-role span { color: var(--accent); }
+.profile-summary { color: var(--muted); font-size: 15px; }
+.professional-links { display: flex; gap: 20px; margin-block: 26px; font-size: 14px; }
+.professional-links .ui-icon { width: 15px; height: 15px; }
+.professional-profile .button { gap: 10px; }
+.work-index { display: grid; gap: 12px; margin-top: 32px; padding-top: 26px; border-top: 1px solid var(--line); }
+.work-index a, .work-index a:last-child { color: var(--muted); font-size: 13px; }
+.work-index a:hover { color: var(--accent); }
+.resume-section { padding-bottom: 52px; margin-bottom: 48px; border-bottom: 1px solid var(--line); scroll-margin-top: 32px; }
+.resume-section .eyebrow { margin-bottom: 16px; }
+.resume-section h2 { font-size: 32px; margin-bottom: 36px; }
+.role-entry { position: relative; border-left: 1px solid #bfe6c82b; margin-left: 6px; padding: 0 0 34px 27px; }
+.role-entry:last-child { padding-bottom: 0; border-color: transparent; }
+.role-marker { position: absolute; top: 8px; left: -5px; width: 9px; height: 9px; border-radius: 50%; background: #65777b; box-shadow: 0 0 0 5px var(--bg); }
+.current-role .role-marker { background: var(--accent); box-shadow: 0 0 0 5px #16201b; }
+.role-heading { display: flex; justify-content: space-between; align-items: start; gap: 20px; }
+.role-heading h3 { font-size: 22px; margin-bottom: 5px; }
+.employer { margin: 0 0 15px; color: #ccd0d9; font-size: 16px; }
+.employer .tag { margin-left: 8px; color: var(--accent); }
+.role-date { color: var(--muted); font-size: 12px; white-space: nowrap; margin: 5px 0 15px; }
+.role-date span { color: #8994a5; }
+.achievements { margin: 12px 0 20px; padding-left: 18px; color: #b6bdca; font-size: 15px; }
+.achievements li { padding-left: 5px; margin-bottom: 14px; }
+.achievements li::marker { color: #839b8b; }
+.skill-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.skill-tags span { font-size: 12px; padding: 3px 10px; border: 1px solid var(--line); border-radius: 5px; color: #b9c5c1; background: #bfe6c804; }
+.project-entry { display: flex; gap: 20px; margin-top: 32px; }
+.project-icon { display: grid; place-items: center; flex-shrink: 0; width: 44px; height: 44px; background: #151c23; border: 1px solid var(--line); border-radius: 12px; color: var(--accent); }
+.project-entry h3 { font-size: 22px; }
+.project-entry p { color: var(--muted); font-size: 15px; }
+.project-entry .text-link { display: inline-block; margin-top: 20px; }
+.skill-domains { margin: 0; }
+.skill-domains>div { display: grid; grid-template-columns: 150px 1fr; gap: 20px; padding-block: 18px; border-bottom: 1px solid #ffffff09; }
+.skill-domains dt { color: #d3d7df; font-size: 14px; }
+.skill-domains dd { margin: 0; color: var(--muted); font-size: 15px; }
+.education-entry { display: flex; gap: 18px; margin-bottom: 26px; }
+.education-entry>.ui-icon { color: var(--accent); width: 28px; height: 28px; }
+.education-entry h3 { font-size: 22px; }
+.education-entry p:not(.role-date) { color: var(--muted); font-size: 15px; margin-bottom: 8px; }
+.work-contact { display: flex; gap: 20px; padding: 24px; background: #bfe6c806; border: 1px solid #bfe6c81c; border-radius: 10px; }
+.work-contact>.ui-icon { color: var(--accent); width: 28px; height: 28px; }
+.work-contact h3 { font-size: 23px; }
+@media (max-width: 1100px) {
+    .journey-rail { width: 42px; }
+    .professional-layout { grid-template-columns: 240px minmax(0, 1fr); gap: 40px; }
+    .role-heading { flex-direction: column; gap: 0; }
+}
+@media (max-width: 760px) {
+    .professional-layout { grid-template-columns: 1fr; gap: 48px; padding-top: 36px; }
+    .professional-profile { position: static; }
+    .profile-summary { max-width: 560px; }
+    .work-index { display: flex; flex-wrap: wrap; gap: 12px 22px; }
+    .work-invitation { flex-direction: column; align-items: flex-start; }
+}
+@media (max-width: 600px) {
+    .home-page .wrap { width: calc(100% - 64px); margin-left: 24px; margin-right: 40px; }
+    .site-header nav { justify-content: flex-start; gap: 22px; }
+    .site-header .hello-action { padding: 6px 10px; font-size: 12px; gap: 6px; }
+    .site-header .hello-action .ui-icon { width: 16px; height: 16px; }
+    .journey-rail { right: 1px; width: 30px; }
+    .journey-craft { width: 30px; height: 30px; scale: .75; }
+    .journey-craft .ui-icon { width: 21px; height: 21px; }
+    .journey-dock { scale: .7; }
+    .home-page .motion-toggle { right: 12px; bottom: 12px; font-size: 12px; }
+    .hero-actions { gap: 20px; }
+    .hero-actions .button { gap: 12px; }
+    .professional-profile h1 { font-size: 40px; }
+    .resume-section h2 { font-size: 29px; }
+    .role-heading h3 { font-size: 21px; }
+    .skill-domains>div { grid-template-columns: 1fr; gap: 8px; }
+    .project-entry { gap: 13px; }
+    .project-entry h3, .education-entry h3 { font-size: 21px; }
+    .role-entry { padding-left: 22px; }
+    .role-date { white-space: normal; }
+    .work-contact { padding: 20px 16px; gap: 14px; }
+}
+@media (prefers-reduced-motion: reduce) {
+    .home-page .stars, .home-page .orbit-scene, [data-reveal] { transform: none !important; opacity: 1 !important; }
+}
+@media (min-width: 601px) and (max-width: 1255px) {
+    .home-page .wrap { width: calc(100% - 112px); margin-left: 48px; margin-right: 64px; }
+}
+html:has(body.motion-paused) { scroll-behavior: auto; }
