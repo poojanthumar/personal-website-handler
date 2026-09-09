@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"><body>
 <header th:fragment="header(active)" class="site-header wrap">
-    <a class="identity" href="/" aria-label="Poojan Thumar, home"><span class="identity-mark" aria-hidden="true">p.</span><span>Poojan Thumar</span></a>
+    <a class="identity" href="/" aria-label="Poojan Thumar, home"><span>Poojan Thumar</span></a>
     <nav aria-label="Main navigation">
         <a href="/" th:attr="aria-current=${active == 'home' ? 'page' : null}">Home</a>
         <a href="/work" th:attr="aria-current=${active == 'work' ? 'page' : null}">Work</a>
@@ -9,7 +9,7 @@
     </nav>
 </header>
 <footer th:fragment="footer" class="wrap">
-    <a class="identity" href="/"><span class="identity-mark" aria-hidden="true">p.</span><span>© Poojan Thumar</span></a>
+    <a class="identity" href="/"><span>© Poojan Thumar</span></a>
     <span>A little care. A little curiosity.</span><a class="text-link" href="#main">Back to top ↑</a>
 </footer>
 </body></html>

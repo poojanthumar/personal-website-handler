@@ -91,12 +91,6 @@ button[hidden] {
 	font-weight:600;
 }
 
-.identity-mark {
-	font-family:Georgia,serif;
-	font-size:30px;
-	line-height:1;
-	color:var(--accent);
-}
 
 nav {
 	display:flex;
@@ -865,9 +859,6 @@ footer .text-link {
 	.identity {
 		font-size:13px;
 	}
-	.identity-mark {
-		font-size:26px;
-	}
 	nav {
 		gap:24px;
 		font-size:13px;
@@ -1121,7 +1112,6 @@ form button:disabled { opacity: .65; cursor: wait; }
 /* Work remains a readable document, independent of animation. */
 .professional-layout { display: grid; grid-template-columns: 285px minmax(0, 1fr); gap: 80px; padding-block: 62px 100px; align-items: start; }
 .professional-profile { position: sticky; top: 36px; }
-.profile-monogram { display: grid; place-items: center; width: 80px; height: 80px; border: 1px solid #bfe6c833; background: radial-gradient(circle at 30% 20%, #27352d, #10151e); border-radius: 22px; font: 54px Georgia, serif; color: var(--accent); margin-bottom: 25px; }
 .professional-profile h1 { font-size: 38px; letter-spacing: -.045em; line-height: 1.12; margin-bottom: 18px; }
 .profile-role { font-size: 20px; line-height: 1.5; margin-bottom: 22px; }
 .profile-role span { color: var(--accent); }
@@ -1207,3 +1197,64 @@ form button:disabled { opacity: .65; cursor: wait; }
     .home-page .wrap { width: calc(100% - 112px); margin-left: 48px; margin-right: 64px; }
 }
 html:has(body.motion-paused) { scroll-behavior: auto; }
+
+/* Immersive Home: colourful compositions that assemble with native scrolling. */
+.home-page { background: #070914; }
+.cosmic-canvas { position: fixed; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: -1; }
+.home-page .site-header, .home-page main, .home-page footer { position: relative; }
+.home-page .identity, .work-page .identity { letter-spacing: -.025em; font-size: 16px; }
+.home-page .hero { background: radial-gradient(ellipse at 20% 35%, #090b1bec 0%, #080b19bb 35%, transparent 70%); }
+.hero h1 .name-first, .hero h1 .name-last { display: block; transform-origin: left center; }
+.hero h1 .name-first { color: #f5f5ff; }
+.hero h1 .name-last, .colour-type { background: linear-gradient(100deg, #74e7ef, #ada0ff 52%, #ffc499); background-clip: text; -webkit-background-clip: text; color: transparent; }
+.home-page .horizon { background: radial-gradient(ellipse at 30% 0%, #544486 0%, #171d39 15%, #080a10 48%); border-top-color: #d4baff; box-shadow: 0 -12px 35px -10px #ac8dff, 0 -45px 110px -40px #df78bb66; }
+.home-page .hero-copy { perspective: 900px; }
+.home-page .button { background: linear-gradient(105deg, #a5e9de, #bfb5ff); color: #14182b; border-color: #d9cfff66; }
+.home-page .work-invitation { border-block: 1px solid #b7a0ff26; padding: 38px; border-radius: 18px; background: linear-gradient(120deg, #162b3ce8, #29203ae6); margin-block: 60px; box-shadow: 0 25px 70px #0003; }
+.home-page .about-section { border-top: 0; padding-block: 60px 30px; }
+.home-page .about-copy { background: #080b16b3; border-radius: 16px; padding: 20px; margin: -20px; }
+.assembly-stage { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; align-items: center; min-height: 330px; padding-block: 65px; perspective: 1000px; }
+.assembly-tile { position: relative; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 22px; min-height: 164px; border-radius: 25px; border: 1px solid #ffffff30; box-shadow: 0 20px 60px #0005, inset 0 1px #ffffff22; }
+.assembly-tile .ui-icon { width: 48px; height: 48px; stroke-width: 1.2; }
+.assembly-tile span { font-size: 14px; }
+.tile-code { background: linear-gradient(140deg,#173d44f5,#12302bf5); color:#9cf6d5; }
+.tile-game { background: linear-gradient(140deg,#44366af5,#242344f5); color:#d2bcff; }
+.tile-compass { background: linear-gradient(140deg,#5c3d38f5,#35202bf5); color:#ffcea0; }
+.tile-orbit { background: linear-gradient(140deg,#24445ef5,#19283df5); color:#9fdfff; }
+.assembly-orbit { position: absolute; inset: 16% -2%; border: 1px solid #bcb0ff3a; border-radius: 50%; transform: rotate(-8deg); pointer-events: none; }
+.home-page .explore-section { position: relative; overflow: clip; background: radial-gradient(ellipse at 30% 65%,#3431696b,transparent 65%),linear-gradient(160deg,#0d1729dd,#141021dd); border-color: #b6a1ff30; }
+.home-page .explore-heading h2 { font-size: clamp(34px,4.8vw,62px); }
+.home-page .interest-icon { width: 76px; height: 76px; border-radius: 24px; box-shadow: 0 12px 35px #0004; }
+.home-page .interest-build .interest-icon { background: #143b37; color: #9cf6d5; border-color: #73d6b365; }
+.home-page .interest-play .interest-icon { background: #3b2d5d; color: #dbc5ff; border-color: #b491eb65; }
+.home-page .interest-wander .interest-icon { background: #4d302f; color: #ffcca1; border-color: #edb27665; }
+.home-page .interest-wonder .interest-icon { background: #203e59; color: #a0dcff; border-color: #6fb6e465; }
+.home-page .interest[aria-pressed="true"] .interest-icon { outline: 1px solid currentColor; outline-offset: 5px; }
+.home-page .map-center { width: 50px; height: 50px; background: #342848; color: #ddd0ff; }
+.home-page .contact-form { padding: 28px; border: 1px solid #e8ae9033; border-radius: 18px; background: linear-gradient(140deg,#1c1b2aeb,#111928f5); }
+.home-page .contact-intro h2 { font-size: clamp(34px,4vw,54px); }
+.home-page .arrival-wave { background: #533731; border-color: #ffb88166; color: #ffd5a9; }
+.home-page .contact-section { border-top: 1px solid #ffffff18; }
+.home-page .journey-rail { opacity: .5; }
+.motion-paused .assembly-tile, .motion-paused .name-first, .motion-paused .name-last { transform: none !important; }
+@media(max-width:760px) {
+    .assembly-stage { grid-template-columns: repeat(2,1fr); gap: 18px; min-height: 430px; padding-block: 40px; }
+    .assembly-tile { min-height: 150px; border-radius: 20px; gap: 15px; }
+    .assembly-tile .ui-icon { width: 38px; height: 38px; }
+    .assembly-tile span { font-size: 12px; }
+}
+@media(max-width:600px) {
+    .home-page .work-invitation { padding: 25px 20px; margin-block: 40px; }
+    .home-page .about-copy { padding: 14px; margin: -14px; }
+    .home-page .contact-form { padding: 22px 18px; }
+    .home-page .hero-copy h1 { font-size: clamp(60px,19vw,76px); }
+    .home-page .interest-icon { width: 66px; height: 66px; }
+}
+@media(prefers-reduced-motion:reduce) {
+    .cosmic-canvas { display: none; }
+    .assembly-tile, .name-first, .name-last { transform: none !important; }
+}
+.home-page { overflow-x: clip; }
+.home-page .assembly-stage { overflow: clip; }
+.home-page .journey-main { overflow-x: clip; }
+.home-page .contact-form, .home-page input, .home-page textarea { min-width: 0; }

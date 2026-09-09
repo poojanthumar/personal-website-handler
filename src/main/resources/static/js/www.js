@@ -64,13 +64,27 @@
         const stars = hero.querySelector('.stars');
         const scene = hero.querySelector('.orbit-scene');
         const reveals = [...document.querySelectorAll('[data-reveal]')];
+        const assembly = document.querySelector('.assembly-stage');
+        const tiles = [...document.querySelectorAll('.assembly-tile')];
+        const firstName = document.querySelector('.name-first');
+        const lastName = document.querySelector('.name-last');
+        const connectionPaths = [...document.querySelectorAll('.connections path')];
+        const connectionLengths = connectionPaths.map(path => path.getTotalLength());
+        connectionPaths.forEach((path, index) => path.style.strokeDasharray = String(connectionLengths[index]));
+        const layoutTop = element => {
+            let top = 0;
+            for (let node = element; node; node = node.offsetParent) top += node.offsetTop;
+            return top;
+        };
+        let assemblyTop = 0, aboutTop = 0, exploreTop = 0, contactTop = 0;
         const clamp = value => Math.max(0, Math.min(1, value));
         let length = 0, end = 0, start = 0, mainTop = 0, pending = false;
         let revealPositions = [], constellationTop = 0;
         const measure = () => {
-            mainTop = main.getBoundingClientRect().top + scrollY;
+            mainTop = layoutTop(main);
             start = Math.min(hero.offsetHeight * 0.55, 440);
-            end = contact.getBoundingClientRect().top + scrollY - mainTop + 95;
+            contactTop = layoutTop(contact);
+            end = contactTop - mainTop + 95;
             const height = main.offsetHeight;
             const width = rail.clientWidth;
             const x = width / 2, swing = width * 0.3;
@@ -86,8 +100,12 @@
             length = base.getTotalLength();
             drawn.style.strokeDasharray = String(length);
             dock.style.transform = `translate(${x - 12}px, ${end - 12}px)`;
-            revealPositions = reveals.map(el => el.getBoundingClientRect().top + scrollY);
-            constellationTop = constellation.getBoundingClientRect().top + scrollY;
+            revealPositions = reveals.map(layoutTop);
+            constellationTop = layoutTop(constellation);
+            assemblyTop = layoutTop(assembly);
+            aboutTop = layoutTop(document.querySelector('#about'));
+            exploreTop = layoutTop(document.querySelector('#explore'));
+            window.portfolioCosmos?.resize();
             renderJourney();
         };
         renderJourney = () => {
@@ -105,15 +123,41 @@
             const depth = off ? 0 : Math.min(scrollY, hero.offsetHeight);
             stars.style.transform = `translateY(${depth * 0.18}px)`;
             scene.style.transform = `translateY(${depth * (innerWidth <= 600 ? 0.035 : 0.09)}px)`;
+            const departure = off ? 0 : clamp(scrollY / (hero.offsetHeight * .8));
+            firstName.style.transform = `translate3d(${-departure * 60}px, ${-departure * 75}px, 0) scale(${1 - departure * .12})`;
+            lastName.style.transform = `translate3d(${departure * 80}px, ${-departure * 25}px, 0) scale(${1 - departure * .06})`;
             reveals.forEach((el, index) => {
-                const visible = off ? 1 : clamp((scrollY + innerHeight * 0.93 - revealPositions[index]) / (innerHeight * 0.4));
-                el.style.opacity = String(0.45 + visible * 0.55);
-                el.style.transform = `translateY(${(1 - visible) * 24}px)`;
+                const visible = off ? 1 : clamp((scrollY + innerHeight * .94 - revealPositions[index]) / (innerHeight * .43));
+                const remaining = 1 - visible;
+                const side = el.classList.contains('about-heading') ? -1 : el.classList.contains('contact-form') ? 1 : 0;
+                const distance = innerWidth <= 600 ? 25 : 75;
+                el.style.opacity = String(.65 + visible * .35);
+                el.style.transform = `translate3d(${side * remaining * distance}px, ${remaining * 70}px, 0) scale(${1 - remaining * .035})`;
+            });
+            tiles.forEach((el, index) => {
+                const placed = off ? 1 : clamp((scrollY + innerHeight * .95 - assemblyTop - index * 45) / (innerHeight * .55));
+                const remain = 1 - placed;
+                const x = (index - 1.5) * (innerWidth <= 600 ? 27 : 125) * remain;
+                const y = (index % 2 ? -120 : 150) * remain;
+                el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${(index - 1.5) * 22 * remain}deg) rotateY(${(index % 2 ? 35 : -35) * remain}deg) scale(${.66 + placed * .34})`;
             });
             choices.forEach((el, index) => {
-                const assembled = off ? 1 : clamp((scrollY + innerHeight * 0.9 - constellationTop - index * 25) / (innerHeight * 0.35));
-                el.style.transform = `translateY(${(1 - assembled) * (innerWidth <= 600 ? 14 : 34)}px) scale(${0.9 + assembled * 0.1})`;
+                const assembled = off ? 1 : clamp((scrollY + innerHeight * .92 - constellationTop - index * 22) / (innerHeight * .4));
+                const remain = 1 - assembled;
+                const spread = innerWidth <= 600 ? 24 : 115;
+                el.style.transform = `translate(${(index % 2 ? 1 : -1) * remain * spread}px, ${remain * (innerWidth <= 600 ? 45 : index < 2 ? -65 : 80)}px) rotate(${(index % 2 ? 18 : -18) * remain}deg) scale(${.7 + assembled * .3})`;
+                connectionPaths[index].style.strokeDashoffset = String(connectionLengths[index] * remain);
             });
+            const anchors = [0, Math.max(1, aboutTop - innerHeight * .35), exploreTop - innerHeight * .35, contactTop - innerHeight * .35];
+            let cosmicProgress = 3;
+            for (let stage = 0; stage < 3; stage++) {
+                if (scrollY <= anchors[stage + 1]) {
+                    cosmicProgress = stage + clamp((scrollY - anchors[stage]) / Math.max(1, anchors[stage + 1] - anchors[stage]));
+                    break;
+                }
+            }
+            window.portfolioCosmos?.render(off ? 0 : cosmicProgress, off);
+
         };
         addEventListener('scroll', () => {
             if (!pending) { pending = true; requestAnimationFrame(renderJourney); }
