@@ -1258,3 +1258,14 @@ html:has(body.motion-paused) { scroll-behavior: auto; }
 .home-page .assembly-stage { overflow: clip; }
 .home-page .journey-main { overflow-x: clip; }
 .home-page .contact-form, .home-page input, .home-page textarea { min-width: 0; }
+
+/* Hero symbols follow the scroll scene, without a competing idle bounce. */
+.home-page .floating-icon { animation: none; translate: none; will-change: transform; }
+.home-page .icon-build { background: linear-gradient(140deg, #29374b, #172330); color: #b4e5e6; }
+.home-page .icon-play { background: linear-gradient(140deg, #383150, #211d35); color: #d2c5ef; }
+.home-page .journey-craft { border-color: #bfe6c82b; box-shadow: 0 0 16px #bfe6c812; border-radius: 50%; }
+.home-page .journey-base { stroke: #bfe6c810; }
+.home-page .journey-drawn { stroke: #bfe6c850; }
+.home-page .explore-heading h2 { max-width: 750px; margin-inline: auto; font-size: clamp(32px, 4.3vw, 54px); }
+.home-page .assembly-tile { box-shadow: 0 16px 45px #0003, inset 0 1px #ffffff16; }
+.home-page .contact-intro h2 { font-size: clamp(34px, 3.8vw, 50px); }

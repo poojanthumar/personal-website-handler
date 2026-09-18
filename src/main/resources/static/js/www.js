@@ -26,9 +26,9 @@
     updateMotion();
 
     const interests = {
-        build: ['01 / Build', 'From an idea to something real.', 'Software is a place to turn curiosity into something useful. Explore the work and the systems behind it.', 'Explore my work', '/work'],
-        play: ['02 / Play', 'Room for a little play.', 'A different kind of challenge, a shared adventure, or a good game. What have you been playing?', 'Talk games', '/#contact'],
-        wander: ['03 / Wander', 'Take the scenic route.', 'Sometimes curiosity is a reason to step away from the screen. Have a place or a story worth sharing?', 'Share a story', '/#contact'],
+        build: ['01 / Build', 'Ideas into useful software.', 'I enjoy turning complex problems into software people can rely on. Take a look at my experience and projects.', 'Explore my work', '/work'],
+        play: ['02 / Play', 'A different kind of challenge.', 'A different kind of challenge, a shared adventure, or a good game. What have you been playing?', 'Talk games', '/#contact'],
+        wander: ['03 / Wander', 'Take the scenic route.', 'There’s plenty to discover away from a screen. Have a place or a story worth sharing?', 'Share a story', '/#contact'],
         wonder: ['04 / Wonder', 'Start with “what if?”', 'An unexpected idea or a question without an obvious answer. There’s always something else to explore.', 'Start a conversation', '/#contact']
     };
     const constellation = document.querySelector('.constellation');
@@ -63,6 +63,9 @@
         const dock = rail.querySelector('.journey-dock');
         const stars = hero.querySelector('.stars');
         const scene = hero.querySelector('.orbit-scene');
+        const commandIcon = hero.querySelector('.icon-build');
+        const controllerIcon = hero.querySelector('.icon-play');
+        const wonderIcon = hero.querySelector('.icon-wonder');
         const reveals = [...document.querySelectorAll('[data-reveal]')];
         const assembly = document.querySelector('.assembly-stage');
         const tiles = [...document.querySelectorAll('.assembly-tile')];
@@ -78,7 +81,7 @@
         };
         let assemblyTop = 0, aboutTop = 0, exploreTop = 0, contactTop = 0;
         const clamp = value => Math.max(0, Math.min(1, value));
-        let length = 0, end = 0, start = 0, mainTop = 0, pending = false;
+        let length = 0, end = 0, start = 0, mainTop = 0, railCenter = 0, pending = false;
         let revealPositions = [], constellationTop = 0;
         const measure = () => {
             mainTop = layoutTop(main);
@@ -87,13 +90,10 @@
             end = contactTop - mainTop + 95;
             const height = main.offsetHeight;
             const width = rail.clientWidth;
-            const x = width / 2, swing = width * 0.3;
-            const step = (end - start) / 3;
-            let d = `M ${x} ${start}`;
-            for (let i = 0; i < 3; i++) {
-                const sign = i % 2 ? -1 : 1;
-                d += ` C ${x + swing * sign} ${start + step * (i + 0.3)}, ${x - swing * sign} ${start + step * (i + 0.7)}, ${x} ${start + step * (i + 1)}`;
-            }
+            const x = width / 2;
+            railCenter = x;
+            // A straight, constant-heading descent avoids lateral weaving and docking snaps.
+            const d = `M ${x} ${start} L ${x} ${end}`;
             track.setAttribute('viewBox', `0 0 ${width} ${height}`);
             base.setAttribute('d', d);
             drawn.setAttribute('d', d);
@@ -114,16 +114,19 @@
             const off = motionOff();
             const progress = off ? 1 : clamp(scrollY / Math.max(1, mainTop + end - innerHeight * 0.56));
             rail.dataset.progress = progress.toFixed(4);
-            const point = base.getPointAtLength(length * progress);
-            const next = base.getPointAtLength(Math.min(length, length * progress + 2));
-            const angle = progress >= 1 ? 45 : Math.atan2(next.y - point.y, next.x - point.x) * 180 / Math.PI + 45;
-            craft.style.transform = `translate(${point.x - 15}px, ${point.y - 15}px) rotate(${angle}deg)`;
+            const point = { x: railCenter, y: start + (end - start) * progress };
+            craft.style.transform = `translate(${point.x - 15}px, ${point.y - 15}px) rotate(135deg)`;
             drawn.style.strokeDashoffset = String(length * (1 - progress));
             document.body.classList.toggle('journey-arrived', progress > 0.98);
             const depth = off ? 0 : Math.min(scrollY, hero.offsetHeight);
             stars.style.transform = `translateY(${depth * 0.18}px)`;
             scene.style.transform = `translateY(${depth * (innerWidth <= 600 ? 0.035 : 0.09)}px)`;
             const departure = off ? 0 : clamp(scrollY / (hero.offsetHeight * .8));
+            const iconTravel = departure * departure * (3 - 2 * departure);
+            const compact = innerWidth <= 600;
+            commandIcon.style.transform = `translate3d(${iconTravel * (compact ? 12 : 42)}px, ${iconTravel * (compact ? 32 : 110)}px, 0) rotate(${-10 + iconTravel * 18}deg)`;
+            controllerIcon.style.transform = `translate3d(${-iconTravel * (compact ? 16 : 56)}px, ${-iconTravel * (compact ? 24 : 85)}px, 0) rotate(${12 - iconTravel * 20}deg) scale(${1 + iconTravel * .06})`;
+            wonderIcon.style.transform = `translateY(${-iconTravel * (compact ? 12 : 35)}px) rotate(${iconTravel * 25}deg)`;
             firstName.style.transform = `translate3d(${-departure * 60}px, ${-departure * 75}px, 0) scale(${1 - departure * .12})`;
             lastName.style.transform = `translate3d(${departure * 80}px, ${-departure * 25}px, 0) scale(${1 - departure * .06})`;
             reveals.forEach((el, index) => {
@@ -138,8 +141,8 @@
                 const placed = off ? 1 : clamp((scrollY + innerHeight * .95 - assemblyTop - index * 45) / (innerHeight * .55));
                 const remain = 1 - placed;
                 const x = (index - 1.5) * (innerWidth <= 600 ? 27 : 125) * remain;
-                const y = (index % 2 ? -120 : 150) * remain;
-                el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${(index - 1.5) * 22 * remain}deg) rotateY(${(index % 2 ? 35 : -35) * remain}deg) scale(${.66 + placed * .34})`;
+                const y = (index % 2 ? -90 : 110) * remain;
+                el.style.transform = `translate3d(${x}px, ${y}px, 0) rotate(${(index - 1.5) * 14 * remain}deg) rotateY(${(index % 2 ? 22 : -22) * remain}deg) scale(${.66 + placed * .34})`;
             });
             choices.forEach((el, index) => {
                 const assembled = off ? 1 : clamp((scrollY + innerHeight * .92 - constellationTop - index * 22) / (innerHeight * .4));
