@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Poojan Thumar — Software Engineer at Apple. Experience, selected projects, technical skills, and education.">
+    <meta name="theme-color" content="#080a10">
+    <title>Work — Poojan Thumar</title>
+    <link rel="stylesheet" th:href="@{/css/www.css}">
+    <script defer th:src="@{/js/www.js}"></script>
+</head>
+<body class="work-page">
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header th:replace="~{www/fragments :: header('work')}"></header>
+    <main id="main" class="wrap professional-layout">
+        <aside class="professional-profile" aria-label="Professional introduction">
+            <p class="eyebrow">Work / Poojan Thumar</p>
+
+            <h1>Poojan Thumar</h1>
+            <p class="profile-role">Software Engineer<br><span>Apple</span></p>
+            <p class="profile-summary">I build APIs, platforms, and the systems behind them. My work spans backend engineering, large-scale data processing, and application performance.</p>
+            <div class="professional-links"><a href="https://www.linkedin.com/in/poojanthumar/">LinkedIn <svg th:replace="~{www/icons :: external-link}"></svg></a><a href="https://github.com/poojanthumar">GitHub <svg th:replace="~{www/icons :: external-link}"></svg></a></div>
+            <a class="button hello-action" href="/#contact"><svg th:replace="~{www/icons :: hand}"></svg>Say hello</a>
+            <nav class="work-index" aria-label="On this page"><a href="#experience">Experience</a><a href="#projects">Selected projects</a><a href="#skills">Technical skills</a><a href="#education">Education &amp; more</a></nav>
+        </aside>
+        <div class="professional-content">
+            <section id="experience" class="resume-section" aria-labelledby="experience-title">
+                <p class="eyebrow">01 / Experience</p><h2 id="experience-title">Professional experience.</h2>
+                <article class="role-entry current-role"><span class="role-marker" aria-hidden="true"></span><div class="role-heading"><div><h3>Software Engineer</h3><p class="employer">Apple <span class="tag">Current</span></p></div><p class="role-date">May 2026 – Present</p></div></article>
+                <article class="role-entry"><span class="role-marker" aria-hidden="true"></span><div class="role-heading"><div><h3>Software Engineer III</h3><p class="employer">Walmart Global Tech</p></div><p class="role-date">Started July 2022<br><span>Previous role · Bangalore</span></p></div>
+                    <ul class="achievements">
+                        <li>Led a company-wide initiative from the India Center’s Eligibility/Restriction team, owning estimation, development, testing, pilot support, and launch.</li>
+                        <li>Developed more than 20 Spark jobs in two months for migration, validation, and optimization on GCP Dataproc, working across over 10 billion records and 20 TB of data.</li>
+                        <li>Migrated site-facing APIs from Spring Boot to Micronaut, reducing CPU use by 40% and saving $1.25 million annually.</li>
+                        <li>Optimized application code and database behavior to reduce event generation by 55%.</li>
+                        <li>Built a configurable performance and A/B testing application reaching 300 operations per second per pod with one core and 2 GB of memory.</li>
+                        <li>Created a Spark Java library for Cassandra, Cosmos, Kafka, and Elasticsearch integrations, saving an estimated 10 developer hours per week on future Spark jobs.</li>
+                        <li>Automated release notes across ServiceNow, Confluence, and GitHub, reducing time to deployment readiness by approximately 30%.</li>
+                    </ul>
+                    <div class="skill-tags"><span>Java</span><span>Micronaut</span><span>Spark</span><span>GCP</span><span>Kafka</span></div>
+                </article>
+                <article class="role-entry"><span class="role-marker" aria-hidden="true"></span><div class="role-heading"><div><h3>Backend Engineer Intern</h3><p class="employer">ThoughtSutra</p></div><p class="role-date">Mar 2021 – Aug 2021<br><span>Remote</span></p></div>
+                    <ul class="achievements"><li>Built the backend of a learning management platform from the ground up, supporting over 1,000 concurrent users and a 50% faster initial launch.</li><li>Explored serverless architecture with AWS Lambda and contributed to the platform’s technical architecture and development roadmap.</li></ul>
+                </article>
+            </section>
+            <section id="projects" class="resume-section" aria-labelledby="projects-title"><p class="eyebrow">02 / Selected projects</p><h2 id="projects-title">Selected projects.</h2>
+                <article class="project-entry"><div class="project-icon"><svg th:replace="~{www/icons :: code-xml}"></svg></div><div><h3>Vaccination slot availability notifier</h3><p>Built a backend application that checked CoWIN’s public APIs for vaccination slots and sent email alerts. Scheduled periodic polling to identify newly available appointments during peak demand.</p><div class="skill-tags"><span>JavaScript</span><span>APIs</span><span>SMTP</span></div></div></article>
+                <article class="project-entry"><div class="project-icon"><svg th:replace="~{www/icons :: orbit}"></svg></div><div><h3>A personal home on the web</h3><p>A portfolio, family pages, and an admin interface in one application, with host-based routing, a protected contact form, and a PostgreSQL backend.</p><div class="skill-tags"><span>Java</span><span>Spring Boot</span><span>Thymeleaf</span><span>PostgreSQL</span></div><a class="text-link" href="https://github.com/poojanthumar/personal-website-handler">View source <svg th:replace="~{www/icons :: external-link}"></svg></a></div></article>
+            </section>
+            <section id="skills" class="resume-section" aria-labelledby="skills-title"><p class="eyebrow">03 / Technical skills</p><h2 id="skills-title">Technical skills.</h2>
+                <dl class="skill-domains"><div><dt>Languages</dt><dd>Java, C++, JavaScript, SQL</dd></div><div><dt>Backend &amp; data</dt><dd>Spring Boot, Micronaut, Node.js, Express, Spark, Kafka, RxJava</dd></div><div><dt>Cloud &amp; storage</dt><dd>GCP (BigQuery, Dataproc), AWS (EC2, S3, DynamoDB, Aurora), Azure Cosmos DB, Cassandra</dd></div><div><dt>Delivery &amp; observability</dt><dd>Kubernetes, Git, CI/CD, Prometheus, Grafana, Splunk</dd></div></dl>
+            </section>
+            <section id="education" class="resume-section" aria-labelledby="education-title"><p class="eyebrow">04 / Foundations &amp; beyond</p><h2 id="education-title">Education &amp; recognition.</h2>
+                <article class="education-entry"><svg th:replace="~{www/icons :: graduation-cap}"></svg><div><h3>Indian Institute of Technology, Guwahati</h3><p>Bachelor of Technology · Engineering Physics</p><p class="role-date">July 2018 – June 2022 · CGPA 7.74</p></div></article>
+                <ul class="achievements"><li>Received Walmart’s Bravo Award for learning quickly, analyzing complex issues, and identifying patterns and root causes.</li><li>Served as Hostel Welfare Secretary and a core team member of the institute’s cultural festival.</li><li>Represented IIT Guwahati on the Inter IIT hockey team.</li></ul>
+            </section>
+            <div class="work-contact"><svg th:replace="~{www/icons :: messages-square}"></svg><div><h3>Have something in mind?</h3><a class="text-link conversation-action" href="/#contact">Start a conversation <svg th:replace="~{www/icons :: messages-square}"></svg></a></div></div>
+        </div>
+    </main>
+    <footer th:replace="~{www/fragments :: footer}"></footer>
+</body>
+</html>

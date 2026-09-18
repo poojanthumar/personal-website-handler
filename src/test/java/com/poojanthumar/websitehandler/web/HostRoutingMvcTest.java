@@ -35,6 +35,23 @@ class HostRoutingMvcTest {
 	}
 
 	@Test
+	void workPageOnlyRendersOnPortfolioHosts() throws Exception {
+		for (String host : new String[] {WWW, "test-www.poojanthumar.in"}) {
+			mockMvc.perform(get("/work").header("Host", host))
+					.andExpect(status().isOk()).andExpect(view().name("www/work"));
+		}
+		for (String host : new String[] {WEDDING, "test-wedding.poojanthumar.in", "unknown.example"}) {
+			mockMvc.perform(get("/work").header("Host", host)).andExpect(status().isNotFound());
+		}
+		mockMvc.perform(get("/work").header("Host", ADMIN))
+				.andExpect(status().isFound()).andExpect(redirectedUrl("/login"));
+		for (String host : new String[] {ADMIN, "test-admin.poojanthumar.in"}) {
+			mockMvc.perform(get("/work").header("Host", host).with(httpBasic("admin", "test-password")))
+					.andExpect(status().isNotFound());
+		}
+	}
+
+	@Test
 	void weddingHomeAndRokaArePublic() throws Exception {
 		mockMvc.perform(get("/").header("Host", WEDDING))
 				.andExpect(status().isOk())
