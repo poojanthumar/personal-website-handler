@@ -134,3 +134,13 @@ health information. After committing and pushing `main`, deploy that commit with
 
 The script runs tests, deploys only a commit on `origin/main`, rolls the VM back if
 the service health check fails, and verifies all three HTTPS hosts.
+
+When already working in the development checkout on the production VM, use the explicit
+local transport instead of an SSH connection back to the same machine:
+
+```bash
+WEBSITE_DEPLOY_LOCAL=true ./deploy/deploy-vm.sh <commit>
+```
+
+This runs the same release script, ancestry checks, health checks, and rollback path.
+It does not change SSH credentials or bypass the requirement that the commit is on `origin/main`.

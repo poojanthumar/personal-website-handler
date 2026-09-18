@@ -15,8 +15,17 @@ if ! git merge-base --is-ancestor "$target_commit" origin/main; then
 	exit 1
 fi
 
-ssh -i "$ssh_key" -o BatchMode=yes "$vm_host" \
-	bash -s -- "$target_commit" < "$repo_root/deploy/release-on-vm.sh"
+if [[ "${WEBSITE_DEPLOY_LOCAL:-false}" == true ]]; then
+	# Explicit opt-in for running from the production VM's development checkout.
+	if [[ ! -d /opt/website-handler/.git ]]; then
+		printf 'Local deployment requires the production checkout at /opt/website-handler.\n' >&2
+		exit 1
+	fi
+	bash "$repo_root/deploy/release-on-vm.sh" "$target_commit"
+else
+	ssh -i "$ssh_key" -o BatchMode=yes "$vm_host" \
+		bash -s -- "$target_commit" < "$repo_root/deploy/release-on-vm.sh"
+fi
 
 curl --fail --silent --show-error --head https://www.poojanthumar.in/ >/dev/null
 curl --fail --silent --show-error --head https://wedding.poojanthumar.in/ >/dev/null
