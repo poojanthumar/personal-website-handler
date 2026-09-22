@@ -55,7 +55,7 @@ class HostRoutingMvcTest {
 	void weddingHomeAndRokaArePublic() throws Exception {
 		mockMvc.perform(get("/").header("Host", WEDDING))
 				.andExpect(status().isOk())
-				.andExpect(view().name("wedding/page"));
+				.andExpect(view().name("wedding/home"));
 
 		mockMvc.perform(get("/roka").header("Host", WEDDING))
 				.andExpect(status().isOk())
@@ -98,7 +98,7 @@ class HostRoutingMvcTest {
 
 		mockMvc.perform(get("/").header("Host", "test-wedding.poojanthumar.in"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("wedding/page"));
+				.andExpect(view().name("wedding/home"));
 
 		mockMvc.perform(get("/login").header("Host", "test-admin.poojanthumar.in"))
 				.andExpect(status().isOk())
