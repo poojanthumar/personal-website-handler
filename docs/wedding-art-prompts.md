@@ -1,0 +1,11 @@
+# Final artwork prompts
+
+Tool: built-in image generation. Reference images: user-supplied couple photos, used for likeness only. No reference video frames were used as artwork.
+
+## Couple
+
+Use case illustration-story. Production wedding website illustration, landscape 1536x1024. Use supplied photos ONLY for identities of Dhriti bride and Poojan groom. Create unmistakably hand-drawn Studio Ghibli style 2D animated film art, expressive stylized faces, clean delicate ink contours, cel shading, painted watercolor backgrounds. NOT photorealism, NOT 3D. Recognizable smiling Indian couple with bride's shoulder length wavy dark hair and groom's short dark hair/light beard. Bride wears exquisite rose PINK AND GOLD lehenga and pink sheer dupatta, groom ivory gold sherwani. Couple standing holding hands in lower middle of image, full body, modest scale occupying 45 percent image height. Rich magical garden setting with long ceremonial path, ornate sandstone arch on sides, marigold and jasmine garlands, roses and lush sage leaves, faraway river and hills, warm cream blue sky across upper 40 percent left empty for website typography. Premium art direction with painterly textures and precise fine detail, tender joyful sophisticated mood. No text, letters, watermarks, other people, or realistic photographic faces.
+
+## Doors
+
+Use case illustration-story. Create an exquisite hand-painted Studio Ghibli style Indian wedding palace entrance asset for a wedding invitation website. Portrait 1024x1536. Perfectly frontal symmetrical CLOSED carved wooden double doors, central seam exactly at 50% horizontal. Doors fill width from x=0 to x=100%, from top to bottom, ornamented warm aged golden teak, delicate Indian floral carvings, antique brass symmetrical handles in middle near seam. Scalloped relief arch in upper section, framed by dense jasmine garlands, pink roses and small marigolds along top and outer left/right edges. Small tasteful traditional gold Ganesha relief centered near top over doors. Painterly hand-drawn 2D animation film background texture, warm pale sandstone, sage foliage corners, muted gold and blush pink. No perspective tilt, no steps, no visible sky, no people, no text. Used as two equal halves which open away from central seam, so center seam must be straight vertical and closed.
