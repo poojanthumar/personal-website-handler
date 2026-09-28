@@ -667,105 +667,15 @@ footer > a:last-child {
     width: 100%;
   }
 }
-
-/* The doors only cover the illustration after the scroll enhancement is ready. */
-.gate,
-.gate-invite {
-  display: none;
-}
 .motion-ready:not(.motion-paused) .opening {
   height: 240svh;
   min-height: 1300px;
-}
-.motion-ready:not(.motion-paused) .gate {
-  display: block;
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  --gate-width: min(72svh, 96vw);
-}
-.gate-half {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50%;
-  overflow: hidden;
-  background: #eee4cc;
-  will-change: transform;
-}
-.gate-half::after {
-  content: "";
-  position: absolute;
-  inset: 16px;
-  border-top: 1px solid #b8975b70;
-  border-bottom: 1px solid #b8975b70;
-  pointer-events: none;
-}
-.gate-left {
-  left: 0;
-  transform: translateX(calc(var(--doors, 0) * -101%));
-}
-.gate-right {
-  right: 0;
-  transform: translateX(calc(var(--doors, 0) * 101%));
-}
-.gate-half img {
-  position: absolute;
-  height: 100%;
-  width: var(--gate-width);
-  object-fit: fill;
-  max-width: none;
-}
-.gate-left img {
-  right: calc(var(--gate-width) / -2);
-}
-.gate-right img {
-  left: calc(var(--gate-width) / -2);
-}
-.motion-ready:not(.motion-paused) .gate-invite {
-  display: block;
-  position: absolute;
-  z-index: 3;
-  top: 47%;
-  left: 50%;
-  width: min(500px, 88vw);
-  transform: translate(-50%, -50%);
-  text-align: center;
-  background: #fbf5e9f5;
-  border: 1px solid #c5a476;
-  outline: 5px solid #fbf5e9e6;
-  box-shadow: 0 10px 55px #4a2b1e24;
-  padding: 28px 15px;
-  opacity: var(--invite-opacity, 1);
-  visibility: var(--invite-visibility, visible);
 }
 .blessing {
   font-family: Georgia, serif;
   font-size: 28px;
   color: #996749;
   margin-bottom: 16px;
-}
-.gate-names {
-  font-family: "Cormorant Garamond", Georgia, serif;
-  font-size: 59px;
-  letter-spacing: -0.04em;
-  margin: 9px 0;
-}
-.gate-names em {
-  color: #b76b78;
-  font-size: 0.7em;
-}
-.gate-date {
-  font-size: 9px;
-  letter-spacing: 0.2em;
-}
-.gate-invite a {
-  display: inline-block;
-  margin-top: 22px;
-  font-size: 10px;
-  border-bottom: 1px solid #b99e79;
-  padding-bottom: 4px;
 }
 .motion-ready:not(.motion-paused) .hero-title {
   opacity: var(--title-opacity, 0);
@@ -1001,15 +911,6 @@ footer > a:last-child {
   .hero-art img {
     object-position: 50% center;
   }
-  .gate-names {
-    font-size: 46px;
-  }
-  .gate-invite .eyebrow {
-    font-size: 8px;
-  }
-  .motion-ready:not(.motion-paused) .gate-invite {
-    padding: 25px 12px;
-  }
   .postcards {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 14px;
@@ -1045,10 +946,6 @@ footer > a:last-child {
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .motion-ready:not(.motion-paused) .gate,
-  .motion-ready:not(.motion-paused) .gate-invite {
-    display: none;
-  }
   .motion-ready:not(.motion-paused) .opening {
     height: auto;
     min-height: 0;
@@ -1081,10 +978,6 @@ footer > a:last-child {
 .hero-subtitle {
   font-size: 20px;
 }
-.motion-ready:not(.motion-paused) .gate {
-  top: 80px;
-  --gate-width: min(64svh, 96vw);
-}
 .sangeet .card-title {
   font-size: 23px;
 }
@@ -1100,10 +993,6 @@ footer > a:last-child {
   }
   .hero-subtitle {
     font-size: 18px;
-  }
-  .motion-ready:not(.motion-paused) .gate {
-    top: 68px;
-    --gate-width: min(64svh, 96vw);
   }
   .sangeet .card-title {
     font-size: 23px;
@@ -1137,4 +1026,437 @@ html:not(.motion-ready) .story-sticky {
 }
 html:not(.motion-ready) .story-sticky {
   height: auto;
+}
+
+/* Envelope opening: a single letter becomes the full invitation scene. */
+.monogram {
+  letter-spacing: normal;
+  line-height: 0;
+}
+.monogram img {
+  width: 62px;
+  height: 62px;
+  object-fit: contain;
+}
+.invitation-letter {
+  position: absolute;
+  inset: 0;
+  background: var(--cream);
+  overflow: hidden;
+}
+.invitation-letter .hero-title {
+  opacity: 1 !important;
+  transform: none !important;
+}
+.invitation-letter .hero-bottom {
+  opacity: 1 !important;
+}
+.couple-hashtag {
+  margin-top: 10px;
+  font-size: 11px;
+  letter-spacing: 0.09em;
+  color: #98576a;
+}
+.motion-ready:not(.invite-open) .navigation {
+  visibility: hidden;
+}
+body.invitation-closed {
+  overflow: hidden;
+}
+.motion-ready:not(.invite-open) .invitation-letter {
+  opacity: 0;
+}
+.motion-ready:not(.motion-paused) .opening {
+  height: 230svh;
+  min-height: 0;
+}
+.motion-ready:not(.motion-paused) .invitation-letter {
+  border-radius: calc((1 - var(--letter-progress, 0)) * 8px);
+  box-shadow: 0 12px 65px #58462d26;
+  transform: translateY(var(--letter-y, -110px))
+    scale(var(--letter-scale, 0.36));
+  transform-origin: center;
+  z-index: var(--letter-layer, 2);
+  opacity: var(--letter-visible, 0);
+}
+.opening-stage {
+  background: radial-gradient(ellipse at 50% 38%, #fffcf5, #eee4d0);
+}
+.envelope-shell {
+  position: absolute;
+  z-index: 3;
+  width: min(440px, 84vw);
+  height: min(285px, 54vw);
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -30%);
+  perspective: 1200px;
+  opacity: var(--envelope-opacity, 1);
+  visibility: var(--envelope-visibility, visible);
+}
+.envelope-back {
+  position: absolute;
+  inset: 0;
+  background: #e4cfb2;
+  border: 1px solid #c1a57d;
+  border-radius: 5px;
+  box-shadow: 0 26px 70px #69563b26;
+}
+.envelope-open {
+  display: block;
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  border: 0;
+  padding: 0;
+  background: transparent;
+  cursor: pointer;
+  perspective: 1200px;
+}
+.envelope-pocket {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(145deg, #f6e9d7, #e9d4b7);
+  clip-path: polygon(0 0, 50% 57%, 100% 0, 100% 100%, 0 100%);
+  border-radius: 4px;
+  border: 1px solid #c4a77e;
+}
+.envelope-pocket::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: #f5e5ce;
+  clip-path: polygon(0 100%, 50% 46%, 100% 100%);
+}
+.envelope-flap {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(#f7ead6, #ddc09b);
+  clip-path: polygon(0 0, 100% 0, 50% 58%);
+  transform-origin: top;
+  transition: transform 0.8s ease;
+  backface-visibility: visible;
+  z-index: 3;
+}
+.envelope-seal {
+  position: absolute;
+  z-index: 4;
+  top: 39%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: #fcf4e7;
+  border: 1px solid #c5a678;
+  box-shadow: 0 3px 15px #83634433;
+  transition: opacity 0.35s;
+}
+.envelope-seal img {
+  object-fit: contain;
+}
+.envelope-caption {
+  position: absolute;
+  top: calc(100% + 34px);
+  width: 100%;
+  text-align: center;
+  font:
+    italic 26px "Cormorant Garamond",
+    serif;
+  color: #75553d;
+}
+.envelope-caption span {
+  display: block;
+  font:
+    9px "DM Sans",
+    sans-serif;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  margin-top: 12px;
+}
+.invite-open .envelope-flap {
+  transform: rotateX(180deg);
+}
+.invite-open .envelope-seal,
+.invite-open .envelope-caption {
+  opacity: 0;
+  pointer-events: none;
+}
+.invite-open .envelope-open {
+  pointer-events: none;
+}
+.invite-opening .invitation-letter {
+  transition:
+    transform 0.85s 0.15s ease,
+    opacity 0.5s 0.15s;
+}
+.invitation-letter .hero-art {
+  inset: 160px 0 0;
+}
+.invitation-letter .hero-title {
+  top: 4%;
+}
+.invitation-letter .hero-title h1 {
+  font-size: clamp(48px, 6vw, 88px);
+}
+.skip-envelope {
+  position: absolute;
+  bottom: 24px;
+  right: 25px;
+  z-index: 8;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid #bca58b;
+  color: #765640;
+  padding: 8px;
+  font:
+    10px "DM Sans",
+    sans-serif;
+  cursor: pointer;
+}
+.motion-ready:not(.invite-open) .scroll-note {
+  display: none;
+}
+.invite-open .scroll-note {
+  z-index: 7;
+}
+.motion-paused .envelope-shell {
+  display: none;
+}
+.motion-paused .invitation-letter {
+  transform: none;
+  opacity: 1;
+}
+.couple-layout {
+  grid-template-columns: 1fr 0.7fr 1fr;
+}
+.couple-knot {
+  display: grid;
+  place-items: center;
+  gap: 22px;
+  color: #98576a;
+}
+.couple-knot img {
+  opacity: 0.5;
+}
+.couple-knot span {
+  font:
+    italic 32px/1.1 "Cormorant Garamond",
+    serif;
+}
+.postcards {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.event-trigger {
+  appearance: none;
+  display: block;
+  width: 100%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border: 1px solid #85643a40;
+  padding: 18px 10px 0;
+  min-height: 320px;
+  text-align: center;
+  font: inherit;
+}
+.event-trigger:focus-visible {
+  outline: 2px solid currentColor;
+  outline-offset: 4px;
+}
+.sangeet .event-trigger {
+  border-color: #ddc99d50;
+}
+.event-placard {
+  --card-paper: #eee3c9;
+  --card-ink: #765640;
+  width: min(490px, 90vw);
+  max-height: 85svh;
+  overflow: auto;
+  background: var(--card-paper);
+  color: var(--card-ink);
+  border: 1px solid #ba9a71;
+  border-radius: 5px;
+  padding: 42px 35px 32px;
+  text-align: center;
+  box-shadow: 0 25px 100px #221d2d55;
+}
+.event-placard::backdrop {
+  background: #30251f85;
+  backdrop-filter: blur(5px);
+}
+.event-placard[open] {
+  animation: placard-in 0.3s ease-out;
+}
+.event-placard.haldi {
+  --card-paper: #f0dfa0;
+  --card-ink: #7c551f;
+}
+.event-placard.sangeet {
+  --card-paper: #34405e;
+  --card-ink: #f2dfbe;
+}
+.event-placard.marriage {
+  --card-paper: #efdbd9;
+  --card-ink: #8a4f5a;
+}
+.event-placard h2 {
+  font-size: 46px;
+  margin-top: 20px;
+}
+.event-placard .eyebrow {
+  font-size: 8px;
+}
+.placard-logo {
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+.close-placard {
+  position: absolute;
+  right: 14px;
+  top: 14px;
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border: 0;
+  background: #fff5;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.event-placard .card-details {
+  font-size: 14px;
+  line-height: 1.8;
+}
+.event-placard .future-page {
+  display: none;
+}
+.future-event-link {
+  display: block;
+  margin: 24px auto 0;
+  border: 1px solid currentColor;
+  border-radius: 3px;
+  padding: 13px 16px;
+  color: inherit;
+  background: transparent;
+  font:
+    11px "DM Sans",
+    sans-serif;
+  opacity: 0.7;
+}
+html:has(.event-placard[open]) {
+  overflow: hidden;
+}
+.icon {
+  object-fit: contain;
+}
+@keyframes placard-in {
+  from {
+    opacity: 0;
+    transform: translateY(22px) rotate(-3deg) scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 700px) {
+  .monogram img {
+    width: 48px;
+    height: 48px;
+  }
+  .postcards {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .postcards .event-card:last-child {
+    grid-column: auto;
+    width: auto;
+  }
+  .couple-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+  .couple-knot {
+    grid-column: 1/-1;
+    grid-row: 2;
+    display: flex;
+    justify-content: center;
+    margin-top: 10px;
+  }
+  .couple-knot span {
+    font-size: 28px;
+  }
+  .couple-knot span br {
+    display: none;
+  }
+  .event-trigger {
+    padding: 16px 6px 0;
+    min-height: 320px;
+  }
+  .invitation-letter .hero-art {
+    inset: 175px 0 0;
+  }
+  .invitation-letter .hero-title {
+    top: 4%;
+  }
+  .invitation-letter .hero-title h1 {
+    font-size: 48px;
+  }
+  .skip-envelope {
+    bottom: 70px;
+    right: 20px;
+  }
+  .envelope-seal {
+    width: 78px;
+    height: 78px;
+  }
+  .envelope-seal img {
+    width: 65px;
+    height: 65px;
+  }
+  .event-placard {
+    padding: 40px 22px 26px;
+  }
+  .event-placard h2 {
+    font-size: 38px;
+  }
+}
+html:not(.motion-ready) .invitation-letter,
+.motion-paused .invitation-letter {
+  position: relative;
+  height: 100svh;
+  min-height: 680px;
+}
+html:not(.motion-ready) .invitation-letter .hero-title,
+.motion-paused .invitation-letter .hero-title {
+  top: 100px;
+}
+html:not(.motion-ready) .invitation-letter .hero-art,
+.motion-paused .invitation-letter .hero-art {
+  inset: 265px 0 0;
+}
+@media (prefers-reduced-motion: reduce) {
+  .event-placard[open] {
+    animation: none;
+  }
+  .envelope-flap,
+  .envelope-seal,
+  .invite-opening .invitation-letter {
+    transition: none;
+  }
+  .invitation-letter .hero-title {
+    top: 100px !important;
+  }
+  .invitation-letter .hero-art {
+    inset: 265px 0 0;
+  }
+}
+
+.closing > .eyebrow {
+  text-transform: none;
+}
+
+.event-placard .eyebrow {
+  text-transform: none;
 }

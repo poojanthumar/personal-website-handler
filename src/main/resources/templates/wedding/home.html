@@ -8,6 +8,7 @@
       name="description"
       content="Join Dhriti Desai and Poojan Thumar for their wedding on 13 December at Praveg Tent City Narmada."
     />
+    <link rel="icon" type="image/png" href="/images/wedding/favicon.png" />
     <link rel="stylesheet" href="/css/wedding-home.css" />
     <script src="/js/wedding-home.js" defer></script>
   </head>
@@ -15,8 +16,12 @@
     <a class="skip" href="#details">Skip to wedding details</a>
     <header class="navigation">
       <a class="monogram" href="#home" aria-label="Dhriti and Poojan home"
-        >d<span>&amp;</span>p</a
-      >
+        ><img
+          src="/images/wedding/couple-logo.png"
+          width="68"
+          height="68"
+          alt="Dhriti and Poojan"
+      /></a>
       <nav aria-label="Wedding navigation">
         <a href="#couple">The two of us</a><a href="#story">Our story</a
         ><a href="#celebrations">Celebrations</a
@@ -29,58 +34,59 @@
     <main>
       <section class="opening" id="home" aria-labelledby="title">
         <div class="opening-stage">
-          <div class="hero-art">
-            <img
-              src="/images/wedding/couple-pink.jpg"
-              width="1536"
-              height="1024"
-              fetchpriority="high"
-              alt="An illustrated Dhriti and Poojan holding hands beneath a flower-filled Indian wedding arch."
-            />
-          </div>
-          <div class="hero-wash"></div>
-          <div class="gate" aria-hidden="true">
-            <div class="gate-half gate-left">
+          <div class="invitation-letter">
+            <div class="hero-art">
               <img
-                src="/images/wedding/garden-doors.jpg"
-                width="1024"
-                height="1536"
-                alt=""
+                src="/images/wedding/couple-pink.jpg"
+                width="1536"
+                height="1024"
+                fetchpriority="high"
+                alt="An illustrated Dhriti and Poojan holding hands beneath a flower-filled Indian wedding arch."
               />
             </div>
-            <div class="gate-half gate-right">
-              <img
-                src="/images/wedding/garden-doors.jpg"
-                width="1024"
-                height="1536"
-                alt=""
-              />
+            <div class="hero-wash"></div>
+            <div class="hero-title">
+              <p class="eyebrow">Together with our families</p>
+              <h1 id="title">Dhriti <em>&amp;</em> Poojan</h1>
+              <p class="hero-subtitle">A little magic. A lifetime of us.</p>
+              <p class="couple-hashtag">#jabIdliMetDhokla</p>
+            </div>
+            <div class="hero-bottom">
+              <span>13 DECEMBER 2026</span
+              ><a href="#details"
+                >You’re invited <span aria-hidden="true">↗</span></a
+              ><span>NARMADA, GUJARAT</span>
+            </div>
+            <div class="petals" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i>
             </div>
           </div>
-          <div class="gate-invite">
-            <p lang="hi" class="blessing">शुभ विवाह</p>
-            <p class="eyebrow">A celebration of love</p>
-            <p class="gate-names">Dhriti <em>&amp;</em> Poojan</p>
-            <p class="gate-date">13 DECEMBER 2026 · NARMADA</p>
-            <a href="#details">Skip to the invitation ↗</a>
+          <div class="envelope-shell" hidden>
+            <div class="envelope-back"></div>
+            <button
+              class="envelope-open"
+              type="button"
+              aria-label="Open our wedding invitation"
+              aria-expanded="false"
+            >
+              <span class="envelope-flap"></span>
+              <span class="envelope-pocket"></span>
+              <span class="envelope-seal"
+                ><img
+                  src="/images/wedding/couple-logo.png"
+                  width="86"
+                  height="86"
+                  alt=""
+              /></span>
+            </button>
+            <p class="envelope-caption">
+              For you, with love.<span>Click to open our invitation</span>
+            </p>
           </div>
-          <div class="hero-title">
-            <p class="eyebrow">Together with our families</p>
-            <h1 id="title">Dhriti <em>&amp;</em> Poojan</h1>
-            <p class="hero-subtitle">A little magic. A lifetime of us.</p>
-          </div>
-          <div class="hero-bottom">
-            <span>13 DECEMBER 2026</span
-            ><a href="#details"
-              >You’re invited <span aria-hidden="true">↗</span></a
-            ><span>NARMADA, GUJARAT</span>
-          </div>
-          <p class="scroll-note">
-            SCROLL TO EXPLORE <span aria-hidden="true">↓</span>
-          </p>
-          <div class="petals" aria-hidden="true">
-            <i></i><i></i><i></i><i></i><i></i><i></i>
-          </div>
+          <p class="scroll-note" hidden>SCROLL TO UNFOLD OUR STORY ↓</p>
+          <button class="skip-envelope" type="button" hidden>
+            Skip the opening ↗
+          </button>
         </div>
       </section>
       <section class="invitation section" id="details">
@@ -106,10 +112,13 @@
           href="https://share.google/vfS7Bz1RQ8MdTW0NV"
           target="_blank"
           rel="noopener noreferrer"
-          ><svg class="icon" viewBox="0 0 24 24" aria-hidden="true">
-            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
-            <circle cx="12" cy="10" r="3" />
-          </svg>
+          ><img
+            class="icon"
+            src="/images/bootstrap/geo-alt.svg"
+            width="18"
+            height="18"
+            alt=""
+          />
           Find your way to the celebration <span aria-hidden="true">↗</span></a
         >
       </section>
@@ -126,16 +135,14 @@
               One half of this little adventure.<br />And a whole lot of heart.
             </p>
           </article>
-          <figure class="portrait">
+          <div class="couple-knot" aria-hidden="true">
             <img
-              src="/images/wedding/couple-pink.jpg"
-              width="1536"
-              height="1024"
-              loading="lazy"
-              alt="Dhriti in a pink-and-gold lehenga and Poojan in an ivory sherwani, illustrated together."
-            />
-            <figcaption>Better, together.</figcaption>
-          </figure>
+              src="/images/bootstrap/heart.svg"
+              width="44"
+              height="44"
+              alt=""
+            /><span>Better,<br />together.</span>
+          </div>
           <article class="person groom">
             <span class="eyebrow">The groom</span>
             <h3>Poojan<br /><em>Thumar</em></h3>
@@ -190,101 +197,66 @@
           a forever that begins with you beside us.
         </p>
         <p class="postcard-hint">
-          A little peek at the festivities — tap a postcard to unfold it.
+          A little peek at the festivities — tap a postcard to take a closer
+          look.
         </p>
         <div class="postcards">
-          <details class="event-card roka" id="event-roka">
-            <summary>
-              <span class="card-date">THE FIRST YES</span
-              ><span class="card-art" aria-hidden="true"
-                ><span class="art-orbit"></span
-                ><img
-                  src="/images/lucide/heart.svg"
-                  width="52"
-                  height="52"
-                  alt="" /></span
-              ><span class="card-title">Roka</span
-              ><span class="card-label">A sweet beginning</span
-              ><span class="card-open"
-                >Unfold the details <b aria-hidden="true">+</b></span
-              >
-            </summary>
-            <div class="card-details">
-              <p>Our first chapter, held close to our hearts.</p>
-              <p class="event-time"><span>Date to be shared</span></p>
-              <p class="future-page">
-                More details coming soon <span aria-hidden="true">↗</span>
-              </p>
-            </div>
-          </details>
-          <details class="event-card engagement" id="event-engagement">
-            <summary>
+          <article class="event-card engagement" id="event-engagement">
+            <button
+              class="event-trigger"
+              type="button"
+              data-placard="placard-engagement"
+              aria-haspopup="dialog"
+            >
               <span class="card-date">12 DEC · 9 AM</span
               ><span class="card-art" aria-hidden="true"
                 ><span class="art-orbit"></span
                 ><img
-                  src="/images/lucide/sparkles.svg"
+                  src="/images/bootstrap/stars.svg"
                   width="52"
                   height="52"
                   alt="" /></span
               ><span class="card-title">Sunheri Sagai</span
               ><span class="card-label">Engagement</span
               ><span class="card-open"
-                >Unfold the details <b aria-hidden="true">+</b></span
+                >Open the placard <b aria-hidden="true">+</b></span
               >
-            </summary>
-            <div class="card-details">
-              <p>
-                Sun-kissed, effortlessly boho, and a little golden. Let the
-                celebrations begin.
-              </p>
-              <p class="event-time">
-                <time datetime="2026-12-12T09:00:00+05:30"
-                  >12 December 2026 · 9:00 AM</time
-                >
-              </p>
-              <p class="future-page">
-                More details coming soon <span aria-hidden="true">↗</span>
-              </p>
-            </div>
-          </details>
-          <details class="event-card haldi" id="event-haldi">
-            <summary>
+            </button>
+          </article>
+          <article class="event-card haldi" id="event-haldi">
+            <button
+              class="event-trigger"
+              type="button"
+              data-placard="placard-haldi"
+              aria-haspopup="dialog"
+            >
               <span class="card-date">12 DEC · 4 PM</span
               ><span class="card-art" aria-hidden="true"
                 ><span class="art-orbit"></span
                 ><img
-                  src="/images/lucide/sun.svg"
+                  src="/images/bootstrap/brightness-high.svg"
                   width="52"
                   height="52"
                   alt="" /></span
               ><span class="card-title">Rangi Saari</span
               ><span class="card-label">Haldi</span
               ><span class="card-open"
-                >Unfold the details <b aria-hidden="true">+</b></span
+                >Open the placard <b aria-hidden="true">+</b></span
               >
-            </summary>
-            <div class="card-details">
-              <p>
-                A splash of colour. A handful of sunshine. A very happy mess.
-              </p>
-              <p class="event-time">
-                <time datetime="2026-12-12T16:00:00+05:30"
-                  >12 December 2026 · 4:00 PM</time
-                >
-              </p>
-              <p class="future-page">
-                More details coming soon <span aria-hidden="true">↗</span>
-              </p>
-            </div>
-          </details>
-          <details class="event-card sangeet" id="event-sangeet">
-            <summary>
+            </button>
+          </article>
+          <article class="event-card sangeet" id="event-sangeet">
+            <button
+              class="event-trigger"
+              type="button"
+              data-placard="placard-sangeet"
+              aria-haspopup="dialog"
+            >
               <span class="card-date">12 DEC · 9 PM</span
               ><span class="card-art" aria-hidden="true"
                 ><span class="art-orbit"></span
                 ><img
-                  src="/images/lucide/music-2.svg"
+                  src="/images/bootstrap/music-note-beamed.svg"
                   width="52"
                   height="52"
                   alt="" /></span
@@ -292,55 +264,32 @@
                 >Blinding Lights,<br />Bollywood Nights</span
               ><span class="card-label">Sangeet</span
               ><span class="card-open"
-                >Unfold the details <b aria-hidden="true">+</b></span
+                >Open the placard <b aria-hidden="true">+</b></span
               >
-            </summary>
-            <div class="card-details">
-              <p>
-                Dazzling, western, cocktail. Bring your best moves — we’ll bring
-                the friendly competition.
-              </p>
-              <p class="event-time">
-                <time datetime="2026-12-12T21:00:00+05:30"
-                  >12 December 2026 · 9:00 PM</time
-                >
-              </p>
-              <p class="future-page">
-                More details coming soon <span aria-hidden="true">↗</span>
-              </p>
-            </div>
-          </details>
-          <details class="event-card marriage" id="event-marriage">
-            <summary>
+            </button>
+          </article>
+          <article class="event-card marriage" id="event-marriage">
+            <button
+              class="event-trigger"
+              type="button"
+              data-placard="placard-marriage"
+              aria-haspopup="dialog"
+            >
               <span class="card-date">13 DEC · 8 AM</span
               ><span class="card-art" aria-hidden="true"
                 ><span class="art-orbit"></span
                 ><img
-                  src="/images/lucide/flower-2.svg"
+                  src="/images/bootstrap/flower1.svg"
                   width="52"
                   height="52"
                   alt="" /></span
               ><span class="card-title">Mangal Milan</span
               ><span class="card-label">Marriage</span
               ><span class="card-open"
-                >Unfold the details <b aria-hidden="true">+</b></span
+                >Open the placard <b aria-hidden="true">+</b></span
               >
-            </summary>
-            <div class="card-details">
-              <p>
-                Flowers, promises, and our favourite people. The beginning of
-                forever.
-              </p>
-              <p class="event-time">
-                <time datetime="2026-12-13T08:00:00+05:30"
-                  >13 December 2026 · 8:00 AM</time
-                >
-              </p>
-              <p class="future-page">
-                More details coming soon <span aria-hidden="true">↗</span>
-              </p>
-            </div>
-          </details>
+            </button>
+          </article>
         </div>
         <p class="coming-note">
           All times are in India Standard Time. Your RSVP chapter is coming
@@ -349,7 +298,7 @@
       </section>
       <section class="closing section">
         <span class="flower" aria-hidden="true">✳</span>
-        <p class="eyebrow">Jab Idli Met Dhokla</p>
+        <p class="eyebrow">#jabIdliMetDhokla</p>
         <h2>Come for the wedding.<br /><em>Stay for the memories.</em></h2>
         <p>We can’t wait to celebrate with you.</p>
         <a class="contact-button" href="mailto:jabidlimetdhokla@gmail.com"
@@ -369,11 +318,184 @@
           >
         </div>
         <footer>
-          <a class="monogram" href="#home">d<span>&amp;</span>p</a
+          <a class="monogram" href="#home"
+            ><img
+              src="/images/wedding/couple-logo.png"
+              width="68"
+              height="68"
+              alt="Dhriti and Poojan" /></a
           ><span>MADE WITH LOVE, FOR OUR FAVOURITE PEOPLE.</span
           ><a href="#home">Back to the beginning ↑</a>
         </footer>
       </section>
     </main>
+    <dialog
+      class="event-placard engagement"
+      id="placard-engagement"
+      aria-labelledby="placard-title-engagement"
+    >
+      <button
+        class="close-placard"
+        type="button"
+        aria-label="Close event details"
+      >
+        <img
+          src="/images/bootstrap/x-lg.svg"
+          width="18"
+          height="18"
+          alt=""
+        /></button
+      ><img
+        class="placard-logo"
+        src="/images/wedding/couple-logo.png"
+        width="76"
+        height="76"
+        alt=""
+      />
+      <p class="eyebrow">A chapter of #jabIdliMetDhokla</p>
+      <h2 id="placard-title-engagement">Sunheri Sagai</h2>
+      <div class="card-details">
+        <p>
+          Sun-kissed, effortlessly boho, and a little golden. Let the
+          celebrations begin.
+        </p>
+        <p class="event-time">
+          <time datetime="2026-12-12T09:00:00+05:30"
+            >12 December 2026 · 9:00 AM</time
+          >
+        </p>
+        <p class="future-page">
+          More details coming soon <span aria-hidden="true">↗</span>
+        </p>
+      </div>
+      <button class="future-event-link" type="button" disabled>
+        Explore this celebration — coming soon
+      </button>
+    </dialog>
+    <dialog
+      class="event-placard haldi"
+      id="placard-haldi"
+      aria-labelledby="placard-title-haldi"
+    >
+      <button
+        class="close-placard"
+        type="button"
+        aria-label="Close event details"
+      >
+        <img
+          src="/images/bootstrap/x-lg.svg"
+          width="18"
+          height="18"
+          alt=""
+        /></button
+      ><img
+        class="placard-logo"
+        src="/images/wedding/couple-logo.png"
+        width="76"
+        height="76"
+        alt=""
+      />
+      <p class="eyebrow">A chapter of #jabIdliMetDhokla</p>
+      <h2 id="placard-title-haldi">Rangi Saari</h2>
+      <div class="card-details">
+        <p>A splash of colour. A handful of sunshine. A very happy mess.</p>
+        <p class="event-time">
+          <time datetime="2026-12-12T16:00:00+05:30"
+            >12 December 2026 · 4:00 PM</time
+          >
+        </p>
+        <p class="future-page">
+          More details coming soon <span aria-hidden="true">↗</span>
+        </p>
+      </div>
+      <button class="future-event-link" type="button" disabled>
+        Explore this celebration — coming soon
+      </button>
+    </dialog>
+    <dialog
+      class="event-placard sangeet"
+      id="placard-sangeet"
+      aria-labelledby="placard-title-sangeet"
+    >
+      <button
+        class="close-placard"
+        type="button"
+        aria-label="Close event details"
+      >
+        <img
+          src="/images/bootstrap/x-lg.svg"
+          width="18"
+          height="18"
+          alt=""
+        /></button
+      ><img
+        class="placard-logo"
+        src="/images/wedding/couple-logo.png"
+        width="76"
+        height="76"
+        alt=""
+      />
+      <p class="eyebrow">A chapter of #jabIdliMetDhokla</p>
+      <h2 id="placard-title-sangeet">Blinding Lights, Bollywood Nights</h2>
+      <div class="card-details">
+        <p>
+          Dazzling, western, cocktail. Bring your best moves — we’ll bring the
+          friendly competition.
+        </p>
+        <p class="event-time">
+          <time datetime="2026-12-12T21:00:00+05:30"
+            >12 December 2026 · 9:00 PM</time
+          >
+        </p>
+        <p class="future-page">
+          More details coming soon <span aria-hidden="true">↗</span>
+        </p>
+      </div>
+      <button class="future-event-link" type="button" disabled>
+        Explore this celebration — coming soon
+      </button>
+    </dialog>
+    <dialog
+      class="event-placard marriage"
+      id="placard-marriage"
+      aria-labelledby="placard-title-marriage"
+    >
+      <button
+        class="close-placard"
+        type="button"
+        aria-label="Close event details"
+      >
+        <img
+          src="/images/bootstrap/x-lg.svg"
+          width="18"
+          height="18"
+          alt=""
+        /></button
+      ><img
+        class="placard-logo"
+        src="/images/wedding/couple-logo.png"
+        width="76"
+        height="76"
+        alt=""
+      />
+      <p class="eyebrow">A chapter of #jabIdliMetDhokla</p>
+      <h2 id="placard-title-marriage">Mangal Milan</h2>
+      <div class="card-details">
+        <p>
+          Flowers, promises, and our favourite people. The beginning of forever.
+        </p>
+        <p class="event-time">
+          <time datetime="2026-12-13T08:00:00+05:30"
+            >13 December 2026 · 8:00 AM</time
+          >
+        </p>
+        <p class="future-page">
+          More details coming soon <span aria-hidden="true">↗</span>
+        </p>
+      </div>
+      <button class="future-event-link" type="button" disabled>
+        Explore this celebration — coming soon
+      </button>
+    </dialog>
   </body>
 </html>
