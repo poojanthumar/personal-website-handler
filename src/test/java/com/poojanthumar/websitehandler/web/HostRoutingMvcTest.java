@@ -8,6 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -55,11 +59,30 @@ class HostRoutingMvcTest {
 	void weddingHomeAndRokaArePublic() throws Exception {
 		mockMvc.perform(get("/").header("Host", WEDDING))
 				.andExpect(status().isOk())
-				.andExpect(view().name("wedding/page"));
+				.andExpect(view().name("wedding/home"));
 
 		mockMvc.perform(get("/roka").header("Host", WEDDING))
 				.andExpect(status().isOk())
 				.andExpect(view().name("wedding/page"));
+	}
+
+	@Test
+	void weddingInvitationUsesApprovedScheduleAndOmitsPrivateBackground() throws Exception {
+		mockMvc.perform(get("/").header("Host", WEDDING))
+				.andExpect(status().isOk())
+				.andExpect(content().string(containsString("2026-12-12T09:00:00+05:30")))
+				.andExpect(content().string(containsString("2026-12-12T16:00:00+05:30")))
+				.andExpect(content().string(containsString("2026-12-12T21:00:00+05:30")))
+				.andExpect(content().string(containsString("2026-12-13T08:00:00+05:30")))
+				.andExpect(content().string(containsString("placard-marriage")))
+				.andExpect(content().string(containsString("#jabIdliMetDhokla")))
+				.andExpect(content().string(containsString("/images/wedding/favicon.png")))
+				.andExpect(content().string(not(containsString("event-roka"))))
+				.andExpect(content().string(not(containsString("garden-doors"))))
+				.andExpect(content().string(not(containsString("12:21"))))
+				.andExpect(content().string(not(containsString("IIT"))))
+				.andExpect(content().string(not(containsString("Amazon"))))
+				.andExpect(content().string(not(containsString("Apple"))));
 	}
 
 	@Test
@@ -98,7 +121,7 @@ class HostRoutingMvcTest {
 
 		mockMvc.perform(get("/").header("Host", "test-wedding.poojanthumar.in"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("wedding/page"));
+				.andExpect(view().name("wedding/home"));
 
 		mockMvc.perform(get("/login").header("Host", "test-admin.poojanthumar.in"))
 				.andExpect(status().isOk())
