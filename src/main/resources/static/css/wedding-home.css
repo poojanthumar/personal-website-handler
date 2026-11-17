@@ -203,3 +203,5 @@ html[lang=hi] body, html[lang=hi] button, html[lang=hi] input, html[lang=hi] tex
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }.reveal-on-scroll { opacity: 1; transform: none; transition: none; }.hero-arch, .hero-copy, .floating-flower, .story-art, .parent-divider, .closing-flower, .scene-artboard, .mandvo-canopy, .mandvo-pillar { transform: none !important; transition: none !important; }.event { min-height: 95svh; }.scene-pin { position: relative; top: auto; }.invite-cover.is-opening .cover-content { opacity: 1; transform: none; }
 }
+
+.submission-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }

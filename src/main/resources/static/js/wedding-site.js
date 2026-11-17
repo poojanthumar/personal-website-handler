@@ -160,11 +160,28 @@
   dialog?.querySelector('[data-close-dialog]')?.addEventListener('click', () => dialog.close());
   dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
 
-  document.querySelectorAll('[data-preview-form]').forEach(form => {
-    form.querySelector('[data-preview-submit]')?.addEventListener('click', () => {
-      if (!form.reportValidity()) return;
+  document.querySelectorAll('[data-response-form]').forEach(form => {
+    form.addEventListener('submit', async event => {
+      event.preventDefault();
+      if (!form.reportValidity() || form.dataset.sending === 'true') return;
+      const button = form.querySelector('[data-response-submit]');
       const status = form.querySelector('.form-status');
-      status.textContent = locale?.text('previewFormStatus', language) || 'This is a design preview. Your response has not been saved.';
+      form.dataset.sending = 'true'; button.disabled = true;
+      status.textContent = locale.text('saving', language);
+      try {
+        const response = await fetch(form.action, { method: 'POST', credentials: 'same-origin',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(new FormData(form)) });
+        if (!response.ok) {
+          status.textContent = locale.text(response.status === 429 ? 'rateLimited' : 'submitError', language);
+          button.disabled = false;
+        } else {
+          status.textContent = locale.text(form.dataset.responseForm === 'rsvp' ? 'rsvpSaved' : 'blessingSaved', language);
+          form.reset();
+        }
+      } catch {
+        status.textContent = locale.text('networkError', language); button.disabled = false;
+      } finally { form.dataset.sending = 'false'; }
     });
   });
   if (cover && content) {
