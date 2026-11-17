@@ -1,0 +1,1182 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div th:fragment="definitions">
+<svg class="art-definitions" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+<defs>
+<pattern id="bandhani" width="28" height="28" patternUnits="userSpaceOnUse">
+<circle cx="14" cy="14" r="2" fill="currentColor"/>
+<circle cx="14" cy="14" r="5" fill="none" stroke="currentColor" stroke-width=".7"/>
+</pattern>
+<pattern id="brocade" width="24" height="30" patternUnits="userSpaceOnUse">
+<path d="M12 5q-10 8 0 17q10-9 0-17Zm0 5v8M8 24h8" fill="none" stroke="#dcb77a" stroke-width="1" opacity=".65"/>
+</pattern>
+<linearGradient id="silk" x1="0" x2="1">
+<stop stop-color="#fff" stop-opacity=".2"/>
+<stop offset=".4" stop-color="#fff" stop-opacity="0"/>
+<stop offset="1" stop-color="#301326" stop-opacity=".25"/>
+</linearGradient>
+<radialGradient id="powder">
+<stop stop-color="#f4b714" stop-opacity=".9"/>
+<stop offset=".5" stop-color="#ffda42" stop-opacity=".75"/>
+<stop offset="1" stop-color="#f5bb22" stop-opacity="0"/>
+</radialGradient>
+<radialGradient id="fireglow">
+<stop stop-color="#ffcc65" stop-opacity=".6"/>
+<stop offset="1" stop-color="#ffcc65" stop-opacity="0"/>
+</radialGradient>
+<symbol id="lotus" viewBox="0 0 120 90">
+<g fill="none" stroke="currentColor" stroke-width="1.5">
+<path d="M60 76Q24 41 60 8Q96 41 60 76ZM60 76Q5 70 12 25Q52 29 60 76ZM60 76Q115 70 108 25Q68 29 60 76ZM60 76Q16 91 1 52Q36 45 60 76ZM60 76Q104 91 119 52Q84 45 60 76M22 83H98"/>
+</g>
+</symbol>
+<symbol id="ganpati" viewBox="0 0 140 160">
+<g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M44 48Q25 19 11 44Q1 68 35 81M96 48Q115 19 129 44Q139 68 105 81M44 42Q70 21 96 42L94 71Q91 84 78 89L78 112Q80 131 96 122Q107 115 99 103M62 78Q51 99 64 111M44 76L39 94M96 77L103 94M46 30L53 17L62 22L70 5L79 22L88 17L95 30M49 37Q70 30 91 37M49 56l9 2M82 58l9-2M66 48h8M68 44v12M34 100Q8 98 18 121Q25 136 46 132M107 100Q133 98 123 121Q116 136 96 132M44 111Q30 131 53 142H92M29 150H111"/>
+<path d="M70 65q-3 6 0 9" stroke-width="2"/>
+</g>
+<circle cx="70" cy="12" r="3" fill="currentColor"/>
+</symbol>
+<symbol id="lamp" viewBox="0 0 100 190">
+<path d="M50 17Q29 37 50 51Q71 37 50 17" fill="#e8a34b"/>
+<path d="M16 53Q50 93 84 53ZM44 74h12v77H44ZM29 152h42l12 12H17ZM17 171h66v9H17" fill="#bb8e4e"/>
+<path d="M25 58h50M48 87v53M23 173h52" stroke="#f5dc9a" fill="none" stroke-width="2"/>
+</symbol>
+<symbol id="flower" viewBox="-20 -20 40 40">
+<g fill="currentColor">
+<ellipse ry="16" rx="7"/>
+<ellipse ry="16" rx="7" transform="rotate(60)"/>
+<ellipse ry="16" rx="7" transform="rotate(120)"/>
+</g>
+<circle r="4" fill="#dbac5d"/>
+</symbol>
+<symbol id="leaf" viewBox="0 0 35 75">
+<path d="M17 0Q53 35 17 73Q-14 32 17 0" fill="currentColor"/>
+<path d="M17 8V65" stroke="#d9d7a0" stroke-width="1"/>
+</symbol>
+<symbol id="bride-head" viewBox="-55 -85 110 140">
+<path d="M-41 2Q-59-36-28-62Q0-83 27-60Q60-48 45 8L48 49Q11 66-40 41Z" fill="#322524"/>
+<path d="M-11 22v25Q0 55 15 44V20" fill="#b77e5f"/>
+<ellipse cx="0" cy="-10" rx="34" ry="43" fill="#c99172"/>
+<path d="M-34-13Q-40-54-7-59Q28-61 37-24Q12-29-8-49Q-16-17-34-13" fill="#302423"/>
+<path d="M-26-3q8-6 15-1M11-4q9-5 16 1" stroke="#492d27" stroke-width="2.3" fill="none"/>
+<ellipse cx="-18" cy="-2" rx="3" ry="3.5" fill="#241f20"/>
+<ellipse cx="19" cy="-2" rx="3" ry="3.5" fill="#241f20"/>
+<path d="M2 0l-4 13h6" stroke="#aa6a56" stroke-width="1.4" fill="none"/>
+<path d="M-11 23Q0 31 13 21" fill="#fff3df" stroke="#9c534c" stroke-width="1.4"/>
+<circle cx="0" cy="-18" r="2.6" fill="#b73742"/>
+<path d="M-33 5l-3 15 7 5 5-8M32 5l5 15-7 5-5-8" fill="#d7b16a"/>
+<path d="M-26-38Q-2-60 27-36" fill="none" stroke="#deb96e" stroke-width="2"/>
+<path d="M0-49v19" stroke="#ddb15f"/>
+<circle cx="0" cy="-29" r="4" fill="#e0bc79"/>
+</symbol>
+<symbol id="groom-head" viewBox="-55 -85 110 140">
+<path d="M-13 24v24H15V22" fill="#ba8161"/>
+<ellipse cy="-10" rx="34" ry="44" fill="#c18a69"/>
+<ellipse cx="-34" cy="-8" rx="6" ry="11" fill="#b78060"/>
+<ellipse cx="34" cy="-8" rx="6" ry="11" fill="#b78060"/>
+<path d="M-34-14Q-47-61-15-62L-12-71L0-64L13-70L18-61Q43-67 37-21L29-33Q13-27-4-43Q-17-26-34-14" fill="#292326"/>
+<path d="M-26-2q8-5 16-1M10-3q9-6 17 0" stroke="#432b28" stroke-width="2.8" fill="none"/>
+<circle cx="-18" cy="-1" r="3" fill="#231f22"/>
+<circle cx="19" cy="-1" r="3" fill="#231f22"/>
+<path d="M1 1l-3 12h7" stroke="#9e654e" fill="none"/>
+<path d="M-28 15Q-24 41 0 39Q26 37 29 13L20 22Q0 12-20 23Z" fill="#34282a"/>
+<path d="M-13 25Q0 32 14 23" stroke="#fff1dc" stroke-width="3" fill="none"/>
+</symbol>
+</defs>
+</svg>
+</div>
+<div th:fragment="engagement" class="scene-artboard">
+<svg class="living-scene" viewBox="0 0 1000 720" role="img" aria-label="Animated engagement illustration of Dhriti and Poojan" data-scene="engagement">
+<ellipse cx="510" cy="653" rx="470" ry="49" fill="var(--ground)"/>
+<g class="architecture">
+<path d="M156 620V219Q156 107 286 106H713Q844 106 844 219V620" fill="none" stroke="var(--architecture)" stroke-width="20"/>
+<path d="M185 618V224Q185 137 286 136H713Q815 137 815 224V618" fill="none" stroke="var(--architecture)" stroke-width="2"/>
+<path d="M155 134Q315 330 500 135Q684 330 844 134L837 100H163Z" fill="var(--drape)"/>
+<path d="M165 144Q225 250 181 615H132Q173 373 155 144M834 144Q775 250 819 615H868Q827 373 844 144" fill="var(--drape)"/>
+<use href="#flower" x="317.0" y="121.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="157.2" y="152.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="233.0" y="75.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="281.0" y="157.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="134.4" y="113.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="302.6" y="96.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="201.1" y="165.4" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="182.6" y="80.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="311.4" y="136.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="139.9" y="138.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="264.0" y="79.3" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="252.5" y="164.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="145.4" y="97.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="314.9" y="111.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="172.0" y="158.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="213.2" y="75.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="295.3" y="150.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="133.1" y="122.9" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="290.3" y="88.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="220.7" y="166.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="166.1" y="85.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="316.2" y="127.2" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="149.4" y="147.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="245.3" y="76.1" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="270.7" y="160.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="137.4" y="107.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="308.6" y="101.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="189.4" y="163.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="194.0" y="77.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="306.4" y="142.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="830.0" y="121.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="670.2" y="152.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="746.0" y="75.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="794.0" y="157.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="647.4" y="113.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="815.6" y="96.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="714.1" y="165.4" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="695.6" y="80.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="824.4" y="136.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="652.9" y="138.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="777.0" y="79.3" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="765.5" y="164.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="658.4" y="97.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="827.9" y="111.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="685.0" y="158.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="726.2" y="75.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="808.3" y="150.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="646.1" y="122.9" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="803.3" y="88.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="733.7" y="166.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="679.1" y="85.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="829.2" y="127.2" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="662.4" y="147.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="758.3" y="76.1" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="783.7" y="160.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="650.4" y="107.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="821.6" y="101.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="702.4" y="163.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="707.0" y="77.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="819.4" y="142.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="235.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="243.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="223.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="244.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="232.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="228.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="301.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="309.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="289.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="310.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="298.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="294.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="367.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="375.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="355.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="376.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="364.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="360.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="433.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="441.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="421.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="442.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="430.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="426.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="499.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="507.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="487.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="508.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="496.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="492.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="565.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="573.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="553.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="574.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="562.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="558.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="235.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="243.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="223.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="244.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="232.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="228.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="301.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="309.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="289.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="310.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="298.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="294.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="367.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="375.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="355.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="376.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="364.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="360.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="433.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="441.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="421.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="442.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="430.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="426.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="499.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="507.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="487.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="508.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="496.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="492.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="565.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="573.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="553.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="574.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="562.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="558.6" width="30" height="30" style="color:#f0ceaa"/>
+</g>
+<g class="character bride" data-character="bride" style="--dress:#b19a66" transform="translate(414,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g data-part="body">
+<g data-part="skirt">
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="var(--dress)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#brocade)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#silk)"/>
+<path d="M-90 135Q0 158 90 135M-94 142Q0 165 94 142" stroke="#e3bf78" stroke-width="3" fill="none"/>
+<path d="M-12 9L-37 145M12 9L40 145" stroke="#321b2a" opacity=".15" stroke-width="3"/>
+</g>
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="var(--dress)"/>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="url(#brocade)"/>
+<path d="M-29-77v49Q0-18 29-28v-49" fill="#c38c6c"/>
+<path d="M-31-33Q0-24 31-33v18Q0-6-31-15Z" fill="var(--dress)"/>
+<path d="M-35-153Q-72-55-61 91L-16 126Q-37-30 23-149Z" fill="var(--dress)" opacity=".8" stroke="#e4bf7a" stroke-width="3"/>
+<path d="M-20-151Q0-120 22-151" fill="none" stroke="#e2bd72" stroke-width="6"/>
+<g data-part="head">
+<use href="#bride-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<g class="character groom" data-character="groom" style="--dress:#e3d0a0" transform="translate(610,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g class="legs" fill="none" stroke="#d4c5aa" stroke-width="25" stroke-linecap="round">
+<path data-part="leg-left" d="M-17 0L-18 75L-20 145"/>
+<path data-part="leg-right" d="M17 0L20 75L22 145"/>
+</g>
+<path d="M-30 142q-33 14-12 17h33v-15" fill="#694531"/>
+<path data-part="foot-right" d="M12 142v16h42q14-7-21-16" fill="#694531"/>
+<g data-part="body">
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="var(--dress)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#brocade)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#silk)"/>
+<path d="M0-150V32M-13-159L0-145L13-159" stroke="#b89a62" stroke-width="2" fill="none"/>
+<circle cx="4" cy="-125" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-105" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-85" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-65" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-45" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-25" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-5" r="2" fill="#c99c57"/>
+<g data-part="head">
+<use href="#groom-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<g class="ring-offer" data-part="ring">
+<rect x="-12" y="-5" width="24" height="15" rx="2" fill="#843842"/>
+<path d="M-12-5v-15h24v15" fill="#b76c71"/>
+<circle cy="-7" r="6" fill="none" stroke="#e5b757" stroke-width="3"/>
+<path d="M0-17l4 4-4 4-4-4Z" fill="#fff3c7"/>
+</g>
+<use class="flying-petal" data-petal="0" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="1" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="2" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="3" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="4" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="5" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="6" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="7" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="8" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="9" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="10" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="11" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="12" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="13" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="14" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="15" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="16" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="17" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="18" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="19" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="20" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="21" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="22" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="23" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<g class="foreground">
+<use href="#flower" x="139.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="0.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="66.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="107.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-19.8" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="126.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="38.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="22.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="134.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-15.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="92.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="82.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-10.2" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="137.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="13.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="48.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="120.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-20.9" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="115.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="55.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="7.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="138.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="-6.7" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="76.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="98.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-17.2" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="993.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="854.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="920.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="961.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="834.2" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="980.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="892.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="876.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="988.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="839.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="946.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="936.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="843.8" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="991.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="867.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="902.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="974.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="833.1" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="969.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="909.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="861.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="992.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="847.3" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="930.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="952.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="836.8" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+</g>
+</svg>
+</div>
+<div th:fragment="haldi" class="scene-artboard">
+<svg class="living-scene" viewBox="0 0 1000 720" role="img" aria-label="Animated haldi illustration of Dhriti and Poojan" data-scene="haldi">
+<ellipse cx="510" cy="653" rx="470" ry="49" fill="var(--ground)"/>
+<g class="architecture">
+<g class="parasol">
+<path d="M170 285V623" stroke="#ab8a69" stroke-width="7"/>
+<path d="M12 285Q170 85 328 285Q270 319 225 285Q170 319 115 285Q70 319 12 285Z" fill="#b29bbb" stroke="#f7e8cd" stroke-width="5"/>
+<path d="M170 185L115 285M170 185L225 285" stroke="#f7e8cd" stroke-width="3"/>
+</g>
+<g class="parasol">
+<path d="M795 225V623" stroke="#ab8a69" stroke-width="7"/>
+<path d="M637 225Q795 25 953 225Q895 259 850 225Q795 259 740 225Q695 259 637 225Z" fill="#b29bbb" stroke="#f7e8cd" stroke-width="5"/>
+<path d="M795 125L740 225M795 125L850 225" stroke="#f7e8cd" stroke-width="3"/>
+</g>
+<path d="M310 575V209Q310 169 350 169Q390 120 430 170Q475 120 520 170Q565 120 610 170Q655 120 700 170V575Z" fill="#d3bdcf" stroke="#eee1c5" stroke-width="6"/>
+</g>
+<g class="character bride" data-character="bride" style="--dress:#889984" transform="translate(414,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g data-part="body">
+<g data-part="skirt">
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="var(--dress)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#brocade)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#silk)"/>
+<path d="M-90 135Q0 158 90 135M-94 142Q0 165 94 142" stroke="#e3bf78" stroke-width="3" fill="none"/>
+<path d="M-12 9L-37 145M12 9L40 145" stroke="#321b2a" opacity=".15" stroke-width="3"/>
+</g>
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="var(--dress)"/>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="url(#brocade)"/>
+<path d="M-29-77v49Q0-18 29-28v-49" fill="#c38c6c"/>
+<path d="M-31-33Q0-24 31-33v18Q0-6-31-15Z" fill="var(--dress)"/>
+<path d="M-35-153Q-72-55-61 91L-16 126Q-37-30 23-149Z" fill="var(--dress)" opacity=".8" stroke="#e4bf7a" stroke-width="3"/>
+<path d="M-20-151Q0-120 22-151" fill="none" stroke="#e2bd72" stroke-width="6"/>
+<g data-part="head">
+<use href="#bride-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<g class="character groom" data-character="groom" style="--dress:#e8c54e" transform="translate(610,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g class="legs" fill="none" stroke="#d4c5aa" stroke-width="25" stroke-linecap="round">
+<path data-part="leg-left" d="M-17 0L-18 75L-20 145"/>
+<path data-part="leg-right" d="M17 0L20 75L22 145"/>
+</g>
+<path d="M-30 142q-33 14-12 17h33v-15" fill="#694531"/>
+<path data-part="foot-right" d="M12 142v16h42q14-7-21-16" fill="#694531"/>
+<g data-part="body">
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="var(--dress)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#brocade)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#silk)"/>
+<path d="M0-150V32M-13-159L0-145L13-159" stroke="#b89a62" stroke-width="2" fill="none"/>
+<circle cx="4" cy="-125" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-105" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-85" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-65" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-45" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-25" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-5" r="2" fill="#c99c57"/>
+<g data-part="head">
+<use href="#groom-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<g class="colour-clouds">
+<circle data-powder="0" cx="500" cy="510" r="60" fill="url(#powder)"/>
+<circle data-powder="1" cx="500" cy="510" r="80" fill="url(#powder)"/>
+<circle data-powder="2" cx="500" cy="510" r="100" fill="url(#powder)"/>
+<circle data-powder="3" cx="500" cy="510" r="120" fill="url(#powder)"/>
+<circle data-powder="4" cx="500" cy="510" r="60" fill="url(#powder)"/>
+<circle data-powder="5" cx="500" cy="510" r="80" fill="url(#powder)"/>
+<circle data-powder="6" cx="500" cy="510" r="100" fill="url(#powder)"/>
+<circle data-powder="7" cx="500" cy="510" r="120" fill="url(#powder)"/>
+<circle data-powder="8" cx="500" cy="510" r="60" fill="url(#powder)"/>
+<circle data-powder="9" cx="500" cy="510" r="80" fill="url(#powder)"/>
+<circle data-powder="10" cx="500" cy="510" r="100" fill="url(#powder)"/>
+<circle data-powder="11" cx="500" cy="510" r="120" fill="url(#powder)"/>
+<circle data-powder="12" cx="500" cy="510" r="60" fill="url(#powder)"/>
+<circle data-powder="13" cx="500" cy="510" r="80" fill="url(#powder)"/>
+<circle data-powder="14" cx="500" cy="510" r="100" fill="url(#powder)"/>
+<circle data-powder="15" cx="500" cy="510" r="120" fill="url(#powder)"/>
+</g>
+<use class="flying-petal" data-petal="0" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="1" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="2" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="3" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="4" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="5" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="6" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="7" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="8" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="9" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="10" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="11" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="12" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="13" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="14" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="15" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="16" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="17" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="18" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="19" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="20" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="21" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="22" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="23" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<g class="foreground">
+<use href="#flower" x="139.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="0.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="66.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="107.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-19.8" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="126.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="38.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="22.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="134.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-15.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="92.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="82.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-10.2" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="137.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="13.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="48.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="120.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-20.9" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="115.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="55.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="7.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="138.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="-6.7" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="76.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="98.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-17.2" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="993.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="854.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="920.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="961.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="834.2" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="980.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="892.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="876.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="988.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="839.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="946.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="936.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="843.8" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="991.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="867.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="902.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="974.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="833.1" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="969.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="909.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="861.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="992.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="847.3" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="930.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="952.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="836.8" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+</g>
+</svg>
+</div>
+<div th:fragment="sangeet" class="scene-artboard">
+<svg class="living-scene" viewBox="0 0 1000 720" role="img" aria-label="Animated sangeet illustration of Dhriti and Poojan" data-scene="sangeet">
+<ellipse cx="510" cy="653" rx="470" ry="49" fill="var(--ground)"/>
+<g class="architecture">
+<path d="M185 602V177H815V602M232 570V218H768V570" fill="none" stroke="#c6a470" stroke-width="4"/>
+<path d="M100 664H900M130 688H870" stroke="#c6a470" stroke-width="2" opacity=".4"/>
+<g class="disco">
+<path d="M245 0V85" stroke="#c6b191"/>
+<circle cx="245" cy="125" r="43" fill="#c8bed0"/>
+<ellipse cx="245" cy="125" rx="18" ry="43" fill="none" stroke="#f9f0dd"/>
+<path d="M206 107h78M202 125h86M206 143h78M245 83v84" stroke="#f9f0dd" opacity=".75"/>
+</g>
+<g class="disco">
+<path d="M500 0V135" stroke="#c6b191"/>
+<circle cx="500" cy="175" r="43" fill="#c8bed0"/>
+<ellipse cx="500" cy="175" rx="18" ry="43" fill="none" stroke="#f9f0dd"/>
+<path d="M461 157h78M457 175h86M461 193h78M500 133v84" stroke="#f9f0dd" opacity=".75"/>
+</g>
+<g class="disco">
+<path d="M750 0V63" stroke="#c6b191"/>
+<circle cx="750" cy="103" r="43" fill="#c8bed0"/>
+<ellipse cx="750" cy="103" rx="18" ry="43" fill="none" stroke="#f9f0dd"/>
+<path d="M711 85h78M707 103h86M711 121h78M750 61v84" stroke="#f9f0dd" opacity=".75"/>
+</g>
+<path class="star" d="M12 15h6M15 12v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M143 94h6M146 91v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M274 173h6M277 170v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M405 252h6M408 249v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M536 331h6M539 328v6" stroke="#eee0bd" style="--delay:4s"/>
+<path class="star" d="M667 410h6M670 407v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M798 89h6M801 86v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M929 168h6M932 165v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M90 247h6M93 244v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M221 326h6M224 323v6" stroke="#eee0bd" style="--delay:4s"/>
+<path class="star" d="M352 405h6M355 402v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M483 84h6M486 81v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M614 163h6M617 160v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M745 242h6M748 239v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M876 321h6M879 318v6" stroke="#eee0bd" style="--delay:4s"/>
+<path class="star" d="M37 400h6M40 397v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M168 79h6M171 76v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M299 158h6M302 155v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M430 237h6M433 234v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M561 316h6M564 313v6" stroke="#eee0bd" style="--delay:4s"/>
+<path class="star" d="M692 395h6M695 392v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M823 74h6M826 71v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M954 153h6M957 150v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M115 232h6M118 229v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M246 311h6M249 308v6" stroke="#eee0bd" style="--delay:4s"/>
+<path class="star" d="M377 390h6M380 387v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M508 69h6M511 66v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M639 148h6M642 145v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M770 227h6M773 224v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M901 306h6M904 303v6" stroke="#eee0bd" style="--delay:4s"/>
+<path class="star" d="M62 385h6M65 382v6" stroke="#eee0bd" style="--delay:0s"/>
+<path class="star" d="M193 64h6M196 61v6" stroke="#eee0bd" style="--delay:1s"/>
+<path class="star" d="M324 143h6M327 140v6" stroke="#eee0bd" style="--delay:2s"/>
+<path class="star" d="M455 222h6M458 219v6" stroke="#eee0bd" style="--delay:3s"/>
+<path class="star" d="M586 301h6M589 298v6" stroke="#eee0bd" style="--delay:4s"/>
+</g>
+<g class="character bride" data-character="bride" style="--dress:#986988" transform="translate(414,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g data-part="body">
+<g data-part="skirt">
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="var(--dress)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#brocade)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#silk)"/>
+<path d="M-90 135Q0 158 90 135M-94 142Q0 165 94 142" stroke="#e3bf78" stroke-width="3" fill="none"/>
+<path d="M-12 9L-37 145M12 9L40 145" stroke="#321b2a" opacity=".15" stroke-width="3"/>
+</g>
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="var(--dress)"/>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="url(#brocade)"/>
+<path d="M-29-77v49Q0-18 29-28v-49" fill="#c38c6c"/>
+<path d="M-31-33Q0-24 31-33v18Q0-6-31-15Z" fill="var(--dress)"/>
+<path d="M-35-153Q-72-55-61 91L-16 126Q-37-30 23-149Z" fill="var(--dress)" opacity=".8" stroke="#e4bf7a" stroke-width="3"/>
+<path d="M-20-151Q0-120 22-151" fill="none" stroke="#e2bd72" stroke-width="6"/>
+<g data-part="head">
+<use href="#bride-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<g class="character groom" data-character="groom" style="--dress:#41304e" transform="translate(610,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g class="legs" fill="none" stroke="#d4c5aa" stroke-width="25" stroke-linecap="round">
+<path data-part="leg-left" d="M-17 0L-18 75L-20 145"/>
+<path data-part="leg-right" d="M17 0L20 75L22 145"/>
+</g>
+<path d="M-30 142q-33 14-12 17h33v-15" fill="#694531"/>
+<path data-part="foot-right" d="M12 142v16h42q14-7-21-16" fill="#694531"/>
+<g data-part="body">
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="var(--dress)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#brocade)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#silk)"/>
+<path d="M0-150V32M-13-159L0-145L13-159" stroke="#b89a62" stroke-width="2" fill="none"/>
+<circle cx="4" cy="-125" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-105" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-85" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-65" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-45" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-25" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-5" r="2" fill="#c99c57"/>
+<g data-part="head">
+<use href="#groom-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<use class="flying-petal" data-petal="0" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="1" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="2" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="3" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="4" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="5" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="6" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="7" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="8" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="9" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="10" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="11" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="12" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="13" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="14" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="15" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="16" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="17" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="18" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="19" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="20" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="21" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="22" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="23" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<g class="foreground">
+<use href="#flower" x="139.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="0.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="66.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="107.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-19.8" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="126.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="38.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="22.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="134.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-15.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="92.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="82.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-10.2" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="137.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="13.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="48.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="120.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-20.9" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="115.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="55.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="7.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="138.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="-6.7" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="76.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="98.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-17.2" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="993.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="854.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="920.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="961.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="834.2" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="980.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="892.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="876.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="988.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="839.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="946.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="936.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="843.8" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="991.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="867.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="902.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="974.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="833.1" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="969.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="909.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="861.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="992.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="847.3" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="930.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="952.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="836.8" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+</g>
+</svg>
+</div>
+<div th:fragment="wedding" class="scene-artboard">
+<svg class="living-scene" viewBox="0 0 1000 720" role="img" aria-label="Animated wedding illustration of Dhriti and Poojan" data-scene="wedding">
+<ellipse cx="510" cy="653" rx="470" ry="49" fill="var(--ground)"/>
+<g class="architecture">
+<path d="M156 620V219Q156 107 286 106H713Q844 106 844 219V620" fill="none" stroke="var(--architecture)" stroke-width="20"/>
+<path d="M185 618V224Q185 137 286 136H713Q815 137 815 224V618" fill="none" stroke="var(--architecture)" stroke-width="2"/>
+<path d="M155 134Q315 330 500 135Q684 330 844 134L837 100H163Z" fill="var(--drape)"/>
+<path d="M165 144Q225 250 181 615H132Q173 373 155 144M834 144Q775 250 819 615H868Q827 373 844 144" fill="var(--drape)"/>
+<use href="#flower" x="317.0" y="121.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="157.2" y="152.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="233.0" y="75.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="281.0" y="157.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="134.4" y="113.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="302.6" y="96.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="201.1" y="165.4" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="182.6" y="80.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="311.4" y="136.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="139.9" y="138.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="264.0" y="79.3" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="252.5" y="164.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="145.4" y="97.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="314.9" y="111.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="172.0" y="158.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="213.2" y="75.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="295.3" y="150.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="133.1" y="122.9" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="290.3" y="88.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="220.7" y="166.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="166.1" y="85.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="316.2" y="127.2" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="149.4" y="147.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="245.3" y="76.1" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="270.7" y="160.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="137.4" y="107.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="308.6" y="101.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="189.4" y="163.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="194.0" y="77.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="306.4" y="142.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="830.0" y="121.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="670.2" y="152.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="746.0" y="75.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="794.0" y="157.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="647.4" y="113.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="815.6" y="96.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="714.1" y="165.4" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="695.6" y="80.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="824.4" y="136.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="652.9" y="138.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="777.0" y="79.3" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="765.5" y="164.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="658.4" y="97.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="827.9" y="111.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="685.0" y="158.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="726.2" y="75.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="808.3" y="150.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="646.1" y="122.9" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="803.3" y="88.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="733.7" y="166.9" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="679.1" y="85.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="829.2" y="127.2" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="662.4" y="147.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="758.3" y="76.1" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="783.7" y="160.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="650.4" y="107.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="821.6" y="101.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="702.4" y="163.4" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="707.0" y="77.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="819.4" y="142.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="235.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="243.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="223.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="244.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="232.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="228.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="301.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="309.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="289.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="310.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="298.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="294.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="367.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="375.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="355.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="376.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="364.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="360.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="433.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="441.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="421.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="442.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="430.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="426.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="499.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="507.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="487.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="508.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="496.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="492.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="152.0" y="565.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="110.3" y="573.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="130.1" y="553.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="142.6" y="574.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="104.4" y="562.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="148.3" y="558.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="235.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="243.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="223.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="244.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="232.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="228.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="301.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="309.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="289.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="310.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="298.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="294.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="367.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="375.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="355.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="376.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="364.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="360.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="433.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="441.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="421.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="442.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="430.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="426.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="499.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="507.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="487.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="508.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="496.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="492.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="864.0" y="565.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="822.3" y="573.1" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="842.1" y="553.0" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="854.6" y="574.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="816.4" y="562.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="860.3" y="558.6" width="30" height="30" style="color:#f0ceaa"/>
+</g>
+<g class="character bride" data-character="bride" style="--dress:#a83240" transform="translate(414,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g data-part="body">
+<g data-part="skirt">
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="var(--dress)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#brocade)"/>
+<path d="M-30-15Q-48 65-102 143Q0 173 101 143Q47 65 30-15Z" fill="url(#silk)"/>
+<path d="M-90 135Q0 158 90 135M-94 142Q0 165 94 142" stroke="#e3bf78" stroke-width="3" fill="none"/>
+<path d="M-12 9L-37 145M12 9L40 145" stroke="#321b2a" opacity=".15" stroke-width="3"/>
+</g>
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="var(--dress)"/>
+<path d="M-33-153Q0-166 34-152L30-77Q0-60-30-77Z" fill="url(#brocade)"/>
+<path d="M-29-77v49Q0-18 29-28v-49" fill="#c38c6c"/>
+<path d="M-31-33Q0-24 31-33v18Q0-6-31-15Z" fill="var(--dress)"/>
+<path d="M-35-153Q-72-55-61 91L-16 126Q-37-30 23-149Z" fill="var(--dress)" opacity=".8" stroke="#e4bf7a" stroke-width="3"/>
+<path d="M-20-151Q0-120 22-151" fill="none" stroke="#e2bd72" stroke-width="6"/>
+<g data-part="head">
+<use href="#bride-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+</g>
+</g>
+<g class="character groom" data-character="groom" style="--dress:#efe0bb" transform="translate(610,475)">
+<ellipse class="character-shadow" cx="0" cy="154" rx="72" ry="12" fill="#352619" opacity=".12"/>
+<g class="legs" fill="none" stroke="#d4c5aa" stroke-width="25" stroke-linecap="round">
+<path data-part="leg-left" d="M-17 0L-18 75L-20 145"/>
+<path data-part="leg-right" d="M17 0L20 75L22 145"/>
+</g>
+<path d="M-30 142q-33 14-12 17h33v-15" fill="#694531"/>
+<path data-part="foot-right" d="M12 142v16h42q14-7-21-16" fill="#694531"/>
+<g data-part="body">
+<g class="arm left-arm" data-part="left-arm" transform="translate(-34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="left-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="var(--dress)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#brocade)"/>
+<path d="M-35-154Q0-169 36-154L43 33Q0 48-43 33Z" fill="url(#silk)"/>
+<path d="M0-150V32M-13-159L0-145L13-159" stroke="#b89a62" stroke-width="2" fill="none"/>
+<circle cx="4" cy="-125" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-105" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-85" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-65" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-45" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-25" r="2" fill="#c99c57"/>
+<circle cx="4" cy="-5" r="2" fill="#c99c57"/>
+<g data-part="head">
+<use href="#groom-head" x="-55" y="-262" width="110" height="140"/>
+</g>
+<g class="arm right-arm" data-part="right-arm" transform="translate(34,-143)">
+<path d="M0 0Q-8 26 0 63" stroke="var(--dress)" stroke-width="25" fill="none" stroke-linecap="round"/>
+<path d="M-10 50h20" stroke="#dcb97c" stroke-width="5"/>
+<g data-part="right-forearm" transform="translate(0,60)">
+<path d="M0 0L0 52" stroke="#c38c6c" stroke-width="15" fill="none" stroke-linecap="round"/>
+<path d="M-8 38h16M-8 42h16" stroke="#d5ad61" stroke-width="3"/>
+<ellipse cy="56" rx="8" ry="12" fill="#c38c6c"/>
+</g>
+</g>
+<path d="M-39-215Q-35-257 14-257L40-230L34-208Q0-227-39-215" fill="#bd6b58" stroke="#e2bd7b" stroke-width="3"/>
+<path d="M-30-230L23-247M-21-223L31-238" stroke="#e9bb83" stroke-width="3"/>
+</g>
+</g>
+<g data-part="bride-garland">
+<path d="M381 310Q369 416 414 432Q459 416 447 310" fill="none" stroke="#b33547" stroke-width="17"/>
+<path d="M381 310Q369 416 414 432Q459 416 447 310" fill="none" stroke="#fce9cd" stroke-width="12" stroke-dasharray="10 8"/>
+</g>
+<g data-part="groom-garland">
+<path d="M577 310Q565 416 610 432Q655 416 643 310" fill="none" stroke="#b33547" stroke-width="17"/>
+<path d="M577 310Q565 416 610 432Q655 416 643 310" fill="none" stroke="#fce9cd" stroke-width="12" stroke-dasharray="10 8"/>
+</g>
+<g class="sacred-fire">
+<ellipse cx="511" cy="614" rx="120" ry="72" fill="url(#fireglow)"/>
+<path d="M444 638l66-24 68 24-68 30Z" fill="#a66e4d"/>
+<path d="M458 627l52-20 54 20-54 20Z" fill="#ce9d66"/>
+<g data-part="flames">
+<path d="M479 624Q445 579 499 540Q480 585 521 553Q564 594 535 625Z" fill="#e99337"/>
+<path d="M495 625Q478 596 513 568Q496 604 535 589Q541 615 520 629Z" fill="#ffda71"/>
+</g>
+</g>
+<use class="flying-petal" data-petal="0" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="1" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="2" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="3" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="4" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="5" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="6" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="7" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="8" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="9" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="10" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="11" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="12" href="#flower" x="0" y="0" width="12" height="12" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="13" href="#flower" x="0" y="0" width="15" height="15" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="14" href="#flower" x="0" y="0" width="18" height="18" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="15" href="#flower" x="0" y="0" width="21" height="21" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="16" href="#flower" x="0" y="0" width="12" height="12" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="17" href="#flower" x="0" y="0" width="15" height="15" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="18" href="#flower" x="0" y="0" width="18" height="18" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="19" href="#flower" x="0" y="0" width="21" height="21" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="20" href="#flower" x="0" y="0" width="12" height="12" style="color:#efd7a1"/>
+<use class="flying-petal" data-petal="21" href="#flower" x="0" y="0" width="15" height="15" style="color:#d8a16c"/>
+<use class="flying-petal" data-petal="22" href="#flower" x="0" y="0" width="18" height="18" style="color:#bc6874"/>
+<use class="flying-petal" data-petal="23" href="#flower" x="0" y="0" width="21" height="21" style="color:#efd7a1"/>
+<g class="foreground">
+<use href="#flower" x="139.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="0.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="66.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="107.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-19.8" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="126.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="38.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="22.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="134.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-15.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="92.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="82.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="-10.2" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="137.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="13.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="48.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="120.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-20.9" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="115.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="55.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="7.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="138.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="-6.7" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="76.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="98.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="-17.2" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="993.0" y="640.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="854.0" y="667.0" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="920.0" y="600.2" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="961.7" y="671.7" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="834.2" y="633.0" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="980.5" y="618.5" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="892.2" y="678.6" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="876.1" y="604.5" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="988.1" y="653.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="839.0" y="655.3" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="946.9" y="603.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="936.9" y="678.2" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="843.8" y="619.9" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="991.1" y="631.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="867.0" y="672.7" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="902.8" y="600.3" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="974.1" y="665.8" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="833.1" y="641.6" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="969.7" y="611.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="909.2" y="680.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="861.8" y="609.3" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="992.3" y="645.4" width="30" height="30" style="color:#f0ceaa"/>
+<use href="#flower" x="847.3" y="662.8" width="30" height="30" style="color:#d7a965"/>
+<use href="#flower" x="930.6" y="601.0" width="30" height="30" style="color:#f5ead6"/>
+<use href="#flower" x="952.7" y="674.7" width="30" height="30" style="color:#b86b70"/>
+<use href="#flower" x="836.8" y="627.8" width="30" height="30" style="color:#f0ceaa"/>
+</g>
+</svg>
+</div>
+<div th:fragment="mandvo" class="scene-artboard mandvo-artboard">
+<svg class="living-scene" viewBox="0 0 1000 720" role="img" aria-label="Illustrated Mandvo canopy with flowers, a ceremonial pillar and lamps" data-scene="mandvo">
+  <ellipse cx="500" cy="647" rx="435" ry="48" fill="#d3a974" opacity=".5"/>
+  <g class="mandvo-canopy">
+    <path d="M180 590V235Q180 115 300 115H700Q820 115 820 235V590" fill="none" stroke="#9b663e" stroke-width="23"/>
+    <path d="M190 580V230Q190 130 303 130H697Q810 130 810 230V580" fill="none" stroke="#f0d692" stroke-width="5"/>
+    <path d="M176 140Q320 275 500 146Q680 275 824 140L818 102H182Z" fill="#f6dba7"/>
+    <path d="M178 147Q242 280 207 590H145Q185 330 169 150M822 147Q758 280 793 590H855Q815 330 831 150" fill="#c87849" opacity=".85"/>
+    <path d="M205 170Q500 340 795 170" fill="none" stroke="#a4503f" stroke-width="10" stroke-dasharray="16 7"/>
+    <path d="M235 168Q500 310 765 168" fill="none" stroke="#e9ad3f" stroke-width="12" stroke-dasharray="18 6"/>
+  </g>
+  <g class="mandvo-pillar">
+    <ellipse cx="505" cy="620" rx="104" ry="21" fill="#986b48" opacity=".28"/>
+    <path d="M465 622V220H545V622Z" fill="#b67742" stroke="#76492b" stroke-width="5"/>
+    <path d="M480 618V226H530V618" fill="none" stroke="#f0c46e" stroke-width="9"/>
+    <path d="M439 228H569L549 202H458Z" fill="#d7944c" stroke="#76492b" stroke-width="5"/>
+    <path d="M439 615H569L553 640H454Z" fill="#d7944c" stroke="#76492b" stroke-width="5"/>
+    <path d="M505 245l29 35-29 35-29-35ZM505 345l29 35-29 35-29-35ZM505 445l29 35-29 35-29-35Z" fill="#f3d7a2" opacity=".8"/>
+    <path d="M456 242Q400 290 448 339Q389 380 447 435Q400 489 455 550M554 242Q610 290 562 339Q621 380 563 435Q610 489 555 550" fill="none" stroke="#d48d42" stroke-width="14" stroke-dasharray="16 9"/>
+  </g>
+  <g class="mandvo-lamps" fill="#b67842" stroke="#f2d497" stroke-width="3">
+    <path d="M280 567q45 65 90 0Z M303 578v38h44v-38 M294 615h63v9h-63Z"/>
+    <path d="M638 567q45 65 90 0Z M661 578v38h44v-38 M652 615h63v9h-63Z"/>
+    <path d="M325 555q-14-30 0-49q15 23 0 49M683 555q-14-30 0-49q15 23 0 49" fill="#f2ae4b"/>
+  </g>
+  <g class="mandvo-flowers">
+    <use href="#flower" x="265" y="88" width="45" height="45" style="color:#d99347"/>
+    <use href="#flower" x="340" y="145" width="35" height="35" style="color:#c45e4c"/>
+    <use href="#flower" x="426" y="112" width="40" height="40" style="color:#e7ac4d"/>
+    <use href="#flower" x="530" y="114" width="44" height="44" style="color:#c45e4c"/>
+    <use href="#flower" x="635" y="142" width="36" height="36" style="color:#e7ac4d"/>
+    <use href="#flower" x="703" y="87" width="44" height="44" style="color:#d99347"/>
+  </g>
+  <g class="mandvo-petals">
+    <use class="flying-petal" data-petal="0" href="#flower" width="16" height="16" style="color:#e7ac4d"/>
+    <use class="flying-petal" data-petal="1" href="#flower" width="13" height="13" style="color:#c45e4c"/>
+    <use class="flying-petal" data-petal="2" href="#flower" width="18" height="18" style="color:#e7ac4d"/>
+    <use class="flying-petal" data-petal="3" href="#flower" width="12" height="12" style="color:#c45e4c"/>
+    <use class="flying-petal" data-petal="4" href="#flower" width="16" height="16" style="color:#e7ac4d"/>
+    <use class="flying-petal" data-petal="5" href="#flower" width="13" height="13" style="color:#c45e4c"/>
+  </g>
+</svg>
+</div>
+</body>
+</html>

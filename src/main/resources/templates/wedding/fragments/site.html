@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header th:fragment="header" class="site-header">
+  <a class="header-brand" href="/" aria-label="Dhriti and Poojan, home">
+    <span class="logo-crop"><img src="/images/wedding/logo-1f.png" alt="" width="1246" height="1262"></span>
+    <span class="brand-type">D<span>&amp;</span>P</span>
+  </a>
+  <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" data-i18n="menuLabel" data-i18n-aria="menuLabel">Menu</button>
+  <nav id="site-nav" class="site-nav" aria-label="Main navigation">
+    <a href="/" data-i18n="navHome">Home</a>
+    <a href="/events" data-i18n="navEvents">Events</a>
+    <a href="/rsvp" data-i18n="navRsvp">RSVP</a>
+    <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
+  </nav>
+  <div class="header-actions">
+    <label class="language-label" for="language-select" data-i18n="languageLabel">Language</label>
+    <select id="language-select" aria-label="Language" data-i18n-aria="languageLabel">
+      <option value="en">EN</option>
+      <option value="hi">हिं</option>
+      <option value="gu">ગુ</option>
+    </select>
+    <button class="motion-toggle" type="button" aria-label="Pause motion" aria-pressed="false" data-i18n-aria="pauseMotion">Pause motion</button>
+  </div>
+</header>
+
+<footer th:fragment="footer" class="site-footer">
+  <div class="footer-identity">
+    <img src="/images/wedding/logo-1f.png" alt="Dhriti and Poojan wedding monogram" width="1246" height="1262" loading="lazy">
+    <div>
+      <p class="footer-names">Dhriti &amp; Poojan</p>
+      <p data-i18n="footerDate">12–13 December 2026 · Narmada, Gujarat</p>
+      <p data-i18n="footerNote">With love and the blessings of our families.</p>
+    </div>
+  </div>
+  <div class="footer-links">
+    <nav aria-label="Footer navigation">
+      <a href="/" data-i18n="navHome">Home</a>
+      <a href="/events" data-i18n="navEvents">Events</a>
+      <a href="/rsvp" data-i18n="navRsvp">RSVP</a>
+      <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
+    </nav>
+    <div class="social-links">
+      <a href="https://www.instagram.com/jabidlimetdhokla/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
+      <a href="https://www.youtube.com/channel/UCNAGAomqu6U0Dr6yDgpeDOw" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+    </div>
+    <p data-i18n="timezone">All times are Indian Standard Time (IST).</p>
+  </div>
+</footer>
+</body>
+</html>

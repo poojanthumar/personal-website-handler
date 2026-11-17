@@ -55,11 +55,23 @@ class HostRoutingMvcTest {
 	void weddingHomeAndRokaArePublic() throws Exception {
 		mockMvc.perform(get("/").header("Host", WEDDING))
 				.andExpect(status().isOk())
-				.andExpect(view().name("wedding/page"));
+				.andExpect(view().name("wedding/home"));
 
 		mockMvc.perform(get("/roka").header("Host", WEDDING))
 				.andExpect(status().isOk())
 				.andExpect(view().name("wedding/page"));
+	}
+
+	@Test
+	void weddingExperienceRoutesStayOnWeddingHosts() throws Exception {
+		for (String path : new String[] {"/events", "/rsvp", "/guestbook"}) {
+			for (String host : new String[] {WEDDING, "test-wedding.poojanthumar.in"}) {
+				mockMvc.perform(get(path).header("Host", host)).andExpect(status().isOk());
+			}
+			for (String host : new String[] {WWW, "unknown.example"}) {
+				mockMvc.perform(get(path).header("Host", host)).andExpect(status().isNotFound());
+			}
+		}
 	}
 
 	@Test
@@ -98,7 +110,7 @@ class HostRoutingMvcTest {
 
 		mockMvc.perform(get("/").header("Host", "test-wedding.poojanthumar.in"))
 				.andExpect(status().isOk())
-				.andExpect(view().name("wedding/page"));
+				.andExpect(view().name("wedding/home"));
 
 		mockMvc.perform(get("/login").header("Host", "test-admin.poojanthumar.in"))
 				.andExpect(status().isOk())

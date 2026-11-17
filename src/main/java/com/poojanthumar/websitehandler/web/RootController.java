@@ -36,10 +36,7 @@ public class RootController {
 				model.addAttribute("contactRequest", new ContactRequest("", "", ""));
 				yield "www/index";
 			}
-			case WEDDING -> {
-				model.addAttribute("page", weddingContentService.requireByKey("home"));
-				yield "wedding/page";
-			}
+			case WEDDING -> "wedding/home";
 			case ADMIN -> {
 				model.addAttribute("contactCount", contactService.page(Pageable.ofSize(1)).getTotalElements());
 				model.addAttribute("weddingCount", weddingContentService.page(Pageable.ofSize(1)).getTotalElements());

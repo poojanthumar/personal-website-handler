@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<form th:fragment="rsvpForm" class="rsvp-form" data-preview-form="rsvp" novalidate>
+  <div class="form-row">
+    <label><span data-i18n="guestName">Your name</span><input name="name" type="text" autocomplete="name" required maxlength="100" data-i18n-placeholder="namePlaceholder" placeholder="Your name"></label>
+    <label><span data-i18n="familyName">Family name</span><input name="familyName" type="text" required maxlength="100" data-i18n-placeholder="familyPlaceholder" placeholder="Your family name"></label>
+  </div>
+  <fieldset class="attendance-options"><legend data-i18n="attendanceQuestion">Will you join us?</legend>
+    <label><input type="radio" name="attendance" value="yes" required><span data-i18n="accept">Joyfully accept</span></label>
+    <label><input type="radio" name="attendance" value="maybe"><span data-i18n="maybe">Maybe / not sure</span></label>
+    <label><input type="radio" name="attendance" value="no"><span data-i18n="decline">Regretfully decline</span></label>
+  </fieldset>
+  <div class="form-row">
+    <label><span data-i18n="partySize">Number attending <small data-i18n="optional">(optional)</small></span><input name="partySize" type="number" min="1" max="30" inputmode="numeric" placeholder="1"></label>
+    <label><span data-i18n="phone">Phone <small data-i18n="optional">(optional)</small></span><input name="phone" type="tel" autocomplete="tel" data-i18n-placeholder="phonePlaceholder" placeholder="For wedding updates"></label>
+  </div>
+  <label><span data-i18n="email">Email <small data-i18n="optional">(optional)</small></span><input name="email" type="email" autocomplete="email" data-i18n-placeholder="emailPlaceholder" placeholder="For a reply, if needed"></label>
+  <label><span data-i18n="blessing">A blessing or message <small data-i18n="optional">(optional)</small></span><textarea name="blessing" rows="4" maxlength="1500" data-i18n-placeholder="blessingPlaceholder" placeholder="Leave us a note from the heart"></textarea></label>
+  <label class="checkbox-line"><input type="checkbox" name="shareBlessing"><span data-i18n="shareBlessing">Also share my blessing on the Guestbook wall after approval.</span></label>
+  <p class="form-privacy" data-i18n="rsvpPrivacy">Your contact details stay private. Your blessing appears publicly only if you choose to share it and it is approved.</p>
+  <button class="button button-primary" type="button" data-preview-submit data-i18n="sendRsvp">Send RSVP</button>
+  <p class="form-status" role="status" aria-live="polite"></p>
+</form>
+
+<dialog th:fragment="rsvpDialog" class="rsvp-dialog" aria-labelledby="rsvp-dialog-title">
+  <div class="dialog-top"><p class="overline" data-i18n="rsvpPrelude">WE HOPE TO SEE YOU</p><button type="button" class="dialog-close" data-close-dialog aria-label="Close RSVP">×</button></div>
+  <h2 id="rsvp-dialog-title" data-i18n="rsvpTitle">We saved you a place in our hearts.</h2>
+  <p data-i18n="rsvpIntro">Let us know whether you can celebrate with us on 12 and 13 December.</p>
+  <p class="preview-ribbon" data-i18n="previewNotice">Design preview · responses are not being saved yet.</p>
+  <div th:replace="~{wedding/fragments/forms :: rsvpForm}"></div>
+</dialog>
+</body>
+</html>
