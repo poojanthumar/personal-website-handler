@@ -63,6 +63,18 @@ class HostRoutingMvcTest {
 	}
 
 	@Test
+	void weddingExperienceRoutesStayOnWeddingHosts() throws Exception {
+		for (String path : new String[] {"/events", "/rsvp", "/guestbook"}) {
+			for (String host : new String[] {WEDDING, "test-wedding.poojanthumar.in"}) {
+				mockMvc.perform(get(path).header("Host", host)).andExpect(status().isOk());
+			}
+			for (String host : new String[] {WWW, "unknown.example"}) {
+				mockMvc.perform(get(path).header("Host", host)).andExpect(status().isNotFound());
+			}
+		}
+	}
+
+	@Test
 	void adminHomeUnauthenticatedRedirectsToLogin() throws Exception {
 		mockMvc.perform(get("/").header("Host", ADMIN))
 				.andExpect(status().isFound())

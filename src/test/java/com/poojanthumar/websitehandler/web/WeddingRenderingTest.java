@@ -21,24 +21,39 @@ class WeddingRenderingTest {
     private int port;
 
     @Test
-    void invitationRendersApprovedContentWithoutPrivateBiographyOrOldVideoFrames() throws Exception {
+    void invitationRendersApprovedContentWithoutUnverifiedScheduleOrVideoFrames() throws Exception {
         try (HttpClient client = HttpClient.newHttpClient()) {
             var response = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + "/"))
                     .GET().build(), HttpResponse.BodyHandlers.ofString());
             assertThat(response.statusCode()).isEqualTo(200);
             assertThat(response.body()).contains("Dhriti", "Desai", "Poojan", "Thumar",
-                    "2026-12-12T09:00:00+05:30", "2026-12-12T16:00:00+05:30",
-                    "2026-12-12T21:00:00+05:30", "2026-12-13T08:00:00+05:30",
-                    "2026-12-13T12:21:00+05:30", "</footer>", "</html>");
+                    "Deepa Desai", "Deepak Desai", "Asmita Thumar", "Sanjay Thumar",
+                    "12 &amp; 13 December 2026", "Praveg Tent City", "</footer>", "</html>");
             assertThat(response.body()).doesNotContain("IIT", "Amazon", "Apple", "started dating",
-                    "Poojan &amp; Partner", "couple.jpg", "courtyard.jpg", "<video");
+                    "Poojan &amp; Partner", "12:21", "shared desserts", "couple.jpg", "courtyard.jpg", "<video");
+
+            var events = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + "/events"))
+                    .GET().build(), HttpResponse.BodyHandlers.ofString());
+            assertThat(events.statusCode()).isEqualTo(200);
+            assertThat(events.body()).contains("2026-12-12T09:00:00+05:30", "2026-12-12T13:00:00+05:30",
+                    "2026-12-12T16:00:00+05:30", "2026-12-12T21:00:00+05:30",
+                    "2026-12-13T08:00:00+05:30", "8 AM onwards");
+            assertThat(events.body()).doesNotContain("12:21", "Abhijit Muhurat");
+
+            for (String path : new String[] {"/rsvp", "/guestbook"}) {
+                var page = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + path))
+                        .GET().build(), HttpResponse.BodyHandlers.ofString());
+                assertThat(page.statusCode()).as(path).isEqualTo(200);
+                assertThat(page.body()).contains("Design preview", "responses are not being saved yet");
+            }
         }
     }
 
     @Test
     void stylesScriptAndOriginalArtAreServedAsPublicAssets() throws Exception {
         try (HttpClient client = HttpClient.newHttpClient()) {
-            for (String path : new String[] {"/css/wedding-home.css", "/js/wedding-home.js",
+            for (String path : new String[] {"/css/wedding-home.css", "/js/wedding-home.js", "/js/wedding-site.js", "/js/wedding-i18n.js",
+                    "/images/wedding/logo-1f.png", "/images/wedding/wedding-celebration.ics",
                     "/images/wedding/garden.jpg", "/images/wedding/scene-engagement.jpg",
                     "/images/wedding/scene-sangeet.jpg", "/images/wedding/scene-haldi.svg",
                     "/images/wedding/scene-wedding.svg"}) {

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f7f0e4">
+  <meta name="description" content="RSVP for Dhriti and Poojan's wedding celebrations on 12–13 December 2026 at Praveg Tent City Narmada.">
+  <title>RSVP · Dhriti &amp; Poojan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/wedding-home.css"><script src="/js/wedding-i18n.js" defer></script><script src="/js/wedding-site.js" defer></script>
+</head>
+<body data-page="rsvp">
+<a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
+<div th:replace="~{wedding/fragments/site :: header}"></div>
+<main id="main" class="form-page">
+  <section class="page-intro rsvp-intro"><p class="overline" data-i18n="rsvpPrelude">WE HOPE TO SEE YOU</p><h1 data-i18n="rsvpTitle">We saved you a place in our hearts.</h1><p data-i18n="rsvpIntro">Let us know whether you can celebrate with us on 12 and 13 December.</p><div class="page-ornament" aria-hidden="true">✺</div></section>
+  <section class="form-layout"><div class="form-aside"><p class="overline" data-i18n="ourCelebration">OUR CELEBRATION</p><h2 data-i18n="rsvpAsideTitle">Every moment, together.</h2><p data-i18n="rsvpAsideText">Your response covers all five celebrations. There is no need to reply separately for each event.</p><div class="date-pill"><span>12 — 13</span><small data-i18n="datePill">DECEMBER 2026</small></div><p>Praveg Tent City Narmada<br>Statue of Unity, Gujarat</p></div><div class="form-paper"><p class="preview-ribbon" data-i18n="previewNotice">Design preview · responses are not being saved yet.</p><div th:replace="~{wedding/fragments/forms :: rsvpForm}"></div></div></section>
+  <section class="form-after"><p data-i18n="rsvpAfter">Whether you can join us or send your love from afar, we’re grateful you’re part of our story.</p><a href="/events" class="text-link" data-i18n="viewSchedule">View full schedule ↗</a></section>
+</main>
+<div th:replace="~{wedding/fragments/site :: footer}"></div>
+</body>
+</html>

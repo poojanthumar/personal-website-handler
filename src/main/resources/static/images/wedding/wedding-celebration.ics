@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Poojan Thumar//Wedding Invitation//EN
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+BEGIN:VEVENT
+UID:dhriti-poojan-wedding-20261212@poojanthumar.in
+DTSTAMP:20261118T000000Z
+DTSTART;VALUE=DATE:20261212
+DTEND;VALUE=DATE:20261214
+SUMMARY:Dhriti & Poojan wedding celebrations
+LOCATION:Praveg Tent City Narmada\, Statue of Unity\, Gujarat\, India
+DESCRIPTION:Celebrations on 12 and 13 December 2026. See the invitation for individual event start times.
+END:VEVENT
+END:VCALENDAR

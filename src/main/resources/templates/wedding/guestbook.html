@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f7f0e4">
+  <meta name="description" content="Share a blessing for Dhriti and Poojan's wedding, and read approved messages from family and friends.">
+  <title>Guestbook &amp; Prayers · Dhriti &amp; Poojan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/wedding-home.css"><script src="/js/wedding-i18n.js" defer></script><script src="/js/wedding-site.js" defer></script>
+</head>
+<body data-page="guestbook">
+<a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
+<div th:replace="~{wedding/fragments/site :: header}"></div>
+<main id="main" class="guestbook-page">
+  <section class="page-intro guestbook-intro"><p class="overline" data-i18n="guestbookPrelude">NOTES FROM THE HEART</p><h1 data-i18n="guestbookTitle">Guestbook &amp; Prayers</h1><p data-i18n="guestbookIntro">Warm words from the people who make our world brighter.</p><div class="page-ornament" aria-hidden="true">✿</div></section>
+  <section class="guestbook-layout"><div class="guestbook-form-wrap"><p class="overline" data-i18n="leaveBlessing">Leave a blessing</p><h2 data-i18n="guestbookFormTitle">A note we’ll treasure.</h2><p data-i18n="guestbookFormIntro">Share a wish, prayer or favourite memory with us.</p><p class="preview-ribbon" data-i18n="previewNotice">Design preview · responses are not being saved yet.</p><form class="guestbook-form" data-preview-form="guestbook" novalidate><label><span data-i18n="guestName">Your name</span><input name="name" type="text" autocomplete="name" required maxlength="100" data-i18n-placeholder="namePlaceholder" placeholder="Your name"></label><label><span data-i18n="relation">Family name or relation <small data-i18n="optional">(optional)</small></span><input name="relation" type="text" maxlength="100" data-i18n-placeholder="relationPlaceholder" placeholder="How we know you"></label><label><span data-i18n="yourMessage">Your blessing or prayer</span><textarea name="message" rows="6" required maxlength="1500" data-i18n-placeholder="guestbookPlaceholder" placeholder="Write your message here"></textarea></label><p class="form-privacy" data-i18n="guestbookPrivacy">Messages appear on this public wall only after approval. Please share only what you’re comfortable making public.</p><button class="button button-primary" type="button" data-preview-submit data-i18n="postBlessing">Leave a blessing</button><p class="form-status" role="status" aria-live="polite"></p></form></div><div class="guestbook-wall"><p class="overline" data-i18n="blessingsFor">BLESSINGS FOR DHRITI &amp; POOJAN</p><h2 data-i18n="guestbookWallTitle">Words to carry with us.</h2><div class="empty-blessing"><span aria-hidden="true">“</span><p data-i18n="guestbookEmpty">Our guestbook is waiting for your blessings.</p><span aria-hidden="true">”</span></div><p class="approval-note" data-i18n="approvedOnly">Only approved messages will appear here.</p></div></section>
+  <section class="guestbook-bottom"><p data-i18n="guestbookBottom">Your presence, wishes and blessings make this celebration all the more meaningful.</p><a class="button button-outline" href="/rsvp" data-i18n="rsvpNow">RSVP now</a></section>
+</main>
+<div th:replace="~{wedding/fragments/site :: footer}"></div>
+<div th:replace="~{wedding/fragments/forms :: rsvpDialog}"></div>
+</body>
+</html>

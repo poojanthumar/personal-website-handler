@@ -22,6 +22,24 @@ public class WeddingController {
 		this.weddingContentService = weddingContentService;
 	}
 
+	@GetMapping("/events")
+	public String events(HttpServletRequest request) {
+		SiteGuard.require(siteResolver, request, Site.WEDDING);
+		return "wedding/events";
+	}
+
+	@GetMapping("/rsvp")
+	public String rsvp(HttpServletRequest request) {
+		SiteGuard.require(siteResolver, request, Site.WEDDING);
+		return "wedding/rsvp";
+	}
+
+	@GetMapping("/guestbook")
+	public String guestbook(HttpServletRequest request) {
+		SiteGuard.require(siteResolver, request, Site.WEDDING);
+		return "wedding/guestbook";
+	}
+
 	@GetMapping("/roka")
 	public String roka(HttpServletRequest request, Model model) {
 		SiteGuard.require(siteResolver, request, Site.WEDDING);
