@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<form th:fragment="rsvpForm" class="rsvp-form" data-preview-form="rsvp" novalidate>
+<form th:fragment="rsvpForm" class="rsvp-form" data-response-form="rsvp" th:action="@{/rsvp}" method="post">
   <div class="form-row">
     <label><span data-i18n="guestName">Your name</span><input name="name" type="text" autocomplete="name" required maxlength="100" data-i18n-placeholder="namePlaceholder" placeholder="Your name"></label>
     <label><span data-i18n="familyName">Family name</span><input name="familyName" type="text" required maxlength="100" data-i18n-placeholder="familyPlaceholder" placeholder="Your family name"></label>
@@ -19,15 +19,15 @@
   <label><span data-i18n="blessing">A blessing or message <small data-i18n="optional">(optional)</small></span><textarea name="blessing" rows="4" maxlength="1500" data-i18n-placeholder="blessingPlaceholder" placeholder="Leave us a note from the heart"></textarea></label>
   <label class="checkbox-line"><input type="checkbox" name="shareBlessing"><span data-i18n="shareBlessing">Also share my blessing on the Guestbook wall after approval.</span></label>
   <p class="form-privacy" data-i18n="rsvpPrivacy">Your contact details stay private. Your blessing appears publicly only if you choose to share it and it is approved.</p>
-  <button class="button button-primary" type="button" data-preview-submit data-i18n="sendRsvp">Send RSVP</button>
-  <p class="form-status" role="status" aria-live="polite"></p>
+  <button class="button button-primary" type="submit" data-response-submit data-i18n="sendRsvp">Send RSVP</button>
+  <label class="submission-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" maxlength="200"></label><p class="form-status" role="status" aria-live="polite"></p>
 </form>
 
 <dialog th:fragment="rsvpDialog" class="rsvp-dialog" aria-labelledby="rsvp-dialog-title">
   <div class="dialog-top"><p class="overline" data-i18n="rsvpPrelude">WE HOPE TO SEE YOU</p><button type="button" class="dialog-close" data-close-dialog aria-label="Close RSVP">×</button></div>
   <h2 id="rsvp-dialog-title" data-i18n="rsvpTitle">We saved you a place in our hearts.</h2>
   <p data-i18n="rsvpIntro">Let us know whether you can celebrate with us on 12 and 13 December.</p>
-  <p class="preview-ribbon" data-i18n="previewNotice">Design preview · responses are not being saved yet.</p>
+
   <div th:replace="~{wedding/fragments/forms :: rsvpForm}"></div>
 </dialog>
 </body>

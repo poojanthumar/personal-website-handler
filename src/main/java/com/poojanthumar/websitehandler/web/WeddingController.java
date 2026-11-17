@@ -15,9 +15,11 @@ import jakarta.servlet.http.HttpServletRequest;
 public class WeddingController {
 
 	private final SiteResolver siteResolver;
+	private final com.poojanthumar.websitehandler.wedding.WeddingBlessingRepository blessings;
 	private final WeddingContentService weddingContentService;
 
-	public WeddingController(SiteResolver siteResolver, WeddingContentService weddingContentService) {
+	public WeddingController(SiteResolver siteResolver, WeddingContentService weddingContentService, com.poojanthumar.websitehandler.wedding.WeddingBlessingRepository blessings) {
+		this.blessings = blessings;
 		this.siteResolver = siteResolver;
 		this.weddingContentService = weddingContentService;
 	}
@@ -35,8 +37,9 @@ public class WeddingController {
 	}
 
 	@GetMapping("/guestbook")
-	public String guestbook(HttpServletRequest request) {
+	public String guestbook(HttpServletRequest request, @org.springframework.web.bind.annotation.RequestParam(defaultValue="0") int page, Model model) {
 		SiteGuard.require(siteResolver, request, Site.WEDDING);
+		model.addAttribute("blessings", blessings.findByStatus("APPROVED", org.springframework.data.domain.PageRequest.of(Math.max(0,page),20,org.springframework.data.domain.Sort.by("receivedAt").descending())));
 		return "wedding/guestbook";
 	}
 

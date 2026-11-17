@@ -44,7 +44,8 @@ class WeddingRenderingTest {
                 var page = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + path))
                         .GET().build(), HttpResponse.BodyHandlers.ofString());
                 assertThat(page.statusCode()).as(path).isEqualTo(200);
-                assertThat(page.body()).contains("Design preview", "responses are not being saved yet");
+                assertThat(page.body()).contains("method=\"post\"", "_csrf");
+                assertThat(page.body()).doesNotContain("responses are not being saved yet");
             }
         }
     }
