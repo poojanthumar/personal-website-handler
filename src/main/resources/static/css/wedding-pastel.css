@@ -142,3 +142,27 @@ body.invite-in-motion { overflow:hidden; }
 .heart-stage .scratch-button { background:#8e5267; color:#fff8ed; border:1px solid #c79d50; padding:13px 25px; box-shadow:0 5px 20px #8e526730; }
 .heart-hint { margin:18px auto 0; max-width:290px; line-height:1.7; }
 @media(max-width:760px) { .heart-stage { padding:50px 0 25px; }.reveal-lamp {width:38px;bottom:110px}.family-still-life {height:320px;width:240px}.reveal-toran {top:-8px} }
+
+/* A continuous painted invitation, with portraits inset like haveli windows. */
+body[data-page="home"] { background:#f3d9cf url('/images/wedding/real/floral-parchment.png') center top / 100% auto repeat-y; }
+body[data-page="home"] .home-hero, body[data-page="home"] .story-section, body[data-page="home"] .parents-section, body[data-page="home"] .reveal-section { background:transparent; }
+body[data-page="home"] .story-copy,body[data-page="home"] .section-heading { text-shadow:0 1px 8px #fff4e4; }
+body[data-page="home"] .site-header { background:#f4dfd3df; }
+.hero-copy h1 { display:flex; justify-content:center; align-items:center; gap:.12em; letter-spacing:-.045em; }
+.hero-copy h1 span { font-family:'Playfair Display',Georgia,serif; font-size:.52em; line-height:1; margin:0; transform:translateY(.04em); }
+.signature-times { display:inline-block; font:400 .65em Georgia,serif; vertical-align:middle; padding:0 .25em; }
+.parents-grid { align-items:start; }
+.parent-card { background:transparent; border:0; border-radius:0; box-shadow:none; padding:20px 12px; }
+.family-still-life { border:0; outline:none; border-radius:48% 48% 3px 3px; box-shadow:0 0 0 3px #b8945b70,0 0 0 9px #e7c6ac80,0 16px 30px #814f6020; }
+.parent-divider { align-self:center; }
+.heart-stage { background:transparent; border:0; }
+.heart-paper { fill:#f9e6d4; }
+.heart-surface { aspect-ratio:1.08; }
+.heart-details { top:30%;bottom:23%; }
+@media(max-width:760px) {
+ body[data-page="home"] { background-size:auto 1450px; }
+ .hero-copy h1 { font-size:clamp(2.7rem,11.5vw,5.3rem);gap:.14em; }
+ .home-hero .hero-copy { width:100%; }
+ .story-copy,.section-heading { padding-inline:10px; }
+ .family-still-life { width:250px;height:335px; }
+}

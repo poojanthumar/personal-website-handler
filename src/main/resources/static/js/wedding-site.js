@@ -143,11 +143,11 @@
     let done = false, drawing = false, previous = null, width = 0, height = 0;
     let foilSamples = [];
     function heartPath() {
-      ctx.beginPath(); ctx.moveTo(width * .5, height * .945);
-      ctx.bezierCurveTo(width*.43,height*.872,width*.06,height*.627,width*.03,height*.34);
-      ctx.bezierCurveTo(width*.008,height*.11,width*.28,height*.015,width*.5,height*.224);
-      ctx.bezierCurveTo(width*.72,height*.015,width*.992,height*.11,width*.97,height*.34);
-      ctx.bezierCurveTo(width*.94,height*.627,width*.57,height*.872,width*.5,height*.945);
+      ctx.beginPath(); ctx.moveTo(width*.5,height*.9);
+      ctx.bezierCurveTo(width*.45,height*.85,width*.06,height*.6,width*.06,height*.32);
+      ctx.bezierCurveTo(width*.06,height*.08,width*.35,height*.06,width*.5,height*.28);
+      ctx.bezierCurveTo(width*.65,height*.06,width*.94,height*.08,width*.94,height*.32);
+      ctx.bezierCurveTo(width*.94,height*.6,width*.55,height*.85,width*.5,height*.9);
       ctx.closePath();
     }
     function paint() {
@@ -172,9 +172,7 @@
         }
       }
       ctx.restore();
-      ctx.fillStyle='#fff9ec';ctx.beginPath();ctx.ellipse(width*.5,height*.43,width*.18,height*.19,0,0,Math.PI*2);ctx.fill();
-      ctx.strokeStyle='#b58b4a';ctx.lineWidth=2;ctx.stroke();
-      if(revealLogo.complete && revealLogo.naturalWidth) ctx.drawImage(revealLogo,width*.355,height*.275,width*.29,height*.30);
+      if(revealLogo.complete && revealLogo.naturalWidth) ctx.drawImage(revealLogo,width*.34,height*.30,width*.32,height*.33);
       ctx.fillStyle='#793f53';ctx.textAlign='center';
       ctx.font=`500 ${Math.max(11,width*.027)}px sans-serif`;
       ctx.fillText(locale?.text('heartScratch',language)||'SCRATCH TO REVEAL',width*.5,height*.68);
