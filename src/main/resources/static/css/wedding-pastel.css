@@ -131,3 +131,14 @@ body.invite-in-motion { overflow:hidden; }
  .logo-halo { top:-34px; }
 }
 @media(prefers-reduced-motion:reduce) { .hero-garland-art,.hero-diya img,.hero-diya::before,.hero-diya::after,.heart-foil { animation:none!important;transition:none!important; } }
+
+/* Portraits and a flower-decked shagun reveal. */
+.family-still-life { width:min(280px,100%); height:350px; border-radius:140px 140px 12px 12px; border:5px solid #fff8e9; outline:1px solid #b9955c; box-shadow:0 16px 35px #84534920; }
+.family-still-life img { width:200%; height:100%; object-fit:fill; top:0; transform:none; }
+.reveal-section { background:radial-gradient(ellipse at center,#fff5dd 0,#f8e8e9 60%,#f7f0e4 100%); }
+.heart-stage { padding:65px 30px 30px; border:1px solid #bd9c6260; border-radius:48% 48% 12px 12px; background:repeating-conic-gradient(from 0deg at 50% 50%,#eac18409 0deg 10deg,transparent 10deg 20deg); }
+.reveal-toran { position:absolute; top:-30px; left:0; width:100%; pointer-events:none; }
+.reveal-lamp { position:absolute; bottom:90px; width:75px; pointer-events:none; }.reveal-lamp img { width:100%; }.lamp-left {left:0}.lamp-right {right:0}
+.heart-stage .scratch-button { background:#8e5267; color:#fff8ed; border:1px solid #c79d50; padding:13px 25px; box-shadow:0 5px 20px #8e526730; }
+.heart-hint { margin:18px auto 0; max-width:290px; line-height:1.7; }
+@media(max-width:760px) { .heart-stage { padding:50px 0 25px; }.reveal-lamp {width:38px;bottom:110px}.family-still-life {height:320px;width:240px}.reveal-toran {top:-8px} }

@@ -112,6 +112,9 @@
   document.querySelectorAll('.reveal-on-scroll').forEach(node => revealObserver ? revealObserver.observe(node) : node.classList.add('is-visible'));
 
   const scratchers = [];
+  const revealLogo = new Image();
+  revealLogo.src = '/images/wedding/logo-1f.png';
+  revealLogo.onload = () => paintScratchers();
   function paintScratchers() { scratchers.forEach(paint => paint()); }
   function celebrate(stage) {
     if (!stage || reduced.matches || motionPaused) return;
@@ -160,14 +163,21 @@
       foil.addColorStop(.5,'#f0d5dd'); foil.addColorStop(.73,'#cf9fae'); foil.addColorStop(1,'#edcfd9');
       heartPath(); ctx.fillStyle=foil; ctx.fill(); ctx.strokeStyle='#b9955c'; ctx.lineWidth=1.5; ctx.stroke();
       ctx.save(); ctx.clip();
-      ctx.strokeStyle='#b58b4a40';
-      for (let y=28;y<height;y+=20) { ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y-width*.35);ctx.stroke(); }
+      // Block-printed floral foil: concentric petals and small gold florets.
+      for (let y=25;y<height;y+=38) for(let x=18;x<width;x+=38) {
+        ctx.fillStyle = '#af7b3950';
+        for(let petal=0;petal<6;petal++) {
+          const angle=petal*Math.PI/3;
+          ctx.beginPath();ctx.ellipse(x+Math.cos(angle)*5,y+Math.sin(angle)*5,3,5,angle,0,Math.PI*2);ctx.fill();
+        }
+      }
       ctx.restore();
-      ctx.fillStyle='#793f53'; ctx.textAlign='center';
-      ctx.font=`italic ${Math.max(25,width*.064)}px Georgia`;
-      ctx.fillText('D & P',width*.5,height*.43);
+      ctx.fillStyle='#fff9ec';ctx.beginPath();ctx.ellipse(width*.5,height*.43,width*.18,height*.19,0,0,Math.PI*2);ctx.fill();
+      ctx.strokeStyle='#b58b4a';ctx.lineWidth=2;ctx.stroke();
+      if(revealLogo.complete && revealLogo.naturalWidth) ctx.drawImage(revealLogo,width*.355,height*.275,width*.29,height*.30);
+      ctx.fillStyle='#793f53';ctx.textAlign='center';
       ctx.font=`500 ${Math.max(11,width*.027)}px sans-serif`;
-      ctx.fillText(locale?.text('heartScratch',language)||'SCRATCH TO REVEAL',width*.5,height*.54);
+      ctx.fillText(locale?.text('heartScratch',language)||'SCRATCH TO REVEAL',width*.5,height*.68);
       const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
       foilSamples=[];
       for(let i=3;i<pixels.length;i+=64) if(pixels[i]>160) foilSamples.push(i);

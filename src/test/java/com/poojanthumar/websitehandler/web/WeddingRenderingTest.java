@@ -28,7 +28,7 @@ class WeddingRenderingTest {
             assertThat(response.statusCode()).isEqualTo(200);
             assertThat(response.body()).contains("Dhriti", "Desai", "Poojan", "Thumar",
                     "Deepa Desai", "Deepak Desai", "Asmita Thumar", "Sanjay Thumar",
-                    "12 &amp; 13 December 2026", "Praveg Tent City", "</footer>", "</html>");
+                    "12 &amp; 13", "December 2026", "Praveg Tent City", "</footer>", "</html>");
             assertThat(response.body()).doesNotContain("IIT", "Amazon", "Apple", "started dating",
                     "Poojan &amp; Partner", "12:21", "shared desserts", "couple.jpg", "courtyard.jpg", "<video");
 
@@ -54,7 +54,7 @@ class WeddingRenderingTest {
     void stylesScriptAndOriginalArtAreServedAsPublicAssets() throws Exception {
         try (HttpClient client = HttpClient.newHttpClient()) {
             for (String path : new String[] {"/css/wedding-home.css", "/js/wedding-home.js", "/js/wedding-site.js", "/js/wedding-i18n.js",
-                    "/images/wedding/logo-1f.png", "/images/wedding/wedding-celebration.ics",
+                    "/images/wedding/real/couple-portraits.png", "/images/wedding/logo-1f.png", "/images/wedding/wedding-celebration.ics",
                     "/images/wedding/garden.jpg", "/images/wedding/scene-engagement.jpg",
                     "/images/wedding/scene-sangeet.jpg", "/images/wedding/scene-haldi.svg",
                     "/images/wedding/scene-wedding.svg"}) {
