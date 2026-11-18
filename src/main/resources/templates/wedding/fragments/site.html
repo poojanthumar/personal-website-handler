@@ -14,12 +14,7 @@
     <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
   </nav>
   <div class="header-actions">
-    <label class="language-label" for="language-select" data-i18n="languageLabel">Language</label>
-    <select id="language-select" aria-label="Language" data-i18n-aria="languageLabel">
-      <option value="en">EN</option>
-      <option value="hi">हिं</option>
-      <option value="gu">ગુ</option>
-    </select>
+    <button class="language-popup-trigger" type="button" data-language-popup aria-label="Choose language"><img class="sf-icon" src="/images/wedding/sf/globe.png" alt=""><span data-current-language>EN</span></button>
     <button class="motion-toggle" type="button" aria-label="Pause motion" aria-pressed="false" data-i18n-aria="pauseMotion">Pause motion</button>
   </div>
 </header>
@@ -47,5 +42,13 @@
     <p data-i18n="timezone">All times are Indian Standard Time (IST).</p>
   </div>
 </footer>
+<dialog th:fragment="languageDialog" class="language-dialog" aria-labelledby="language-title">
+ <button class="language-close" type="button" data-language-done aria-label="Close language choice">×</button>
+ <img class="sf-icon language-globe" src="/images/wedding/sf/globe.png" alt="">
+ <p class="overline">WELCOME · स्वागत · સ્વાગત</p><h2 id="language-title" data-i18n="chooseLanguageTitle">Make yourself at home.</h2>
+ <p data-i18n="coverSubtitle">Choose the language you feel at home in.</p>
+ <div class="language-options"><button type="button" data-language-choice="en" autofocus><strong>English</strong><span>EN</span></button><button type="button" data-language-choice="hi"><strong>हिन्दी</strong><span>Hindi</span></button><button type="button" data-language-choice="gu"><strong>ગુજરાતી</strong><span>Gujarati</span></button></div>
+ <button class="button button-primary" type="button" data-language-done data-i18n="continueInvite">Continue to invitation</button>
+</dialog>
 </body>
 </html>

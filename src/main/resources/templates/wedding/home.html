@@ -13,6 +13,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/css/wedding-home.css">
+  <link rel="stylesheet" href="/css/wedding-pastel.css">
   <script src="/js/wedding-i18n.js" defer></script>
   <script src="/js/wedding-site.js" defer></script>
   <noscript><style>.invite-cover{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
@@ -21,35 +22,23 @@
 <div th:replace="~{wedding/fragments/living-art :: definitions}"></div>
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
 
+<div th:replace="~{wedding/fragments/site :: languageDialog}"></div>
 <section class="invite-cover" aria-label="Wedding invitation opening">
-  <div class="cover-filigree" aria-hidden="true"></div>
-  <p class="sanskrit-line" lang="sa">॥ श्री गणेशाय नमः ॥</p>
-  <div class="cover-door" aria-hidden="true"><span class="door-left"></span><span class="door-right"></span></div>
-  <div class="cover-content">
-    <div class="logo-crop cover-logo"><img src="/images/wedding/logo-1f.png" alt="Ornamental wedding monogram" width="1246" height="1262"></div>
-    <p class="overline" data-i18n="coverPrelude">A CELEBRATION OF TWO FAMILIES</p>
-    <h1 data-i18n="coverTitle">An invitation from the heart.</h1>
-    <p class="cover-subtitle" data-i18n="coverSubtitle">Choose your language, then open the celebration.</p>
-    <fieldset class="cover-languages">
-      <legend data-i18n="chooseLanguage">Welcome · स्वागत · સ્વાગત</legend>
-      <button type="button" data-language-choice="en">English</button>
-      <button type="button" data-language-choice="hi">हिन्दी</button>
-      <button type="button" data-language-choice="gu">ગુજરાતી</button>
-    </fieldset>
-    <button class="seal-button" type="button" data-open-cover data-i18n="openInvitation">Open invitation <span aria-hidden="true">✦</span></button>
-    <button class="quiet-button" type="button" data-skip-cover data-i18n="skipAnimation">Skip animation</button>
+  <p class="cover-edition">DHRITI &amp; POOJAN · 12—13 DECEMBER 2026</p>
+  <div class="envelope-stage">
+    <div class="envelope-letter"><p class="sanskrit-line" lang="sa">॥ श्री गणेशाय नमः ॥</p><div class="logo-crop cover-logo"><img src="/images/wedding/logo-1f.png" alt="Ornamental wedding monogram" width="1246" height="1262"></div><p data-i18n="coverPrelude">A CELEBRATION OF TWO FAMILIES</p></div>
+    <div class="envelope-back"></div><div class="envelope-pocket"></div><div class="envelope-flap"></div>
+    <button class="envelope-seal" type="button" data-open-cover aria-label="Open invite"><span>D<span>&amp;</span>P</span></button>
   </div>
-  <span class="cover-corner top-left" aria-hidden="true">✦</span><span class="cover-corner top-right" aria-hidden="true">✦</span>
-  <span class="cover-corner bottom-left" aria-hidden="true">✦</span><span class="cover-corner bottom-right" aria-hidden="true">✦</span>
+  <div class="cover-note"><p class="overline" data-i18n="coverPrelude">A CELEBRATION OF TWO FAMILIES</p><h1 data-i18n="coverTitle">A little envelope. <br>A lifetime of love.</h1><button class="seal-button" type="button" data-open-cover><img class="sf-icon" src="/images/wedding/sf/envelope.open.png" alt=""><span data-i18n="openInvitation">Open invite</span></button><button class="quiet-button" type="button" data-skip-cover data-i18n="skipAnimation">Skip animation</button></div>
 </section>
 
 <div id="site-content" hidden>
   <div th:replace="~{wedding/fragments/site :: header}"></div>
   <main id="main">
-    <section class="home-hero motion-section" id="invitation">
-      <div class="hero-arch" aria-hidden="true"><div class="arch-inner"></div></div>
-      <div class="hero-garland garland-left" aria-hidden="true"></div><div class="hero-garland garland-right" aria-hidden="true"></div>
-      <div class="floating-flower flower-one" aria-hidden="true">✿</div><div class="floating-flower flower-two" aria-hidden="true">✿</div>
+    <section class="home-hero motion-section" id="invitation" tabindex="-1">
+      <img class="hero-botanical botanical-left" src="/images/wedding/botanical.svg" alt=""><img class="hero-botanical botanical-right" src="/images/wedding/botanical.svg" alt="">
+      <div class="invitation-frame" aria-hidden="true"></div>
       <div class="hero-copy">
         <p class="sanskrit-line" lang="sa">॥ श्री गणेशाय नमः ॥</p>
         <p class="overline" data-i18n="heroPrelude">WITH THE BLESSINGS OF OUR FAMILIES</p>
@@ -59,11 +48,11 @@
         <div class="hero-date"><span data-i18n="heroDate">12 &amp; 13 December 2026</span><small data-i18n="heroVenue">Praveg Tent City Narmada · Statue of Unity</small></div>
         <div class="hero-actions"><a class="button button-primary" href="/events" data-i18n="exploreEvents">Explore the events</a><a class="button button-outline" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a></div>
       </div>
-      <a class="scroll-cue" href="#our-story" data-i18n="scrollToStory">Scroll to our story ↓</a>
+      <a class="scroll-cue" href="#our-story"><span data-i18n="scrollToStory">Scroll to our story</span><img class="sf-icon" src="/images/wedding/sf/arrow.down.png" alt=""></a>
     </section>
 
     <section class="story-section motion-section" id="our-story">
-      <div class="story-art" aria-hidden="true"><div class="story-circle"><span>∞</span></div><span class="story-petal p1">✿</span><span class="story-petal p2">✿</span><span class="story-petal p3">✿</span></div>
+      <div class="story-art" aria-hidden="true"><img src="/images/wedding/bride-mark.svg" alt=""><img src="/images/wedding/groom-mark.svg" alt=""><span class="story-ampersand">&amp;</span></div>
       <div class="story-copy reveal-on-scroll">
         <p class="overline" data-i18n="storyPrelude">FROM OUR HEARTS TO YOURS</p>
         <h2 data-i18n="storyHeading">Our story is better with you in it.</h2>
@@ -75,34 +64,22 @@
     <section class="parents-section motion-section" id="families">
       <div class="section-heading reveal-on-scroll"><p class="overline" data-i18n="parentsPrelude">WITH LOVE AND BLESSINGS</p><h2 data-i18n="parentsHeading">Blessings of our parents</h2><p data-i18n="parentsIntro">Our families warmly invite you to celebrate with us.</p></div>
       <div class="parents-grid">
-        <article class="parent-card reveal-on-scroll"><div class="parent-flower" aria-hidden="true">✺</div><p class="overline" data-i18n="brideFamily">THE BRIDE’S FAMILY</p><h3>Dhriti Desai</h3><p data-i18n="daughterOf">Daughter of</p><strong>Deepa Desai <span>&amp;</span> Deepak Desai</strong></article>
-        <div class="parent-divider" aria-hidden="true">✦</div>
-        <article class="parent-card reveal-on-scroll"><div class="parent-flower" aria-hidden="true">✺</div><p class="overline" data-i18n="groomFamily">THE GROOM’S FAMILY</p><h3>Poojan Thumar</h3><p data-i18n="sonOf">Son of</p><strong>Asmita Thumar <span>&amp;</span> Sanjay Thumar</strong></article>
+        <article class="parent-card reveal-on-scroll"><img class="family-mark" src="/images/wedding/bride-mark.svg" alt="Bride illustration"><p class="overline" data-i18n="brideFamily">THE BRIDE’S FAMILY</p><h3>Dhriti Desai</h3><p data-i18n="daughterOf">Daughter of</p><strong>Deepa Desai <span>&amp;</span> Deepak Desai</strong></article>
+        <div class="parent-divider" aria-hidden="true">&amp;</div>
+        <article class="parent-card reveal-on-scroll"><img class="family-mark" src="/images/wedding/groom-mark.svg" alt="Groom illustration"><p class="overline" data-i18n="groomFamily">THE GROOM’S FAMILY</p><h3>Poojan Thumar</h3><p data-i18n="sonOf">Son of</p><strong>Asmita Thumar <span>&amp;</span> Sanjay Thumar</strong></article>
       </div>
     </section>
 
     <section class="reveal-section motion-section" id="save-the-date">
       <div class="section-heading reveal-on-scroll"><p class="overline" data-i18n="revealPrelude">A LITTLE SURPRISE</p><h2 data-i18n="revealHeading">Scratch to reveal the celebration</h2><p data-i18n="revealIntro">A date and a place worth uncovering.</p></div>
       <div class="scratch-grid">
-        <article class="scratch-card" data-scratch="date"><div class="scratch-under"><p class="overline" data-i18n="saveDate">SAVE THE DATE</p><strong>12—13</strong><p data-i18n="dateReveal">December 2026 · two joyful days</p></div><canvas class="scratch-cover" aria-label="Scratch to reveal the wedding dates"></canvas><button type="button" class="scratch-button" data-i18n="tapRevealDate">Tap to reveal the date</button></article>
-        <article class="scratch-card" data-scratch="venue"><div class="scratch-under"><p class="overline" data-i18n="ourVenue">OUR VENUE</p><strong class="venue-reveal">Praveg Tent City<br>Narmada</strong><p data-i18n="venueReveal">Statue of Unity · Gujarat</p></div><canvas class="scratch-cover" aria-label="Scratch to reveal the venue"></canvas><button type="button" class="scratch-button" data-i18n="tapRevealVenue">Tap to reveal the venue</button></article>
+        <article class="scratch-card" data-scratch="date"><span class="scratch-number">01 /</span><div class="scratch-under"><img class="sf-icon reveal-icon" src="/images/wedding/sf/calendar.png" alt=""><p class="overline" data-i18n="saveDate">SAVE THE DATE</p><strong>12—13</strong><p data-i18n="dateReveal">December 2026 · two joyful days</p></div><canvas class="scratch-cover" aria-label="Scratch to reveal the wedding dates"></canvas><button type="button" class="scratch-button" data-i18n="tapRevealDate">Tap to reveal the date</button></article>
+        <article class="scratch-card" data-scratch="venue"><span class="scratch-number">02 /</span><div class="scratch-under"><img class="sf-icon reveal-icon" src="/images/wedding/sf/location.png" alt=""><p class="overline" data-i18n="ourVenue">OUR VENUE</p><strong class="venue-reveal">Praveg Tent City<br>Narmada</strong><p data-i18n="venueReveal">Statue of Unity · Gujarat</p></div><canvas class="scratch-cover" aria-label="Scratch to reveal the venue"></canvas><button type="button" class="scratch-button" data-i18n="tapRevealVenue">Tap to reveal the venue</button></article>
       </div>
       <div class="detail-actions"><a class="text-link" href="https://www.google.com/maps/search/?api=1&amp;query=Praveg+Tent+City+Narmada+Statue+of+Unity" target="_blank" rel="noopener noreferrer" data-i18n="directions">Get directions ↗</a><a class="text-link" href="/events" data-i18n="viewSchedule">View full schedule ↗</a></div>
     </section>
 
-    <section class="home-events motion-section" id="celebrations">
-      <div class="section-heading reveal-on-scroll"><p class="overline" data-i18n="eventsPrelude">FIVE MOMENTS · ONE CELEBRATION</p><h2 data-i18n="eventsHeading">Every moment has its own colour</h2><p data-i18n="swipeHint">Swipe or scroll through what’s to come.</p></div>
-      <div class="event-carousel" aria-label="Wedding event preview">
-        <a class="preview-card preview-engagement" href="/events#engagement"><span>01 / 12 DEC · 9 AM</span><strong data-i18n="engagement">Engagement</strong><small data-i18n="engagementMood">Golden beginnings</small><i aria-hidden="true">✧</i></a>
-        <a class="preview-card preview-mandvo" href="/events#mandvo"><span>02 / 12 DEC · 1 PM</span><strong data-i18n="mandvo">Mandvo</strong><small data-i18n="mandvoMood">Auspicious blessings</small><i aria-hidden="true">✺</i></a>
-        <a class="preview-card preview-haldi" href="/events#haldi"><span>03 / 12 DEC · 4 PM</span><strong data-i18n="haldi">Haldi</strong><small data-i18n="haldiMood">Colour and laughter</small><i aria-hidden="true">✿</i></a>
-        <a class="preview-card preview-sangeet" href="/events#sangeet"><span>04 / 12 DEC · 9 PM</span><strong data-i18n="sangeet">Sangeet</strong><small data-i18n="sangeetMood">Bollywood nights</small><i aria-hidden="true">✦</i></a>
-        <a class="preview-card preview-wedding" href="/events#wedding"><span>05 / 13 DEC · 8 AM</span><strong data-i18n="wedding">Wedding</strong><small data-i18n="weddingMood">A beautiful beginning</small><i aria-hidden="true">❋</i></a>
-      </div>
-      <a class="button button-primary" href="/events" data-i18n="discoverJourney">Discover the full journey</a>
-    </section>
-
-    <section class="closing-section motion-section"><div class="closing-flower" aria-hidden="true">✺</div><p class="overline" data-i18n="closingPrelude">YOUR PRESENCE IS OUR GREATEST GIFT</p><h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2><p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p><div class="closing-actions"><a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a><a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a></div></section>
+    <section class="closing-section motion-section"><div class="closing-monogram logo-crop" aria-hidden="true"><img src="/images/wedding/logo-1f.png" alt=""></div><p class="overline" data-i18n="closingPrelude">YOUR PRESENCE IS OUR GREATEST GIFT</p><h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2><p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p><div class="closing-actions"><a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a><a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a></div></section>
   </main>
   <div th:replace="~{wedding/fragments/site :: footer}"></div>
   <div th:replace="~{wedding/fragments/forms :: rsvpDialog}"></div>

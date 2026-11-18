@@ -14,6 +14,7 @@
     localStorage.setItem('weddingLanguage', next);
     document.documentElement.lang = next;
     if (select) select.value = next;
+    document.querySelectorAll('[data-current-language]').forEach(node => node.textContent = {en:'EN',hi:'हिं',gu:'ગુ'}[next]);
     document.querySelectorAll('[data-language-choice]').forEach(button => {
       button.classList.toggle('is-selected', button.dataset.languageChoice === next);
       button.setAttribute('aria-pressed', String(button.dataset.languageChoice === next));
@@ -47,7 +48,10 @@
       toggle.hidden = reduced.matches;
       toggle.setAttribute('aria-pressed', String(motionPaused));
       toggle.setAttribute('aria-label', locale?.text(motionPaused ? 'resumeMotion' : 'pauseMotion', language) || (motionPaused ? 'Resume motion' : 'Pause motion'));
-      toggle.textContent = motionPaused ? '▷' : 'Ⅱ';
+      toggle.replaceChildren();
+      const icon = document.createElement('img'); icon.className = 'sf-icon'; icon.alt = '';
+      icon.src = '/images/wedding/sf/' + (motionPaused ? 'play.fill' : 'pause.fill') + '.png';
+      toggle.append(icon);
     }
     document.dispatchEvent(new Event('wedding:motion'));
     requestRender();
@@ -63,7 +67,8 @@
     content.hidden = false;
     cover.hidden = true;
     cover.classList.remove('is-opening');
-    sessionStorage.setItem('weddingOpened', 'true');
+    sessionStorage.setItem('weddingOpenedPastel', 'true');
+    document.querySelector('#invitation')?.focus({ preventScroll:true });
     const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
     if (target) target.scrollIntoView({ behavior: 'instant' });
     else window.scrollTo({ top: 0, behavior: 'instant' });
@@ -74,7 +79,7 @@
     if (!cover || !content || cover.classList.contains('is-opening')) return;
     if (instant || reduced.matches) { finishOpening(); return; }
     cover.classList.add('is-opening');
-    window.setTimeout(finishOpening, 740);
+    window.setTimeout(finishOpening, 1700);
   }
   const sections = [...document.querySelectorAll('.motion-section')];
   function renderHomeMotion() {
@@ -104,7 +109,9 @@
     const button = card.querySelector('.scratch-button');
     const ctx = canvas?.getContext('2d');
     if (!ctx) { if (canvas) canvas.hidden = true; return; }
-    let done = false, drawing = false, previous = null, cleared = 0;
+    let done = false, drawing = false, previous = null;
+    const emblem = new Image(); emblem.src = '/images/wedding/sf/' + (card.dataset.scratch === 'date' ? 'calendar' : 'location') + '.png';
+    emblem.onload = () => paint();
     let width = 0, height = 0;
     const reveal = () => {
       done = true;
@@ -121,14 +128,19 @@
       canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
       const shine = ctx.createLinearGradient(0, 0, width, height);
-      shine.addColorStop(0, '#c7a371'); shine.addColorStop(.5, '#f0deb5'); shine.addColorStop(1, '#b88b56');
+      shine.addColorStop(0, '#edd3da'); shine.addColorStop(.5, '#f5e5e8'); shine.addColorStop(1, '#dfbac6');
       ctx.fillStyle = shine; ctx.fillRect(0, 0, width, height);
-      ctx.strokeStyle = '#ffffff70'; ctx.lineWidth = 1;
-      for (let x = 16; x < width; x += 26) for (let y = 16; y < height; y += 26) { ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.stroke(); }
-      ctx.fillStyle = '#684a31'; ctx.textAlign = 'center'; ctx.font = 'italic 34px Georgia';
-      ctx.fillText('✦', width / 2, height / 2 - 42);
-      ctx.font = '600 14px sans-serif';
-      ctx.fillText(locale?.text('scratchPrompt', language) || 'SCRATCH TO REVEAL', width / 2, height / 2 + 5);
+      ctx.strokeStyle = '#b58c5066'; ctx.lineWidth = 1;
+      ctx.strokeRect(12, 12, width - 24, height - 24);
+      for (let x = 22; x < width; x += 28) for (let y = 24; y < height; y += 30) {
+        ctx.beginPath(); ctx.arc(x, y, .7, 0, Math.PI * 2); ctx.stroke();
+      }
+      ctx.fillStyle = '#fcf8f3'; ctx.beginPath(); ctx.arc(width/2, height/2-26, 32, 0, Math.PI*2); ctx.fill();
+      if (emblem.complete && emblem.naturalWidth) ctx.drawImage(emblem, width/2-12, height/2-38, 24, 24);
+      ctx.fillStyle = '#703e50'; ctx.textAlign = 'center';
+      ctx.font = '500 12px sans-serif';
+      ctx.fillText(locale?.text('scratchPrompt', language) || 'SCRATCH TO REVEAL', width / 2, height / 2 + 37);
+
     }
     function point(event) { const box = canvas.getBoundingClientRect(); return { x: event.clientX - box.left, y: event.clientY - box.top }; }
     function erase(a, b) {
@@ -142,10 +154,16 @@
     });
     canvas.addEventListener('pointermove', event => {
       if (!drawing || done) return;
-      const next = point(event); erase(previous, next); previous = next; cleared++;
-      if (cleared > 18) reveal();
+      const next = point(event); erase(previous, next); previous = next;
     });
-    canvas.addEventListener('pointerup', () => { drawing = false; });
+    canvas.addEventListener('pointerup', () => {
+      drawing = false;
+      if (done) return;
+      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
+      let clear = 0, samples = 0;
+      for (let i = 3; i < pixels.length; i += 64) { samples++; if (pixels[i] < 100) clear++; }
+      if (clear / samples > .3) reveal();
+    });
     canvas.addEventListener('pointercancel', () => { drawing = false; });
     button.addEventListener('click', reveal);
     new ResizeObserver(paint).observe(canvas);
@@ -185,9 +203,19 @@
     });
   });
   if (cover && content) {
-    if (sessionStorage.getItem('weddingOpened') === 'true' || location.hash) finishOpening();
-    cover.querySelector('[data-open-cover]')?.addEventListener('click', () => openCover());
+    if (sessionStorage.getItem('weddingOpenedPastel') === 'true' || location.hash) finishOpening();
+    cover.querySelectorAll('[data-open-cover]').forEach(button => button.addEventListener('click', () => openCover()));
     cover.querySelector('[data-skip-cover]')?.addEventListener('click', () => openCover(true));
   }
+  const languageDialog = document.querySelector('.language-dialog');
+  const languageDone = () => {
+    localStorage.setItem('weddingWelcomePastel', 'true');
+    languageDialog?.close();
+    (cover && !cover.hidden ? cover.querySelector('[data-open-cover]') : document.querySelector('[data-language-popup]'))?.focus();
+  };
+  document.querySelectorAll('[data-language-popup]').forEach(button => button.addEventListener('click', () => languageDialog?.showModal()));
+  document.querySelectorAll('[data-language-done]').forEach(button => button.addEventListener('click', languageDone));
+  languageDialog?.addEventListener('cancel', event => { event.preventDefault(); languageDone(); });
+  if (cover && !cover.hidden && !localStorage.getItem('weddingWelcomePastel')) languageDialog?.showModal();
   updateMotionPreference();
 })();
