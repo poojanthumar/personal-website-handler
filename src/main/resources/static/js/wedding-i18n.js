@@ -43,6 +43,9 @@
   Object.assign(dynamic.en, { coverTitle:'A little envelope. A lifetime of love.', coverSubtitle:'Choose the language you feel at home in.', openInvitation:'Open invite', chooseLanguageTitle:'Make yourself at home.', continueInvite:'Continue' });
   Object.assign(translations.hi, { coverTitle:'एक निमंत्रण। जीवन भर का साथ।', coverSubtitle:'अपनी पसंद की भाषा चुनें।', openInvitation:'निमंत्रण खोलें', chooseLanguageTitle:'आपका स्वागत है।', continueInvite:'आगे बढ़ें' });
   Object.assign(translations.gu, { coverTitle:'એક આમંત્રણ. જીવનભરનો સાથ.', coverSubtitle:'તમારી પસંદની ભાષા પસંદ કરો.', openInvitation:'આમંત્રણ ખોલો', chooseLanguageTitle:'તમારું સ્વાગત છે.', continueInvite:'આગળ વધો' });
+  Object.assign(dynamic.en, { replayInvite:'Replay invitation', openInvitation:'Open invitation', directions:'Get directions', viewSchedule:'View full schedule' });
+  Object.assign(translations.hi, { replayInvite:'निमंत्रण फिर देखें', openInvitation:'निमंत्रण खोलें', directions:'रास्ता देखें', viewSchedule:'पूरा कार्यक्रम देखें' });
+  Object.assign(translations.gu, { replayInvite:'આમંત્રણ ફરી જુઓ', openInvitation:'આમંત્રણ ખોલો', directions:'રસ્તો જુઓ', viewSchedule:'સંપૂર્ણ કાર્યક્રમ જુઓ' });
   const metadata = {
     home: { hi: ['धृति और पूजन · विवाह निमंत्रण', '१२–१३ दिसंबर २०२६ को नर्मदा में हमारे विवाह उत्सव में शामिल हों।'], gu: ['ધૃતિ અને પૂજન · લગ્ન આમંત્રણ', '૧૨–૧૩ ડિસેમ્બર ૨૦૨૬ના રોજ નર્મદા ખાતે અમારી લગ્ન ઉજવણીમાં જોડાઓ.'] },
     events: { hi: ['समारोह · धृति और पूजन', '१२–१३ दिसंबर २०२६ के विवाह समारोहों की जानकारी।'], gu: ['પ્રસંગો · ધૃતિ અને પૂજન', '૧૨–૧૩ ડિસેમ્બર ૨૦૨૬ના લગ્ન પ્રસંગોની માહિતી.'] },

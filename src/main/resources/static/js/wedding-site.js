@@ -62,25 +62,34 @@
 
   const cover = document.querySelector('.invite-cover');
   const content = document.querySelector('#site-content');
+  let openingTimer;
   function finishOpening() {
     if (!cover || !content) return;
+    window.clearTimeout(openingTimer);
     content.hidden = false;
+    content.inert = false;
     cover.hidden = true;
-    cover.classList.remove('is-opening');
-    sessionStorage.setItem('weddingOpenedPastel', 'true');
-    document.querySelector('#invitation')?.focus({ preventScroll:true });
+    document.body.classList.remove('invite-in-motion');
+    sessionStorage.setItem('weddingCurtainOpened', 'true');
     const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
     if (target) target.scrollIntoView({ behavior: 'instant' });
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-    requestRender();
-    paintScratchers();
+    else { window.scrollTo({ top: 0, behavior: 'instant' }); document.querySelector('#invitation')?.focus({ preventScroll:true }); }
+    requestRender(); paintScratchers();
   }
   function openCover(instant = false) {
-    if (!cover || !content || cover.classList.contains('is-opening')) return;
+    if (!cover || !content || cover.classList.contains('is-illuminated')) return;
     if (instant || reduced.matches) { finishOpening(); return; }
-    cover.classList.add('is-opening');
-    window.setTimeout(finishOpening, 1700);
+    content.hidden = false;
+    content.inert = true;
+    window.scrollTo({ top:0, behavior:'instant' });
+    document.body.classList.add('invite-in-motion');
+    cover.classList.add('is-illuminated');
+    window.setTimeout(() => cover.classList.add('is-opening'), 950);
+    openingTimer = window.setTimeout(finishOpening, 3550);
   }
+  reduced.addEventListener('change', () => {
+    if (reduced.matches && cover?.classList.contains('is-illuminated')) finishOpening();
+  });
   const sections = [...document.querySelectorAll('.motion-section')];
   function renderHomeMotion() {
     framePending = false;
@@ -110,7 +119,7 @@
     const ctx = canvas?.getContext('2d');
     if (!ctx) { if (canvas) canvas.hidden = true; return; }
     let done = false, drawing = false, previous = null;
-    const emblem = new Image(); emblem.src = '/images/wedding/sf/' + (card.dataset.scratch === 'date' ? 'calendar' : 'location') + '.png';
+    const emblem = new Image(); emblem.src = '/images/wedding/sf/' + (card.dataset.scratch === 'date' ? 'calendar' : 'mappin.and.ellipse') + '.png';
     emblem.onload = () => paint();
     let width = 0, height = 0;
     const reveal = () => {
@@ -202,20 +211,23 @@
       } finally { form.dataset.sending = 'false'; }
     });
   });
-  if (cover && content) {
-    if (sessionStorage.getItem('weddingOpenedPastel') === 'true' || location.hash) finishOpening();
-    cover.querySelectorAll('[data-open-cover]').forEach(button => button.addEventListener('click', () => openCover()));
-    cover.querySelector('[data-skip-cover]')?.addEventListener('click', () => openCover(true));
-  }
+  if (cover && content && ((sessionStorage.getItem('weddingCurtainOpened') === 'true' && !new URLSearchParams(location.search).has('intro')) || location.hash)) finishOpening();
   const languageDialog = document.querySelector('.language-dialog');
-  const languageDone = () => {
-    localStorage.setItem('weddingWelcomePastel', 'true');
-    languageDialog?.close();
-    (cover && !cover.hidden ? cover.querySelector('[data-open-cover]') : document.querySelector('[data-language-popup]'))?.focus();
+  let closingLanguage = false;
+  const languageDone = (skip = false) => {
+    if (closingLanguage || !languageDialog?.open) return;
+    closingLanguage = true;
+    languageDialog.classList.add('is-leaving');
+    const leave = () => {
+      languageDialog.close(); languageDialog.classList.remove('is-leaving'); closingLanguage = false;
+      if (cover && !cover.hidden) openCover(skip);
+      else document.querySelector('[data-language-popup]')?.focus();
+    };
+    if (reduced.matches) leave(); else window.setTimeout(leave, 380);
   };
   document.querySelectorAll('[data-language-popup]').forEach(button => button.addEventListener('click', () => languageDialog?.showModal()));
-  document.querySelectorAll('[data-language-done]').forEach(button => button.addEventListener('click', languageDone));
-  languageDialog?.addEventListener('cancel', event => { event.preventDefault(); languageDone(); });
-  if (cover && !cover.hidden && !localStorage.getItem('weddingWelcomePastel')) languageDialog?.showModal();
+  document.querySelectorAll('[data-language-done]').forEach(button => button.addEventListener('click', () => languageDone(button.classList.contains('language-close'))));
+  languageDialog?.addEventListener('cancel', event => { event.preventDefault(); languageDone(true); });
+  if (cover && !cover.hidden) languageDialog?.showModal();
   updateMotionPreference();
 })();
