@@ -84,8 +84,8 @@
     window.scrollTo({ top:0, behavior:'instant' });
     document.body.classList.add('invite-in-motion');
     cover.classList.add('is-illuminated');
-    window.setTimeout(() => cover.classList.add('is-opening'), 950);
-    openingTimer = window.setTimeout(finishOpening, 3550);
+    window.setTimeout(() => cover.classList.add('is-opening'), 1700);
+    openingTimer = window.setTimeout(finishOpening, 4450);
   }
   reduced.addEventListener('change', () => {
     if (reduced.matches && cover?.classList.contains('is-illuminated')) finishOpening();
@@ -113,70 +113,90 @@
 
   const scratchers = [];
   function paintScratchers() { scratchers.forEach(paint => paint()); }
+  function celebrate(stage) {
+    if (!stage || reduced.matches || motionPaused) return;
+    const shower = document.createElement('div');
+    shower.className = 'celebration-confetti'; shower.setAttribute('aria-hidden', 'true');
+    const colours = ['#b99152', '#e0b5c0', '#fff9e9', '#8e5267', '#d9be7e'];
+    for (let i = 0; i < 64; i++) {
+      const petal = document.createElement('i');
+      petal.style.setProperty('--x', `${Math.random() * 100}%`);
+      petal.style.setProperty('--drift', `${Math.random() * 180 - 90}px`);
+      petal.style.setProperty('--fall', `${stage.offsetHeight + 170}px`);
+      petal.style.setProperty('--delay', `${Math.random() * .65}s`);
+      petal.style.setProperty('--duration', `${3.2 + Math.random() * 1.6}s`);
+      petal.style.setProperty('--spin', `${Math.random() * 720 - 360}deg`);
+      petal.style.background = colours[i % colours.length];
+      shower.append(petal);
+    }
+    stage.append(shower);
+    window.setTimeout(() => shower.remove(), 5600);
+  }
   document.querySelectorAll('[data-scratch]').forEach(card => {
     const canvas = card.querySelector('canvas');
     const button = card.querySelector('.scratch-button');
-    const ctx = canvas?.getContext('2d');
+    const ctx = canvas?.getContext('2d', { willReadFrequently:true });
     if (!ctx) { if (canvas) canvas.hidden = true; return; }
-    let done = false, drawing = false, previous = null;
-    const emblem = new Image(); emblem.src = '/images/wedding/sf/' + (card.dataset.scratch === 'date' ? 'calendar' : 'mappin.and.ellipse') + '.png';
-    emblem.onload = () => paint();
-    let width = 0, height = 0;
-    const reveal = () => {
-      done = true;
-      card.classList.add('is-revealed');
-      button.setAttribute('aria-expanded', 'true');
-      button.textContent = locale?.text('revealed', language) || 'Revealed';
-    };
+    let done = false, drawing = false, previous = null, width = 0, height = 0;
+    let foilSamples = [];
+    function heartPath() {
+      ctx.beginPath(); ctx.moveTo(width * .5, height * .945);
+      ctx.bezierCurveTo(width*.43,height*.872,width*.06,height*.627,width*.03,height*.34);
+      ctx.bezierCurveTo(width*.008,height*.11,width*.28,height*.015,width*.5,height*.224);
+      ctx.bezierCurveTo(width*.72,height*.015,width*.992,height*.11,width*.97,height*.34);
+      ctx.bezierCurveTo(width*.94,height*.627,width*.57,height*.872,width*.5,height*.945);
+      ctx.closePath();
+    }
     function paint() {
       if (done) return;
       const bounds = canvas.getBoundingClientRect();
       if (!bounds.width || !bounds.height) return;
-      const ratio = Math.min(devicePixelRatio || 1, 2);
       width = bounds.width; height = bounds.height;
+      const ratio = Math.min(devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      const shine = ctx.createLinearGradient(0, 0, width, height);
-      shine.addColorStop(0, '#edd3da'); shine.addColorStop(.5, '#f5e5e8'); shine.addColorStop(1, '#dfbac6');
-      ctx.fillStyle = shine; ctx.fillRect(0, 0, width, height);
-      ctx.strokeStyle = '#b58c5066'; ctx.lineWidth = 1;
-      ctx.strokeRect(12, 12, width - 24, height - 24);
-      for (let x = 22; x < width; x += 28) for (let y = 24; y < height; y += 30) {
-        ctx.beginPath(); ctx.arc(x, y, .7, 0, Math.PI * 2); ctx.stroke();
-      }
-      ctx.fillStyle = '#fcf8f3'; ctx.beginPath(); ctx.arc(width/2, height/2-26, 32, 0, Math.PI*2); ctx.fill();
-      if (emblem.complete && emblem.naturalWidth) ctx.drawImage(emblem, width/2-12, height/2-38, 24, 24);
-      ctx.fillStyle = '#703e50'; ctx.textAlign = 'center';
-      ctx.font = '500 12px sans-serif';
-      ctx.fillText(locale?.text('scratchPrompt', language) || 'SCRATCH TO REVEAL', width / 2, height / 2 + 37);
-
+      ctx.setTransform(ratio,0,0,ratio,0,0);
+      const foil = ctx.createLinearGradient(0,0,width,height);
+      foil.addColorStop(0,'#f4dfe5'); foil.addColorStop(.28,'#d6a9b7');
+      foil.addColorStop(.5,'#f0d5dd'); foil.addColorStop(.73,'#cf9fae'); foil.addColorStop(1,'#edcfd9');
+      heartPath(); ctx.fillStyle=foil; ctx.fill(); ctx.strokeStyle='#b9955c'; ctx.lineWidth=1.5; ctx.stroke();
+      ctx.save(); ctx.clip();
+      ctx.strokeStyle='#b58b4a40';
+      for (let y=28;y<height;y+=20) { ctx.beginPath();ctx.moveTo(0,y);ctx.lineTo(width,y-width*.35);ctx.stroke(); }
+      ctx.restore();
+      ctx.fillStyle='#793f53'; ctx.textAlign='center';
+      ctx.font=`italic ${Math.max(25,width*.064)}px Georgia`;
+      ctx.fillText('D & P',width*.5,height*.43);
+      ctx.font=`500 ${Math.max(11,width*.027)}px sans-serif`;
+      ctx.fillText(locale?.text('heartScratch',language)||'SCRATCH TO REVEAL',width*.5,height*.54);
+      const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      foilSamples=[];
+      for(let i=3;i<pixels.length;i+=64) if(pixels[i]>160) foilSamples.push(i);
     }
-    function point(event) { const box = canvas.getBoundingClientRect(); return { x: event.clientX - box.left, y: event.clientY - box.top }; }
-    function erase(a, b) {
-      ctx.globalCompositeOperation = 'destination-out'; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 42;
-      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    function reveal() {
+      if(done) return;
+      done=true; card.classList.add('is-revealed');
+      canvas.setAttribute('aria-hidden','true');
+      button.setAttribute('aria-expanded','true');
+      button.textContent=locale?.text('revealed',language)||'Revealed';
+      celebrate(card.closest('.heart-stage'));
     }
-    canvas.addEventListener('pointerdown', event => {
-      if (done) return;
-      drawing = true; previous = point(event); canvas.setPointerCapture(event.pointerId);
-      erase(previous, { x: previous.x + 1, y: previous.y + 1 });
+    const point=event=>{const box=canvas.getBoundingClientRect();return {x:event.clientX-box.left,y:event.clientY-box.top};};
+    function erase(a,b) {
+      ctx.globalCompositeOperation='destination-out';ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=Math.max(30,width*.09);
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    }
+    canvas.addEventListener('pointerdown',event=>{
+      if(done)return;drawing=true;previous=point(event);canvas.setPointerCapture(event.pointerId);erase(previous,{x:previous.x+1,y:previous.y+1});
     });
-    canvas.addEventListener('pointermove', event => {
-      if (!drawing || done) return;
-      const next = point(event); erase(previous, next); previous = next;
+    canvas.addEventListener('pointermove',event=>{if(!drawing||done)return;const next=point(event);erase(previous,next);previous=next;});
+    canvas.addEventListener('pointerup',()=>{
+      drawing=false;if(done||!foilSamples.length)return;
+      const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      if(foilSamples.filter(i=>pixels[i]<100).length/foilSamples.length>.3)reveal();
     });
-    canvas.addEventListener('pointerup', () => {
-      drawing = false;
-      if (done) return;
-      const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height).data;
-      let clear = 0, samples = 0;
-      for (let i = 3; i < pixels.length; i += 64) { samples++; if (pixels[i] < 100) clear++; }
-      if (clear / samples > .3) reveal();
-    });
-    canvas.addEventListener('pointercancel', () => { drawing = false; });
-    button.addEventListener('click', reveal);
-    new ResizeObserver(paint).observe(canvas);
-    scratchers.push(paint);
+    canvas.addEventListener('pointercancel',()=>drawing=false);
+    button.addEventListener('click',reveal);
+    new ResizeObserver(paint).observe(canvas);scratchers.push(paint);
   });
 
   const dialog = document.querySelector('.rsvp-dialog');

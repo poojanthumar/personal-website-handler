@@ -63,3 +63,71 @@ body.invite-in-motion { overflow:hidden; }
 body.invite-in-motion { overflow:hidden; }
 .language-dialog>.button { display:flex; align-items:center; justify-content:center; gap:10px; }
 .language-dialog>.button .sf-icon { width:17px; height:17px; filter:brightness(0) invert(1); }
+/* Photographic floral styling. The assets retain their generated alpha. */
+.hero-garland-art,.curtain-garland { width:100%; height:auto; object-fit:contain; top:0; left:0; min-width:0; translate:none; transform-origin:50% 0; filter:drop-shadow(0 5px 5px #967a4520); }
+.hero-garland-art { animation:floral-breeze 8s ease-in-out infinite alternate; }
+.home-hero { padding-top:clamp(165px,20vw,250px); }
+.hero-diya { width:clamp(75px,10vw,140px); bottom:24px; }
+.hero-diya img { filter:drop-shadow(0 5px 8px #88663118); animation:diya-warmth 2.1s ease-in-out infinite alternate; }
+.hero-diya::before { inset:2% 10% 35%; background:radial-gradient(ellipse,#ffdb8b42,transparent 65%); animation:diya-warmth 1.4s infinite alternate; }
+.hero-diya::after { content:''; position:absolute; top:16%; left:47%; width:10%; height:16%; background:radial-gradient(ellipse,#fffbd6cc,#ffd97522 45%,transparent 72%); transform-origin:50% 100%; mix-blend-mode:screen; animation:wick-flicker 1.3s ease-in-out infinite alternate; }
+@keyframes floral-breeze { from {transform:rotate(-.25deg) translateY(0)} to {transform:rotate(.25deg) translateY(2px)} }
+@keyframes diya-warmth { from {opacity:.88} to {opacity:1} }
+@keyframes wick-flicker { 0% {transform:scale(.9,1.05) skewX(-4deg);opacity:.55} 55% {transform:scale(1,1.1) skewX(3deg);opacity:1} 100% {transform:scale(.92,.95) skewX(-2deg);opacity:.8} }
+.story-section { display:block; min-height:0; padding:100px 24px; text-align:center; }
+.story-copy { max-width:800px; margin:auto; }
+.story-copy h2 { max-width:650px; margin:20px auto 26px; }
+.story-copy p:not(.overline):not(.signature) { max-width:720px; margin:auto; }
+.story-copy .signature { margin-top:25px; }
+.family-still-life { position:relative; width:260px; height:205px; margin:0 auto 24px; overflow:hidden; }
+.family-still-life img { position:absolute; width:200%; height:auto; max-width:none; top:50%; transform:translateY(-50%); }
+.bride-still-life img { left:0; }.groom-still-life img { right:0; }
+/* A moving white-hot corona sits behind, rather than across, the DP monogram. */
+.curtain-identity { isolation:isolate; }
+.logo-halo { width:clamp(290px,44vw,440px); height:auto; aspect-ratio:1; top:-55px; left:50%; translate:-50% 0; z-index:-1; opacity:0; transform:none; background:radial-gradient(circle,transparent 25%,#fff7cf80 31%,#ffe5a54d 40%,transparent 70%); filter:none; }
+.logo-halo::before { content:''; position:absolute; inset:-18%; background:repeating-conic-gradient(from 15deg,transparent 0deg 8deg,#fff8d58c 10deg 12deg,transparent 14deg 30deg); mask:radial-gradient(circle,transparent 24%,#000 31%,#0006 45%,transparent 66%); -webkit-mask:radial-gradient(circle,transparent 24%,#000 31%,#0006 45%,transparent 66%); filter:blur(3px); }
+.logo-halo::after { content:''; position:absolute; top:4%; left:36%; width:28%; height:28%; border-radius:50%; transform-origin:50% 165%; background:radial-gradient(circle,#fff 0%,#fffbe6 8%,#fff2bdde 19%,#ffdc7680 35%,transparent 68%); filter:drop-shadow(0 0 25px #fff1bc); }
+.curtain-cover.is-illuminated .logo-halo { animation:eclipse-bloom 2.7s ease both; }
+.curtain-cover.is-illuminated .logo-halo::before { animation:eclipse-rays 3.1s linear both; }
+.curtain-cover.is-illuminated .logo-halo::after { animation:eclipse-orbit 2.7s cubic-bezier(.2,.6,.6,1) both; }
+.curtain-cover.is-illuminated .curtain-logo { animation:eclipse-edge 2.7s ease both; }
+.curtain-cover.is-illuminated .curtain-logo::after { animation:none; opacity:0; }
+@keyframes eclipse-bloom { 0% {opacity:0;scale:.8} 28% {opacity:.75;scale:1} 62% {opacity:1;scale:1.15} 100% {opacity:.25;scale:1.4} }
+@keyframes eclipse-rays { from {rotate:-20deg} to {rotate:48deg} }
+@keyframes eclipse-orbit { 0% {transform:rotate(-110deg) scale(.7)} 30% {transform:rotate(0deg) scale(1.35)} 62% {transform:rotate(115deg) scale(1.15)} 100% {transform:rotate(230deg) scale(.8)} }
+@keyframes eclipse-edge { 0% {filter:none} 45% {filter:drop-shadow(-5px 0 6px #fff1c9) drop-shadow(0 0 35px #f7d787)} 75% {filter:drop-shadow(7px 0 10px #fff5d8)} 100% {filter:none} }
+/* A single heart holds both details. Its particle layer belongs to this section. */
+.reveal-section { overflow:hidden; }
+.heart-stage { position:relative; max-width:760px; margin:30px auto 0; }
+.heart-surface { position:relative; width:min(560px,100%); aspect-ratio:1; margin:auto; }
+.heart-paper,.heart-foil { position:absolute; inset:0; width:100%; height:100%; }
+.heart-paper { fill:#fcf8f3; stroke:#b58b4a88; stroke-width:2; filter:drop-shadow(0 10px 15px #814f6010); }
+.heart-details { position:absolute; top:30%; left:18%; right:18%; bottom:20%; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:4px; text-align:center; }
+.heart-details .overline { font-size:.62rem; }
+.heart-details strong { font:400 clamp(2rem,5vw,3.4rem) 'Playfair Display',serif; color:var(--wine); line-height:1.25; }
+.heart-month { font-size:1rem; color:var(--wine); }
+.heart-rule { width:45px; height:1px; background:var(--gold); margin:9px 0; }
+.heart-venue { font:500 clamp(.9rem,2.4vw,1.25rem) 'Playfair Display',serif; color:var(--wine); line-height:1.4; }
+.heart-location { font-size:.75rem; color:var(--muted); }
+.heart-foil { touch-action:none; cursor:crosshair; transition:opacity .8s ease; }
+.heart-stage .scratch-button { display:block; margin:-12px auto 8px; border:1px solid #b58b4a66; padding:10px 22px; border-radius:999px; background:#fcf8f3; position:relative; z-index:2; }
+.heart-stage .scratch-button::after { display:none; }
+.heart-stage .is-revealed .heart-foil { opacity:0; pointer-events:none; }
+.heart-hint { text-align:center; font-size:.8rem; color:var(--muted); }
+.celebration-confetti { position:absolute; z-index:8; top:-80px; left:-8%; right:-8%; bottom:-80px; pointer-events:none; overflow:visible; }
+.celebration-confetti i { position:absolute; top:0; left:var(--x); width:7px; height:12px; border-radius:2px 8px 2px 8px; opacity:0; animation:confetti-drift var(--duration) var(--delay) ease-out both; }
+@keyframes confetti-drift { 0% {opacity:0;transform:translate(0,0) rotate(0deg)} 10% {opacity:1} 75% {opacity:.9} 100% {opacity:0;transform:translate(var(--drift),var(--fall)) rotate(var(--spin))} }
+@media(max-width:760px) {
+ .hero-garland-art,.curtain-garland { width:100%; height:auto; left:0; min-width:0; translate:none; }
+ .home-hero { padding:160px 26px 140px; }
+ .hero-diya { width:75px; bottom:15px; }
+ .diya-left { left:22px; }.diya-right { right:22px; }
+ .story-section { padding:75px 24px; }
+ .family-still-life { width:240px; height:190px; }
+ .heart-details { left:17%;right:17%;top:31%;bottom:20%; gap:2px; }
+ .heart-details .overline { font-size:.5rem;letter-spacing:.16em; }
+ .heart-details strong { font-size:2rem; }.heart-month { font-size:.8rem; }
+ .heart-rule { margin:6px 0; }.heart-venue { font-size:.95rem; }.heart-location { font-size:.61rem; }
+ .logo-halo { top:-34px; }
+}
+@media(prefers-reduced-motion:reduce) { .hero-garland-art,.hero-diya img,.hero-diya::before,.hero-diya::after,.heart-foil { animation:none!important;transition:none!important; } }
