@@ -76,19 +76,33 @@
     else { window.scrollTo({ top: 0, behavior: 'instant' }); document.querySelector('#invitation')?.focus({ preventScroll:true }); }
     requestRender(); paintScratchers();
   }
-  function openCover(instant = false) {
-    if (!cover || !content || cover.classList.contains('is-illuminated')) return;
-    if (instant || reduced.matches) { finishOpening(); return; }
-    content.hidden = false;
-    content.inert = true;
-    window.scrollTo({ top:0, behavior:'instant' });
-    document.body.classList.add('invite-in-motion');
-    cover.classList.add('is-illuminated');
-    window.setTimeout(() => cover.classList.add('is-opening'), 1700);
-    openingTimer = window.setTimeout(finishOpening, 4450);
+  const doorFilm = document.querySelector('.door-film');
+  let doorReady = false;
+  function syncDoors() {
+    if (!doorReady || cover.hidden || !doorFilm || doorFilm.readyState < 1) return;
+    const progress = clamp(scrollY / Math.max(1, cover.offsetHeight - innerHeight));
+    const time = progress * Math.min(7.9, doorFilm.duration || 7.9);
+    if (!doorFilm.seeking && Math.abs(doorFilm.currentTime-time) > .035) doorFilm.currentTime = time;
+    cover.style.setProperty('--door-progress', progress);
+    if (progress >= .98) sessionStorage.setItem('weddingCurtainOpened','true');
   }
+  function openCover(instant = false) {
+    if (!cover || !content || doorReady) return;
+    if (instant || reduced.matches || motionPaused) { finishOpening(); return; }
+    content.hidden = false;
+    content.inert = false;
+    cover.setAttribute('aria-hidden','false');
+    window.scrollTo({top:0,behavior:'instant'});
+    doorReady = true;
+    syncDoors();
+    paintScratchers();
+  }
+  addEventListener('scroll',syncDoors,{passive:true});
+  doorFilm?.addEventListener('loadedmetadata',syncDoors);
+  doorFilm?.addEventListener('seeked',syncDoors);
+  document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
-    if (reduced.matches && cover?.classList.contains('is-illuminated')) finishOpening();
+    if (reduced.matches && doorReady) finishOpening();
   });
   const sections = [...document.querySelectorAll('.motion-section')];
   function renderHomeMotion() {
@@ -143,16 +157,7 @@
     let done = false, drawing = false, previous = null, width = 0, height = 0;
     let foilSamples = [];
     function heartPath() {
-      ctx.beginPath();ctx.moveTo(width*.09,height*.93);ctx.lineTo(width*.09,height*.39);
-      ctx.quadraticCurveTo(width*.09,height*.33,width*.16,height*.32);
-      ctx.quadraticCurveTo(width*.15,height*.235,width*.25,height*.235);
-      ctx.quadraticCurveTo(width*.26,height*.16,width*.365,height*.16);
-      ctx.quadraticCurveTo(width*.455,height*.15,width*.5,height*.065);
-      ctx.quadraticCurveTo(width*.545,height*.15,width*.635,height*.16);
-      ctx.quadraticCurveTo(width*.74,height*.16,width*.75,height*.235);
-      ctx.quadraticCurveTo(width*.85,height*.235,width*.84,height*.32);
-      ctx.quadraticCurveTo(width*.91,height*.33,width*.91,height*.39);
-      ctx.lineTo(width*.91,height*.93);ctx.closePath();
+      ctx.beginPath();ctx.roundRect(width*.08,height*.08,width*.84,height*.84,18);ctx.closePath();
     }
     function paint() {
       if (done) return;

@@ -6,7 +6,7 @@
   <title>RSVP · Dhriti &amp; Poojan</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/wedding-home.css"><script src="/js/wedding-i18n.js" defer></script><script src="/js/wedding-site.js" defer></script>
+  <link rel="stylesheet" href="/css/wedding-home.css"><link rel="stylesheet" href="/css/wedding-pastel.css"><link rel="stylesheet" href="/css/wedding-garden.css"><script src="/js/wedding-i18n.js" defer></script><script src="/js/wedding-site.js" defer></script>
 </head>
 <body data-page="rsvp">
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
@@ -14,7 +14,7 @@
 <div th:replace="~{wedding/fragments/site :: languageDialog}"></div>
 <main id="main" class="form-page">
   <p class="form-status" th:if="${saved}" data-i18n="rsvpSaved">Thank you. Your RSVP has been saved.</p><p class="form-status" th:if="${submissionError}" data-i18n="submitError">Please check your details and try again.</p><section class="page-intro rsvp-intro"><p class="overline" data-i18n="rsvpPrelude">WE HOPE TO SEE YOU</p><h1 data-i18n="rsvpTitle">We saved you a place in our hearts.</h1><p data-i18n="rsvpIntro">Let us know whether you can celebrate with us on 12 and 13 December.</p><div class="page-ornament" aria-hidden="true">✺</div></section>
-  <section class="form-layout"><div class="form-aside"><p class="overline" data-i18n="ourCelebration">OUR CELEBRATION</p><h2 data-i18n="rsvpAsideTitle">Every moment, together.</h2><p data-i18n="rsvpAsideText">Your response covers all five celebrations. There is no need to reply separately for each event.</p><div class="date-pill"><span>12 — 13</span><small data-i18n="datePill">DECEMBER 2026</small></div><p>Praveg Tent City Narmada<br>Statue of Unity, Gujarat</p></div><div class="form-paper"><div th:replace="~{wedding/fragments/forms :: rsvpForm}"></div></div></section>
+  <section class="form-layout"><div class="form-aside"><img class="rsvp-invitation-art" src="/images/wedding/garden/invitation.png" alt="Dhriti and Poojan wedding invitation, framed by flowers and a garden mandap"><p class="overline" data-i18n="ourCelebration">OUR CELEBRATION</p><h2 data-i18n="rsvpAsideTitle">Every moment, together.</h2><p data-i18n="rsvpAsideText">Your response covers all five celebrations. There is no need to reply separately for each event.</p><div class="date-pill"><span>12 — 13</span><small data-i18n="datePill">DECEMBER 2026</small></div><p>Praveg Tent City Narmada<br>Statue of Unity, Gujarat</p></div><div class="form-paper"><div th:replace="~{wedding/fragments/forms :: rsvpForm}"></div></div></section>
   <section class="form-after"><p data-i18n="rsvpAfter">Whether you can join us or send your love from afar, we’re grateful you’re part of our story.</p><a href="/events" class="text-link"><img class="sf-icon" src="/images/wedding/sf/list.bullet.png" alt=""><span data-i18n="viewSchedule">View full schedule</span></a></section>
 </main>
 <div th:replace="~{wedding/fragments/site :: footer}"></div>

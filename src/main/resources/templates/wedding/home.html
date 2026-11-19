@@ -16,7 +16,7 @@
   <link rel="stylesheet" href="/css/wedding-pastel.css">
   <script src="/js/wedding-i18n.js" defer></script>
   <script src="/js/wedding-site.js" defer></script>
-  <script src="/js/wedding-silk.js" defer></script>
+  <link rel="stylesheet" href="/css/wedding-garden.css">
   <noscript><style>.invite-cover{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
 </head>
 <body data-page="home">
@@ -25,13 +25,8 @@
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
 
 <div th:replace="~{wedding/fragments/site :: languageDialog}"></div>
-<section class="invite-cover curtain-cover" aria-label="Wedding invitation opening" aria-hidden="true">
-  <div class="curtain-panel curtain-left"><div class="curtain-embroidery"></div></div>
-  <div class="curtain-panel curtain-right"><div class="curtain-embroidery"></div></div>
-  <div class="curtain-valance"></div>
-  <img class="curtain-garland" src="/images/wedding/real/jasmine-marigold.png" alt="">
-  <div class="curtain-identity"><div class="logo-halo"></div><div class="logo-crop curtain-logo"><img src="/images/wedding/logo-1f.png" alt="" width="1246" height="1262"></div><p lang="sa">॥ श्री गणेशाय नमः ॥</p><p class="curtain-prelude" data-i18n="coverPrelude">A CELEBRATION OF TWO FAMILIES</p></div>
-  <div class="curtain-floor-light"></div>
+<section class="invite-cover garden-opening" aria-label="Scroll to open the wedding doors">
+ <div class="door-stage"><video class="door-film" muted playsinline preload="auto" aria-label="Flower-covered wedding doors opening into a garden"><source src="/video/wedding-doors.mp4" type="video/mp4"></video><div class="door-prompt"><p>Every beautiful beginning opens a door.</p><span>Scroll to open</span><button type="button" class="door-skip">Skip opening</button></div></div>
 </section>
 
 <div id="site-content" hidden>
@@ -51,7 +46,6 @@
       </div>
     </section>
 
-    <div class="silk-backdrop silk-transition" aria-hidden="true"><img src="/images/wedding/real/satin-jharokha.png" alt="" loading="lazy"></div>
     <section class="story-section motion-section" id="our-story">
       <div class="story-copy reveal-on-scroll"><span class="story-rule" aria-hidden="true"></span>
         <p class="overline" data-i18n="storyPrelude">FROM OUR HEARTS TO YOURS</p>
@@ -61,7 +55,6 @@
       </div>
     </section>
 
-    <div class="silk-backdrop silk-transition" aria-hidden="true"><img src="/images/wedding/real/satin-jharokha.png" alt="" loading="lazy"></div>
     <section class="parents-section motion-section" id="families">
       <div class="section-heading reveal-on-scroll"><p class="overline" data-i18n="parentsPrelude">WITH LOVE AND BLESSINGS</p><h2 data-i18n="parentsHeading">Blessings of our parents</h2><p data-i18n="parentsIntro">Our families warmly invite you to celebrate with us.</p></div>
       <div class="parents-grid">
@@ -71,15 +64,14 @@
       </div>
     </section>
 
-    <div class="silk-backdrop silk-transition" aria-hidden="true"><img src="/images/wedding/real/satin-jharokha.png" alt="" loading="lazy"></div>
     <section class="reveal-section motion-section" id="save-the-date">
       <div class="section-heading reveal-on-scroll"><p class="overline" data-i18n="revealPrelude">LET THE FESTIVITIES BEGIN</p><h2 data-i18n="revealHeading">Scratch to reveal the celebration</h2><p data-i18n="revealIntro">A little shagun. A shower of petals. Two days of joy.</p></div>
       <div class="heart-stage"><img class="reveal-toran" src="/images/wedding/real/jasmine-marigold.png" alt="">
         <article class="heart-reveal" data-scratch="celebration">
           <div class="heart-surface">
-            <svg class="heart-paper" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><defs><pattern id="reveal-lattice" width="80" height="100" patternUnits="userSpaceOnUse"><path d="M0 100V50Q0 20 40 0Q80 20 80 50V100" fill="none" stroke="#B89B67" stroke-opacity=".16" stroke-width="1.5"/></pattern><radialGradient id="reveal-wash"><stop stop-color="#FAF7F2"/><stop offset="1" stop-color="#EEDDE3"/></radialGradient></defs><path style="fill:url(#reveal-wash)" d="M90 930 V390 Q90 330 160 320 Q150 235 250 235 Q260 160 365 160 Q455 150 500 65 Q545 150 635 160 Q740 160 750 235 Q850 235 840 320 Q910 330 910 390 V930Z"/><path fill="url(#reveal-lattice)" style="fill:url(#reveal-lattice);stroke:none" d="M90 930 V390 Q90 330 160 320 Q150 235 250 235 Q260 160 365 160 Q455 150 500 65 Q545 150 635 160 Q740 160 750 235 Q850 235 840 320 Q910 330 910 390 V930Z"/></svg>
+            <svg class="heart-paper" viewBox="0 0 1000 1000" aria-hidden="true"><defs><clipPath id="garden-card"><rect x="80" y="80" width="840" height="840" rx="24"/></clipPath></defs><image href="/images/wedding/garden/envelope.png" x="80" y="80" width="840" height="840" preserveAspectRatio="xMidYMid slice" clip-path="url(#garden-card)"/><rect x="80" y="80" width="840" height="840" rx="24" fill="#fffaf0" fill-opacity=".45" stroke="#a17d30"/></svg>
             <div class="heart-details"><p class="overline" data-i18n="saveDate">SAVE THE DATE</p><strong>12 &amp; 13</strong><p class="heart-month" data-i18n="heartMonth">December 2026</p><span class="heart-rule" aria-hidden="true"></span><p class="heart-venue">Praveg Tent City Narmada</p><p class="heart-location" data-i18n="venueReveal">Statue of Unity · Gujarat</p></div>
-            <canvas class="heart-foil" aria-label="Scratch the jharokha to reveal the wedding dates and venue"></canvas>
+            <canvas class="heart-foil" aria-label="Scratch the invitation to reveal the wedding dates and venue"></canvas>
           </div>
           <button type="button" class="scratch-button" data-i18n="heartReveal">Reveal our celebration</button>
           <p class="heart-hint" data-i18n="heartHint">Scratch a little love. Uncover two beautiful days.</p>
@@ -88,8 +80,7 @@
       <div class="detail-actions"><a class="text-link" href="https://maps.app.goo.gl/UufZscRbMpX2uvVe8" target="_blank" rel="noopener noreferrer"><img class="sf-icon" src="/images/wedding/sf/map.png" alt=""><span data-i18n="directions">Get directions</span></a><a class="text-link" href="/events"><img class="sf-icon" src="/images/wedding/sf/list.bullet.png" alt=""><span data-i18n="viewSchedule">View full schedule</span></a></div>
     </section>
 
-    <div class="silk-backdrop silk-transition" aria-hidden="true"><img src="/images/wedding/real/satin-jharokha.png" alt="" loading="lazy"></div>
-    <section class="closing-section motion-section"><div class="closing-monogram logo-crop" aria-hidden="true"><img src="/images/wedding/logo-1f.png" alt=""></div><p class="overline" data-i18n="closingPrelude">YOUR PRESENCE IS OUR GREATEST GIFT</p><h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2><p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p><div class="closing-actions"><a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a><a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a></div></section>
+    <section class="closing-section motion-section garden-rsvp"><div class="closing-monogram logo-crop" aria-hidden="true"><img src="/images/wedding/logo-1f.png" alt=""></div><p class="overline" data-i18n="closingPrelude">YOUR PRESENCE IS OUR GREATEST GIFT</p><h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2><p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p><div class="closing-actions"><a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a><a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a></div></section>
   </main>
   <div th:replace="~{wedding/fragments/site :: footer}"></div>
   <div th:replace="~{wedding/fragments/forms :: rsvpDialog}"></div>
