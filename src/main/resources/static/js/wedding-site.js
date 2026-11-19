@@ -143,12 +143,16 @@
     let done = false, drawing = false, previous = null, width = 0, height = 0;
     let foilSamples = [];
     function heartPath() {
-      ctx.beginPath(); ctx.moveTo(width*.5,height*.9);
-      ctx.bezierCurveTo(width*.45,height*.85,width*.06,height*.6,width*.06,height*.32);
-      ctx.bezierCurveTo(width*.06,height*.08,width*.35,height*.06,width*.5,height*.28);
-      ctx.bezierCurveTo(width*.65,height*.06,width*.94,height*.08,width*.94,height*.32);
-      ctx.bezierCurveTo(width*.94,height*.6,width*.55,height*.85,width*.5,height*.9);
-      ctx.closePath();
+      ctx.beginPath();ctx.moveTo(width*.09,height*.93);ctx.lineTo(width*.09,height*.39);
+      ctx.quadraticCurveTo(width*.09,height*.33,width*.16,height*.32);
+      ctx.quadraticCurveTo(width*.15,height*.235,width*.25,height*.235);
+      ctx.quadraticCurveTo(width*.26,height*.16,width*.365,height*.16);
+      ctx.quadraticCurveTo(width*.455,height*.15,width*.5,height*.065);
+      ctx.quadraticCurveTo(width*.545,height*.15,width*.635,height*.16);
+      ctx.quadraticCurveTo(width*.74,height*.16,width*.75,height*.235);
+      ctx.quadraticCurveTo(width*.85,height*.235,width*.84,height*.32);
+      ctx.quadraticCurveTo(width*.91,height*.33,width*.91,height*.39);
+      ctx.lineTo(width*.91,height*.93);ctx.closePath();
     }
     function paint() {
       if (done) return;
@@ -159,18 +163,13 @@
       canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
       ctx.setTransform(ratio,0,0,ratio,0,0);
       const foil = ctx.createLinearGradient(0,0,width,height);
-      foil.addColorStop(0,'#f4dfe5'); foil.addColorStop(.28,'#d6a9b7');
-      foil.addColorStop(.5,'#f0d5dd'); foil.addColorStop(.73,'#cf9fae'); foil.addColorStop(1,'#edcfd9');
-      heartPath(); ctx.fillStyle=foil; ctx.fill(); ctx.strokeStyle='#b9955c'; ctx.lineWidth=1.5; ctx.stroke();
+      foil.addColorStop(0,'#FAF7F2'); foil.addColorStop(.28,'#EEDDE3');
+      foil.addColorStop(.5,'#FAF7F2'); foil.addColorStop(.73,'#EEDDE3'); foil.addColorStop(1,'#FAF7F2');
+      heartPath(); ctx.fillStyle=foil; ctx.fill(); ctx.strokeStyle='#B89B67'; ctx.lineWidth=1.5; ctx.stroke();
       ctx.save(); ctx.clip();
-      // Block-printed floral foil: concentric petals and small gold florets.
-      for (let y=25;y<height;y+=38) for(let x=18;x<width;x+=38) {
-        ctx.fillStyle = '#af7b3950';
-        for(let petal=0;petal<6;petal++) {
-          const angle=petal*Math.PI/3;
-          ctx.beginPath();ctx.ellipse(x+Math.cos(angle)*5,y+Math.sin(angle)*5,3,5,angle,0,Math.PI*2);ctx.fill();
-        }
-      }
+      // Fine inset lines echo the carved window without competing with the logo.
+      ctx.translate(width*.5,height*.5);ctx.scale(.95,.95);ctx.translate(-width*.5,-height*.5);
+      heartPath();ctx.strokeStyle='#B89B6770';ctx.lineWidth=1;ctx.stroke();
       ctx.restore();
       if(revealLogo.complete && revealLogo.naturalWidth) ctx.drawImage(revealLogo,width*.34,height*.30,width*.32,height*.33);
       ctx.fillStyle='#793f53';ctx.textAlign='center';

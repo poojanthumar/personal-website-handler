@@ -166,3 +166,34 @@ body[data-page="home"] .site-header { background:#f4dfd3df; }
  .story-copy,.section-heading { padding-inline:10px; }
  .family-still-life { width:250px;height:335px; }
 }
+
+/* Approved pearl/rose satin, shaped by jharokha curves. */
+body[data-page="home"] { --paper:#FAF7F2; --cream:#FAF7F2; --wine:#513343; --ink:#513343; --muted:#786570; --gold:#B89B67; --rose:#B87991; --green:#513343; background:#FAF7F2; isolation:isolate; }
+.silk-backdrop { position:fixed; inset:0; z-index:-1; pointer-events:none; overflow:hidden; background:#FAF7F2; }
+.silk-backdrop img { width:100%;height:100%;object-fit:fill;filter:url('#silk-flow');transform-origin:center;will-change:transform; }
+.silk-filter { position:absolute; }
+body[data-page="home"] .site-header { background:#faf7f2db;border-color:#b89b6720; }
+body[data-page="home"] .story-copy,body[data-page="home"] .section-heading {text-shadow:none;}
+.hero-garland-art,.reveal-toran {display:none;}
+.invitation-frame {border:0;}.invitation-frame::after {border:0;}
+.home-hero {padding-top:130px;}
+.heart-stage {padding-top:12px;}
+.heart-surface {width:min(520px,100%);aspect-ratio:1;}
+.heart-paper {fill:#FAF7F2;stroke:#B89B67;}
+.heart-details {top:30%;bottom:18%;}
+.heart-stage .scratch-button {background:#513343;color:#FAF7F2;border-color:#B89B67;box-shadow:0 5px 20px #51334315;margin-top:12px;}
+.family-still-life {box-shadow:0 0 0 2px #B89B6780,0 0 0 8px #EEDDE370,0 16px 30px #51334312;}
+body[data-page="home"] .closing-section {background:#513343ed;}
+body[data-page="home"] .site-footer {background:#FAF7F2;color:#513343;border-top:1px solid #B89B6730;}
+@media(max-width:760px) {.home-hero {padding-top:100px;}.heart-stage {padding-top:0;}.silk-backdrop img {object-fit:fill;}.hero-diya {width:48px;}}
+@media(prefers-reduced-motion:reduce) {.silk-backdrop img {filter:none;transform:none!important;will-change:auto;}}
+.motion-paused .silk-backdrop img {filter:none;will-change:auto;}
+
+/* The header sits directly over the same uninterrupted satin surface. */
+body[data-page="home"] .site-header {background:transparent;border:0;box-shadow:none;backdrop-filter:none;}
+.silk-backdrop img {filter:none;transform:none;will-change:auto;}
+.silk-backdrop canvas {position:absolute;inset:0;width:100%;height:100%;opacity:0;}
+.silk-backdrop.silk-active canvas {opacity:1;}
+.silk-backdrop.silk-active img {visibility:hidden;}
+@media(prefers-reduced-motion:reduce) {.silk-backdrop canvas {display:none;}.silk-backdrop.silk-active img {visibility:visible;}}
+.motion-paused .silk-backdrop canvas {display:none;}.motion-paused .silk-backdrop.silk-active img {visibility:visible;}

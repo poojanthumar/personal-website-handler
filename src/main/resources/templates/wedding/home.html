@@ -16,9 +16,13 @@
   <link rel="stylesheet" href="/css/wedding-pastel.css">
   <script src="/js/wedding-i18n.js" defer></script>
   <script src="/js/wedding-site.js" defer></script>
+  <script src="/js/wedding-silk.js" defer></script>
   <noscript><style>.invite-cover{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
 </head>
 <body data-page="home">
+<div class="silk-backdrop" aria-hidden="true">
+  <img src="/images/wedding/real/satin-jharokha.png" alt="" fetchpriority="high">
+</div>
 <div th:replace="~{wedding/fragments/living-art :: definitions}"></div>
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
 
@@ -71,9 +75,9 @@
       <div class="heart-stage"><img class="reveal-toran" src="/images/wedding/real/jasmine-marigold.png" alt=""><div class="reveal-lamp lamp-left" aria-hidden="true"><img src="/images/wedding/real/brass-diya.png" alt=""></div><div class="reveal-lamp lamp-right" aria-hidden="true"><img src="/images/wedding/real/brass-diya.png" alt=""></div>
         <article class="heart-reveal" data-scratch="celebration">
           <div class="heart-surface">
-            <svg class="heart-paper" viewBox="0 0 1000 1000" aria-hidden="true"><path d="M500 900 C450 850 60 600 60 320 C60 80 350 60 500 280 C650 60 940 80 940 320 C940 600 550 850 500 900Z"/></svg>
+            <svg class="heart-paper" viewBox="0 0 1000 1000" preserveAspectRatio="none" aria-hidden="true"><path d="M90 930 V390 Q90 330 160 320 Q150 235 250 235 Q260 160 365 160 Q455 150 500 65 Q545 150 635 160 Q740 160 750 235 Q850 235 840 320 Q910 330 910 390 V930Z"/></svg>
             <div class="heart-details"><p class="overline" data-i18n="saveDate">SAVE THE DATE</p><strong>12 &amp; 13</strong><p class="heart-month" data-i18n="heartMonth">December 2026</p><span class="heart-rule" aria-hidden="true"></span><p class="heart-venue">Praveg Tent City Narmada</p><p class="heart-location" data-i18n="venueReveal">Statue of Unity · Gujarat</p></div>
-            <canvas class="heart-foil" aria-label="Scratch the heart to reveal the wedding dates and venue"></canvas>
+            <canvas class="heart-foil" aria-label="Scratch the jharokha to reveal the wedding dates and venue"></canvas>
           </div>
           <button type="button" class="scratch-button" data-i18n="heartReveal">Reveal our celebration</button>
           <p class="heart-hint" data-i18n="heartHint">Scratch a little love. Uncover two beautiful days.</p>
