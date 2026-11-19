@@ -1,7 +1,7 @@
 /* Scroll-driven satin surface. The original image remains the no-WebGL fallback. */
 (() => {
   'use strict';
-  const host = document.querySelector('.silk-backdrop');
+  document.querySelectorAll('.silk-backdrop').forEach(host => {
   const image = host?.querySelector('img');
   if (!image) return;
   const canvas = document.createElement('canvas');
@@ -22,7 +22,7 @@
       float strength=.009+energy*.035;
       vec2 shift=vec2(edge*envelope*strength*(fold+.3*ripple),
         edge*strength*.55*sin(p.x*15.+p.y*8.-phase*1.4));
-      vec2 sampleAt=clamp((p-.5)*.94+.5+shift,.001,.999);
+      vec2 sampleAt=clamp(vec2(p.x,.06+p.y*.28)+shift,.001,.999);
       vec3 colour=texture2D(cloth,sampleAt).rgb;
       // Moving crests catch light while troughs deepen, rather than moving a flat image.
       float light=edge*envelope*(.012+energy*.085)*cos(p.y*13.-phase*1.7+p.x*5.);
@@ -48,7 +48,7 @@
   gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MIN_FILTER,gl.LINEAR);gl.texParameteri(gl.TEXTURE_2D,gl.TEXTURE_MAG_FILTER,gl.LINEAR);
   let ready=false,frame=0,previousY=scrollY,target=scrollY/400,phase=target,energy=0,lastTime=0;
   const paused=()=>reduced.matches || document.body.classList.contains('motion-paused') || document.hidden;
-  function resize(){const ratio=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(innerWidth*ratio);canvas.height=Math.round(innerHeight*ratio);gl.viewport(0,0,canvas.width,canvas.height);wake();}
+  function resize(){const ratio=Math.min(devicePixelRatio||1,1.5);canvas.width=Math.round(host.clientWidth*ratio);canvas.height=Math.round(host.clientHeight*ratio);gl.viewport(0,0,canvas.width,canvas.height);wake();}
   function render(time){
     frame=0;if(!ready || paused()) return;
     const dt=Math.min((time-lastTime)||16.7,40)/16.7;lastTime=time;
@@ -74,4 +74,5 @@
   document.addEventListener('wedding:motion',motionChanged);reduced.addEventListener('change',motionChanged);
   document.addEventListener('visibilitychange',motionChanged);
   canvas.addEventListener('webglcontextlost',()=>{ready=false;cancelAnimationFrame(frame);host.classList.remove('silk-active');});
+  });
 })();
