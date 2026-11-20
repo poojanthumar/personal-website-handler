@@ -71,6 +71,7 @@
     content.inert = false;
     cover.hidden = false;
     cover.classList.add("is-complete");
+    doorFilm?.pause();
     cover.style.setProperty("--invitation-progress", 1);
     document.querySelector("#invitation")?.removeAttribute("inert");
     document.body.classList.remove('invite-in-motion');
@@ -82,12 +83,27 @@
   }
   const doorFilm = document.querySelector('.door-film');
   let doorReady = false;
+  let startingDoorFilm = false;
+  function startDoorFilm() {
+    startingDoorFilm = true;
+    const handBackToScroll = () => {
+      doorFilm.pause();
+      startingDoorFilm = false;
+      syncDoors();
+    };
+    // Start inside the invitation tap, while iOS still recognizes the gesture.
+    doorFilm.play().then(handBackToScroll, handBackToScroll);
+  }
+
   function syncDoors() {
     if (!cover || !doorFilm) return;
     if (!doorReady || cover.classList.contains('is-complete')) return;
     const progress = clamp(-cover.getBoundingClientRect().top / openingScrollDistance());
     const time = clamp(progress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
-    if (doorFilm.readyState >= 1 && !doorFilm.seeking && Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
+    if (!startingDoorFilm && doorFilm.readyState >= 1 && !doorFilm.seeking) {
+      if (Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
+      else if (doorFilm.readyState >= 2) doorFilm.classList.add('has-frame');
+    }
     cover.style.setProperty('--door-progress', progress);
     const invitationProgress = clamp((progress - .66) / .2);
     cover.style.setProperty('--invitation-progress', invitationProgress);
@@ -96,13 +112,14 @@
     if (progress >= .98) sessionStorage.setItem('weddingCurtainOpened','true');
   }
   function openCover(instant = false) {
-    if (!cover || !content || doorReady) return;
+    if (!cover || !content || !doorFilm || doorReady) return;
     if (instant || reduced.matches || motionPaused) { finishOpening(); return; }
     content.hidden = false;
     content.inert = false;
     cover.setAttribute('aria-hidden','false');
     document.querySelector('#invitation')?.setAttribute('inert','');
     doorReady = true;
+    startDoorFilm();
     const sceneTop = cover.getBoundingClientRect().top + window.scrollY;
     window.scrollTo({ top: sceneTop + openingScrollDistance() * halfwayThroughDoors, behavior: 'instant' });
     syncDoors();
@@ -110,10 +127,8 @@
   }
   addEventListener('scroll',syncDoors,{passive:true});
   doorFilm?.addEventListener('loadedmetadata',syncDoors);
-  doorFilm?.addEventListener('seeked', () => {
-    syncDoors();
-    if (doorFilm.readyState >= 2 && !doorFilm.seeking) doorFilm.classList.add('has-frame');
-  });
+  doorFilm?.addEventListener('loadeddata',syncDoors);
+  doorFilm?.addEventListener('seeked',syncDoors);
   doorFilm?.addEventListener('error', () => doorFilm.classList.remove('has-frame'));
   document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
