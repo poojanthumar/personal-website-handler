@@ -62,8 +62,10 @@
 
   const cover = document.querySelector('.invite-cover');
   const content = document.querySelector('#site-content');
+  const invitation = document.querySelector('#invitation');
   const doorFilmEnd = .68;
   const halfwayThroughDoors = doorFilmEnd / 2;
+  const doorFrameRate = 30;
   const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorFilm.parentElement.offsetHeight);
   function finishOpening() {
     if (!cover || !content) return;
@@ -84,32 +86,52 @@
   const doorFilm = document.querySelector('.door-film');
   let doorReady = false;
   let startingDoorFilm = false;
+  let doorProgress = 0;
+  let doorScrollFramePending = false;
   function startDoorFilm() {
     startingDoorFilm = true;
     const handBackToScroll = () => {
       doorFilm.pause();
       startingDoorFilm = false;
-      syncDoors();
+      seekDoorFrame();
     };
     // Start inside the invitation tap, while iOS still recognizes the gesture.
     doorFilm.play().then(handBackToScroll, handBackToScroll);
   }
 
+  function openingInProgress() {
+    return doorReady && !cover.classList.contains('is-complete');
+  }
+
+  function seekDoorFrame() {
+    if (!openingInProgress() || startingDoorFilm || doorFilm.readyState < 1 || doorFilm.seeking) return;
+    const seconds = clamp(doorProgress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
+    const target = Math.round(seconds * doorFrameRate) / doorFrameRate;
+    if (Math.abs(doorFilm.currentTime - target) > .5 / doorFrameRate) doorFilm.currentTime = target;
+    else if (doorFilm.readyState >= 2) doorFilm.classList.add('has-frame');
+  }
+
   function syncDoors() {
-    if (!cover || !doorFilm) return;
-    if (!doorReady || cover.classList.contains('is-complete')) return;
+    if (!openingInProgress()) return;
     const progress = clamp(-cover.getBoundingClientRect().top / openingScrollDistance());
-    const time = clamp(progress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
-    if (!startingDoorFilm && doorFilm.readyState >= 1 && !doorFilm.seeking) {
-      if (Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
-      else if (doorFilm.readyState >= 2) doorFilm.classList.add('has-frame');
-    }
+    if (progress === doorProgress) return;
+    const crossedEnd = doorProgress < .98 && progress >= .98;
+    doorProgress = progress;
     cover.style.setProperty('--door-progress', progress);
     const invitationProgress = clamp((progress - .66) / .2);
     cover.style.setProperty('--invitation-progress', invitationProgress);
-    const invitation = document.querySelector('#invitation');
-    if (invitation) invitation.inert = invitationProgress < .9;
-    if (progress >= .98) sessionStorage.setItem('weddingCurtainOpened','true');
+    if (invitation && invitation.inert !== (invitationProgress < .9)) invitation.inert = invitationProgress < .9;
+    if (crossedEnd) sessionStorage.setItem('weddingCurtainOpened', 'true');
+    seekDoorFrame();
+  }
+
+  function queueDoorScroll() {
+    if (doorScrollFramePending || !openingInProgress()) return;
+    doorScrollFramePending = true;
+    requestAnimationFrame(() => {
+      doorScrollFramePending = false;
+      syncDoors();
+    });
   }
   function openCover(instant = false) {
     if (!cover || !content || !doorFilm || doorReady) return;
@@ -125,10 +147,11 @@
     syncDoors();
     paintScratchers();
   }
-  addEventListener('scroll',syncDoors,{passive:true});
-  doorFilm?.addEventListener('loadedmetadata',syncDoors);
-  doorFilm?.addEventListener('loadeddata',syncDoors);
-  doorFilm?.addEventListener('seeked',syncDoors);
+  addEventListener('scroll', queueDoorScroll, { passive: true });
+  addEventListener('resize', queueDoorScroll, { passive: true });
+  doorFilm?.addEventListener('loadedmetadata', seekDoorFrame);
+  doorFilm?.addEventListener('loadeddata', seekDoorFrame);
+  doorFilm?.addEventListener('seeked', seekDoorFrame);
   doorFilm?.addEventListener('error', () => doorFilm.classList.remove('has-frame'));
   document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
