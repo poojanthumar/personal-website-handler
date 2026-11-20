@@ -119,6 +119,8 @@ and migrations/background writes disabled. The current script still recreates a 
 preview database; shared-data access and its read-only controls are not implemented yet.
 See `AGENTS.md` for the full workflow.
 
+For the wedding intro, see the [opening video guide](docs/wedding-opening-video.md) for encoding and iPhone testing.
+
 ## Production deployment
 
 Caddy proxies the public hosts to the application on `127.0.0.1:8080`. See
