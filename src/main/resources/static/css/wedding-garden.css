@@ -44,8 +44,24 @@ body[data-page="rsvp"] .form-layout {gap:32px;}
 /* One full-width scroll scene: doors, then the invitation over the same garden. */
 .garden-opening {height:310svh;width:100%;max-width:none;z-index:1;}
 .garden-opening.is-complete {height:100svh;}
-.garden-opening .door-stage {display:block;width:100%;max-width:none;margin:0;}
-.door-stage::before {display:none;}
+.garden-opening .door-stage {
+  display: block;
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  background: #dac9a4 url('/images/wedding/garden/doors.jpg') center / cover no-repeat;
+}
+.garden-opening .door-stage::before {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  background: url('/images/wedding/garden/aisle.jpg') center / cover no-repeat;
+  filter: none;
+  opacity: var(--invitation-progress, 0);
+}
+.garden-opening.is-complete .door-film,
+.garden-opening .door-film:not(.has-frame) { visibility: hidden; }
 .garden-opening .door-film {position:absolute;inset:0;width:100%;max-width:none;height:100%;object-fit:cover;background:none;}
 body[data-page="home"] .garden-opening .home-hero {position:absolute;inset:0;min-height:0;height:100%;width:100%;margin:0;background:none;padding:clamp(85px,12vh,140px) 24px 24px;opacity:var(--invitation-progress,0);transform:translateY(calc((1 - var(--invitation-progress,0))*24px));pointer-events:none;}
 .garden-opening .home-hero .hero-copy {background:radial-gradient(ellipse,#e5f2f2e8,transparent 75%);max-width:850px;align-self:flex-start;}
@@ -106,4 +122,26 @@ body[data-page="home"] .button-outline {color:#493514;border-color:#806025;backg
 
 .door-prompt:has(.door-skip:focus-visible) {
   opacity: 1;
+}
+
+@media (max-width: 760px) {
+  body[data-page="home"] .garden-opening .home-hero {
+    padding: clamp(155px, 25svh, 240px) 18px 16px;
+  }
+
+  .garden-opening .home-hero .hero-copy {
+    width: min(100%, 410px);
+    padding: 12px 8px 18px;
+    transform: none;
+    background: radial-gradient(ellipse, #eef7f5f5 32%, #eef7f595 61%, transparent 76%);
+  }
+
+  .garden-opening .hero-copy .sanskrit-line { margin-bottom: 10px; }
+  .garden-opening .hero-copy h1 {
+    font-size: clamp(2.1rem, 10vw, 3.6rem);
+    margin: 10px 0;
+  }
+  .garden-opening .hero-tagline { margin-block: 13px; }
+  .garden-opening .hero-actions { gap: 8px; }
+  .garden-opening .hero-actions .button { padding-inline: 14px; }
 }

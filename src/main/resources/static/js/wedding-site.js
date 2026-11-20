@@ -73,7 +73,6 @@
     cover.classList.add("is-complete");
     cover.style.setProperty("--invitation-progress", 1);
     document.querySelector("#invitation")?.removeAttribute("inert");
-    if (doorFilm?.readyState >= 1) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
     document.body.classList.remove('invite-in-motion');
     sessionStorage.setItem('weddingCurtainOpened', 'true');
     const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
@@ -85,11 +84,7 @@
   let doorReady = false;
   function syncDoors() {
     if (!cover || !doorFilm) return;
-    if (cover.classList.contains('is-complete')) {
-      if (doorFilm.readyState >= 1 && Math.abs(doorFilm.currentTime - 7.9) > .05) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
-      return;
-    }
-    if (!doorReady) return;
+    if (!doorReady || cover.classList.contains('is-complete')) return;
     const progress = clamp(-cover.getBoundingClientRect().top / openingScrollDistance());
     const time = clamp(progress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
     if (doorFilm.readyState >= 1 && !doorFilm.seeking && Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
@@ -115,7 +110,11 @@
   }
   addEventListener('scroll',syncDoors,{passive:true});
   doorFilm?.addEventListener('loadedmetadata',syncDoors);
-  doorFilm?.addEventListener('seeked',syncDoors);
+  doorFilm?.addEventListener('seeked', () => {
+    syncDoors();
+    if (doorFilm.readyState >= 2 && !doorFilm.seeking) doorFilm.classList.add('has-frame');
+  });
+  doorFilm?.addEventListener('error', () => doorFilm.classList.remove('has-frame'));
   document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
     if (reduced.matches && doorReady) finishOpening();
