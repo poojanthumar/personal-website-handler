@@ -64,7 +64,7 @@
   const content = document.querySelector('#site-content');
   const invitation = document.querySelector('#invitation');
   const doorFilmEnd = .68;
-  const halfwayThroughDoors = doorFilmEnd / 2;
+  const doorLeadInEnd = 3.9;
   const doorFrameRate = 30;
   const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorFilm.parentElement.offsetHeight);
   function finishOpening() {
@@ -85,18 +85,28 @@
   }
   const doorFilm = document.querySelector('.door-film');
   let doorReady = false;
-  let startingDoorFilm = false;
+  let playingDoorLeadIn = false;
+  let doorScrollStartTime = 0;
   let doorProgress = 0;
   let doorScrollFramePending = false;
   function startDoorFilm() {
-    startingDoorFilm = true;
-    const handBackToScroll = () => {
-      doorFilm.pause();
-      startingDoorFilm = false;
-      seekDoorFrame();
-    };
+    playingDoorLeadIn = true;
     // Start inside the invitation tap, while iOS still recognizes the gesture.
-    doorFilm.play().then(handBackToScroll, handBackToScroll);
+    doorFilm.play().then(() => {
+      if (!openingInProgress()) return;
+      doorFilm.classList.add('has-frame');
+      if (doorProgress > 0) finishDoorLeadIn();
+    }, () => {
+      playingDoorLeadIn = false;
+      seekDoorFrame();
+    });
+  }
+
+  function finishDoorLeadIn() {
+    doorFilm.pause();
+    doorScrollStartTime = doorFilm.currentTime;
+    playingDoorLeadIn = false;
+    if (doorProgress > 0) seekDoorFrame();
   }
 
   function openingInProgress() {
@@ -104,8 +114,9 @@
   }
 
   function seekDoorFrame() {
-    if (!openingInProgress() || startingDoorFilm || doorFilm.readyState < 1 || doorFilm.seeking) return;
-    const seconds = clamp(doorProgress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
+    if (!openingInProgress() || playingDoorLeadIn || doorFilm.readyState < 1 || doorFilm.seeking) return;
+    const filmEnd = Math.min(7.9, doorFilm.duration || 7.9);
+    const seconds = doorScrollStartTime + clamp(doorProgress / doorFilmEnd) * (filmEnd - doorScrollStartTime);
     const target = Math.round(seconds * doorFrameRate) / doorFrameRate;
     if (Math.abs(doorFilm.currentTime - target) > .5 / doorFrameRate) doorFilm.currentTime = target;
     else if (doorFilm.readyState >= 2) doorFilm.classList.add('has-frame');
@@ -122,7 +133,8 @@
     cover.style.setProperty('--invitation-progress', invitationProgress);
     if (invitation && invitation.inert !== (invitationProgress < .9)) invitation.inert = invitationProgress < .9;
     if (crossedEnd) sessionStorage.setItem('weddingCurtainOpened', 'true');
-    seekDoorFrame();
+    if (playingDoorLeadIn && progress > 0 && doorFilm.classList.contains('has-frame')) finishDoorLeadIn();
+    else seekDoorFrame();
   }
 
   function queueDoorScroll() {
@@ -141,9 +153,8 @@
     cover.setAttribute('aria-hidden','false');
     document.querySelector('#invitation')?.setAttribute('inert','');
     doorReady = true;
+    window.scrollTo({ top: cover.getBoundingClientRect().top + window.scrollY, behavior: 'instant' });
     startDoorFilm();
-    const sceneTop = cover.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: sceneTop + openingScrollDistance() * halfwayThroughDoors, behavior: 'instant' });
     syncDoors();
     paintScratchers();
   }
@@ -152,6 +163,9 @@
   doorFilm?.addEventListener('loadedmetadata', seekDoorFrame);
   doorFilm?.addEventListener('loadeddata', seekDoorFrame);
   doorFilm?.addEventListener('seeked', seekDoorFrame);
+  doorFilm?.addEventListener('timeupdate', () => {
+    if (openingInProgress() && playingDoorLeadIn && doorFilm.currentTime >= doorLeadInEnd) finishDoorLeadIn();
+  });
   doorFilm?.addEventListener('error', () => doorFilm.classList.remove('has-frame'));
   document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
