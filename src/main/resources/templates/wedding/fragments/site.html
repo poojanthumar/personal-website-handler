@@ -4,7 +4,6 @@
 <header th:fragment="header" class="site-header">
   <a class="header-brand" href="/" aria-label="Dhriti and Poojan, home">
     <span class="logo-crop"><img src="/images/wedding/logo-1f.png" alt="" width="1246" height="1262"></span>
-    <span class="brand-type">D<span>&amp;</span>P</span>
   </a>
   <button class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-nav" data-i18n="menuLabel" data-i18n-aria="menuLabel">Menu</button>
   <nav id="site-nav" class="site-nav" aria-label="Main navigation">
@@ -14,12 +13,7 @@
     <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
   </nav>
   <div class="header-actions">
-    <label class="language-label" for="language-select" data-i18n="languageLabel">Language</label>
-    <select id="language-select" aria-label="Language" data-i18n-aria="languageLabel">
-      <option value="en">EN</option>
-      <option value="hi">हिं</option>
-      <option value="gu">ગુ</option>
-    </select>
+    <button class="language-popup-trigger" type="button" data-language-popup aria-label="Choose language"><img class="sf-icon" src="/images/wedding/sf/globe.png" alt=""><span data-current-language>EN</span></button>
     <button class="motion-toggle" type="button" aria-label="Pause motion" aria-pressed="false" data-i18n-aria="pauseMotion">Pause motion</button>
   </div>
 </header>
@@ -41,11 +35,22 @@
       <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
     </nav>
     <div class="social-links">
-      <a href="https://www.instagram.com/jabidlimetdhokla/" target="_blank" rel="noopener noreferrer">Instagram ↗</a>
-      <a href="https://www.youtube.com/channel/UCNAGAomqu6U0Dr6yDgpeDOw" target="_blank" rel="noopener noreferrer">YouTube ↗</a>
+      <a href="https://www.instagram.com/jabidlimetdhokla/" target="_blank" rel="noopener noreferrer"><img class="brand-icon" src="/images/wedding/icons/instagram-brand.svg" alt=""><span>Instagram</span></a>
+      <a href="https://www.youtube.com/channel/UCNAGAomqu6U0Dr6yDgpeDOw" target="_blank" rel="noopener noreferrer"><img class="brand-icon" src="/images/wedding/icons/youtube-brand.svg" alt=""><span>YouTube</span></a>
     </div>
+    <a class="replay-invite" href="/?intro=1" data-i18n="replayInvite">Replay invitation</a>
     <p data-i18n="timezone">All times are Indian Standard Time (IST).</p>
   </div>
 </footer>
+<dialog th:fragment="languageDialog" class="language-dialog" aria-labelledby="language-title">
+ <button class="language-close" type="button" data-language-done aria-label="Close language choice">×</button>
+ <img class="language-ganesh" src="/images/wedding/garden/ganesh.png" alt="Lord Ganesh adorned with marigolds and flowers">
+ <div class="language-copy">
+ <p class="overline">WELCOME · स्वागत · સ્વાગત</p><h2 id="language-title" data-i18n="chooseLanguageTitle">Make yourself at home.</h2>
+ <p data-i18n="coverSubtitle">Choose the language you feel at home in.</p>
+ <div class="language-options"><button type="button" data-language-choice="en" autofocus><strong>English</strong><span>EN</span></button><button type="button" data-language-choice="hi"><strong>हिन्दी</strong><span>Hindi</span></button><button type="button" data-language-choice="gu"><strong>ગુજરાતી</strong><span>Gujarati</span></button></div>
+ <button class="button button-primary" type="button" data-language-done><img class="sf-icon" src="/images/wedding/sf/sparkles.png" alt=""><span data-i18n="openInvitation">Open invitation</span></button>
+ </div>
+</dialog>
 </body>
 </html>

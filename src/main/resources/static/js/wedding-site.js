@@ -14,6 +14,7 @@
     localStorage.setItem('weddingLanguage', next);
     document.documentElement.lang = next;
     if (select) select.value = next;
+    document.querySelectorAll('[data-current-language]').forEach(node => node.textContent = {en:'EN',hi:'हिं',gu:'ગુ'}[next]);
     document.querySelectorAll('[data-language-choice]').forEach(button => {
       button.classList.toggle('is-selected', button.dataset.languageChoice === next);
       button.setAttribute('aria-pressed', String(button.dataset.languageChoice === next));
@@ -47,7 +48,10 @@
       toggle.hidden = reduced.matches;
       toggle.setAttribute('aria-pressed', String(motionPaused));
       toggle.setAttribute('aria-label', locale?.text(motionPaused ? 'resumeMotion' : 'pauseMotion', language) || (motionPaused ? 'Resume motion' : 'Pause motion'));
-      toggle.textContent = motionPaused ? '▷' : 'Ⅱ';
+      toggle.replaceChildren();
+      const icon = document.createElement('img'); icon.className = 'sf-icon'; icon.alt = '';
+      icon.src = '/images/wedding/sf/' + (motionPaused ? 'play.fill' : 'pause.fill') + '.png';
+      toggle.append(icon);
     }
     document.dispatchEvent(new Event('wedding:motion'));
     requestRender();
@@ -58,24 +62,64 @@
 
   const cover = document.querySelector('.invite-cover');
   const content = document.querySelector('#site-content');
+  const doorFilmEnd = .68;
+  const halfwayThroughDoors = doorFilmEnd / 2;
+  const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorFilm.parentElement.offsetHeight);
   function finishOpening() {
     if (!cover || !content) return;
     content.hidden = false;
-    cover.hidden = true;
-    cover.classList.remove('is-opening');
-    sessionStorage.setItem('weddingOpened', 'true');
+    content.inert = false;
+    cover.hidden = false;
+    cover.classList.add("is-complete");
+    cover.style.setProperty("--invitation-progress", 1);
+    document.querySelector("#invitation")?.removeAttribute("inert");
+    if (doorFilm?.readyState >= 1) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
+    document.body.classList.remove('invite-in-motion');
+    sessionStorage.setItem('weddingCurtainOpened', 'true');
     const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
     if (target) target.scrollIntoView({ behavior: 'instant' });
-    else window.scrollTo({ top: 0, behavior: 'instant' });
-    requestRender();
-    paintScratchers();
+    else { window.scrollTo({ top: 0, behavior: 'instant' }); document.querySelector('#invitation')?.focus({ preventScroll:true }); }
+    requestRender(); paintScratchers();
+  }
+  const doorFilm = document.querySelector('.door-film');
+  let doorReady = false;
+  function syncDoors() {
+    if (!cover || !doorFilm) return;
+    if (cover.classList.contains('is-complete')) {
+      if (doorFilm.readyState >= 1 && Math.abs(doorFilm.currentTime - 7.9) > .05) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
+      return;
+    }
+    if (!doorReady) return;
+    const progress = clamp(-cover.getBoundingClientRect().top / openingScrollDistance());
+    const time = clamp(progress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
+    if (doorFilm.readyState >= 1 && !doorFilm.seeking && Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
+    cover.style.setProperty('--door-progress', progress);
+    const invitationProgress = clamp((progress - .66) / .2);
+    cover.style.setProperty('--invitation-progress', invitationProgress);
+    const invitation = document.querySelector('#invitation');
+    if (invitation) invitation.inert = invitationProgress < .9;
+    if (progress >= .98) sessionStorage.setItem('weddingCurtainOpened','true');
   }
   function openCover(instant = false) {
-    if (!cover || !content || cover.classList.contains('is-opening')) return;
-    if (instant || reduced.matches) { finishOpening(); return; }
-    cover.classList.add('is-opening');
-    window.setTimeout(finishOpening, 740);
+    if (!cover || !content || doorReady) return;
+    if (instant || reduced.matches || motionPaused) { finishOpening(); return; }
+    content.hidden = false;
+    content.inert = false;
+    cover.setAttribute('aria-hidden','false');
+    document.querySelector('#invitation')?.setAttribute('inert','');
+    doorReady = true;
+    const sceneTop = cover.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: sceneTop + openingScrollDistance() * halfwayThroughDoors, behavior: 'instant' });
+    syncDoors();
+    paintScratchers();
   }
+  addEventListener('scroll',syncDoors,{passive:true});
+  doorFilm?.addEventListener('loadedmetadata',syncDoors);
+  doorFilm?.addEventListener('seeked',syncDoors);
+  document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
+  reduced.addEventListener('change', () => {
+    if (reduced.matches && doorReady) finishOpening();
+  });
   const sections = [...document.querySelectorAll('.motion-section')];
   function renderHomeMotion() {
     framePending = false;
@@ -98,58 +142,89 @@
   document.querySelectorAll('.reveal-on-scroll').forEach(node => revealObserver ? revealObserver.observe(node) : node.classList.add('is-visible'));
 
   const scratchers = [];
+  const revealLogo = new Image();
+  revealLogo.src = '/images/wedding/logo-1f.png';
+  revealLogo.onload = () => paintScratchers();
   function paintScratchers() { scratchers.forEach(paint => paint()); }
+  function celebrate(stage) {
+    if (!stage || reduced.matches || motionPaused) return;
+    const shower = document.createElement('div');
+    shower.className = 'celebration-confetti'; shower.setAttribute('aria-hidden', 'true');
+    const colours = ['#b99152', '#e0b5c0', '#fff9e9', '#8e5267', '#d9be7e'];
+    for (let i = 0; i < 64; i++) {
+      const petal = document.createElement('i');
+      petal.style.setProperty('--x', `${Math.random() * 100}%`);
+      petal.style.setProperty('--drift', `${Math.random() * 180 - 90}px`);
+      petal.style.setProperty('--fall', `${stage.offsetHeight + 170}px`);
+      petal.style.setProperty('--delay', `${Math.random() * .65}s`);
+      petal.style.setProperty('--duration', `${3.2 + Math.random() * 1.6}s`);
+      petal.style.setProperty('--spin', `${Math.random() * 720 - 360}deg`);
+      petal.style.background = colours[i % colours.length];
+      shower.append(petal);
+    }
+    stage.append(shower);
+    window.setTimeout(() => shower.remove(), 5600);
+  }
   document.querySelectorAll('[data-scratch]').forEach(card => {
     const canvas = card.querySelector('canvas');
     const button = card.querySelector('.scratch-button');
-    const ctx = canvas?.getContext('2d');
+    const ctx = canvas?.getContext('2d', { willReadFrequently:true });
     if (!ctx) { if (canvas) canvas.hidden = true; return; }
-    let done = false, drawing = false, previous = null, cleared = 0;
-    let width = 0, height = 0;
-    const reveal = () => {
-      done = true;
-      card.classList.add('is-revealed');
-      button.setAttribute('aria-expanded', 'true');
-      button.textContent = locale?.text('revealed', language) || 'Revealed';
-    };
+    let done = false, drawing = false, previous = null, width = 0, height = 0;
+    let foilSamples = [];
+    function heartPath() {
+      ctx.beginPath();ctx.roundRect(width*.08,height*.08,width*.84,height*.84,18);ctx.closePath();
+    }
     function paint() {
       if (done) return;
       const bounds = canvas.getBoundingClientRect();
       if (!bounds.width || !bounds.height) return;
-      const ratio = Math.min(devicePixelRatio || 1, 2);
       width = bounds.width; height = bounds.height;
+      const ratio = Math.min(devicePixelRatio || 1, 2);
       canvas.width = Math.round(width * ratio); canvas.height = Math.round(height * ratio);
-      ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
-      const shine = ctx.createLinearGradient(0, 0, width, height);
-      shine.addColorStop(0, '#c7a371'); shine.addColorStop(.5, '#f0deb5'); shine.addColorStop(1, '#b88b56');
-      ctx.fillStyle = shine; ctx.fillRect(0, 0, width, height);
-      ctx.strokeStyle = '#ffffff70'; ctx.lineWidth = 1;
-      for (let x = 16; x < width; x += 26) for (let y = 16; y < height; y += 26) { ctx.beginPath(); ctx.arc(x, y, 2, 0, Math.PI * 2); ctx.stroke(); }
-      ctx.fillStyle = '#684a31'; ctx.textAlign = 'center'; ctx.font = 'italic 34px Georgia';
-      ctx.fillText('✦', width / 2, height / 2 - 42);
-      ctx.font = '600 14px sans-serif';
-      ctx.fillText(locale?.text('scratchPrompt', language) || 'SCRATCH TO REVEAL', width / 2, height / 2 + 5);
+      ctx.setTransform(ratio,0,0,ratio,0,0);
+      const foil = ctx.createLinearGradient(0,0,width,height);
+      foil.addColorStop(0,'#FAF7F2'); foil.addColorStop(.28,'#EEDDE3');
+      foil.addColorStop(.5,'#FAF7F2'); foil.addColorStop(.73,'#EEDDE3'); foil.addColorStop(1,'#FAF7F2');
+      heartPath(); ctx.fillStyle=foil; ctx.fill(); ctx.strokeStyle='#B89B67'; ctx.lineWidth=1.5; ctx.stroke();
+      ctx.save(); ctx.clip();
+      // Fine inset lines echo the carved window without competing with the logo.
+      ctx.translate(width*.5,height*.5);ctx.scale(.95,.95);ctx.translate(-width*.5,-height*.5);
+      heartPath();ctx.strokeStyle='#B89B6770';ctx.lineWidth=1;ctx.stroke();
+      ctx.restore();
+      if(revealLogo.complete && revealLogo.naturalWidth) ctx.drawImage(revealLogo,width*.34,height*.30,width*.32,height*.33);
+      ctx.fillStyle='#793f53';ctx.textAlign='center';
+      ctx.font=`500 ${Math.max(11,width*.027)}px sans-serif`;
+      ctx.fillText(locale?.text('heartScratch',language)||'SCRATCH TO REVEAL',width*.5,height*.68);
+      const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      foilSamples=[];
+      for(let i=3;i<pixels.length;i+=64) if(pixels[i]>160) foilSamples.push(i);
     }
-    function point(event) { const box = canvas.getBoundingClientRect(); return { x: event.clientX - box.left, y: event.clientY - box.top }; }
-    function erase(a, b) {
-      ctx.globalCompositeOperation = 'destination-out'; ctx.lineCap = 'round'; ctx.lineJoin = 'round'; ctx.lineWidth = 42;
-      ctx.beginPath(); ctx.moveTo(a.x, a.y); ctx.lineTo(b.x, b.y); ctx.stroke();
+    function reveal() {
+      if(done) return;
+      done=true; card.classList.add('is-revealed');
+      canvas.setAttribute('aria-hidden','true');
+      button.setAttribute('aria-expanded','true');
+      button.textContent=locale?.text('revealed',language)||'Revealed';
+      celebrate(card.closest('.heart-stage'));
     }
-    canvas.addEventListener('pointerdown', event => {
-      if (done) return;
-      drawing = true; previous = point(event); canvas.setPointerCapture(event.pointerId);
-      erase(previous, { x: previous.x + 1, y: previous.y + 1 });
+    const point=event=>{const box=canvas.getBoundingClientRect();return {x:event.clientX-box.left,y:event.clientY-box.top};};
+    function erase(a,b) {
+      ctx.globalCompositeOperation='destination-out';ctx.lineCap='round';ctx.lineJoin='round';ctx.lineWidth=Math.max(30,width*.09);
+      ctx.beginPath();ctx.moveTo(a.x,a.y);ctx.lineTo(b.x,b.y);ctx.stroke();
+    }
+    canvas.addEventListener('pointerdown',event=>{
+      if(done)return;drawing=true;previous=point(event);canvas.setPointerCapture(event.pointerId);erase(previous,{x:previous.x+1,y:previous.y+1});
     });
-    canvas.addEventListener('pointermove', event => {
-      if (!drawing || done) return;
-      const next = point(event); erase(previous, next); previous = next; cleared++;
-      if (cleared > 18) reveal();
+    canvas.addEventListener('pointermove',event=>{if(!drawing||done)return;const next=point(event);erase(previous,next);previous=next;});
+    canvas.addEventListener('pointerup',()=>{
+      drawing=false;if(done||!foilSamples.length)return;
+      const pixels=ctx.getImageData(0,0,canvas.width,canvas.height).data;
+      if(foilSamples.filter(i=>pixels[i]<100).length/foilSamples.length>.3)reveal();
     });
-    canvas.addEventListener('pointerup', () => { drawing = false; });
-    canvas.addEventListener('pointercancel', () => { drawing = false; });
-    button.addEventListener('click', reveal);
-    new ResizeObserver(paint).observe(canvas);
-    scratchers.push(paint);
+    canvas.addEventListener('pointercancel',()=>drawing=false);
+    button.addEventListener('click',reveal);
+    new ResizeObserver(paint).observe(canvas);scratchers.push(paint);
   });
 
   const dialog = document.querySelector('.rsvp-dialog');
@@ -184,10 +259,31 @@
       } finally { form.dataset.sending = 'false'; }
     });
   });
-  if (cover && content) {
-    if (sessionStorage.getItem('weddingOpened') === 'true' || location.hash) finishOpening();
-    cover.querySelector('[data-open-cover]')?.addEventListener('click', () => openCover());
-    cover.querySelector('[data-skip-cover]')?.addEventListener('click', () => openCover(true));
+  if (cover && content && ((sessionStorage.getItem('weddingCurtainOpened') === 'true' && !new URLSearchParams(location.search).has('intro')) || location.hash)) finishOpening();
+  const languageDialog = document.querySelector('.language-dialog');
+  let closingLanguage = false;
+  const languageDone = (skip = false) => {
+    if (closingLanguage || !languageDialog?.open) return;
+    closingLanguage = true;
+    const startsOpening = cover && !doorReady && !cover.classList.contains('is-complete');
+    if (startsOpening) openCover(skip);
+    languageDialog.classList.add('is-leaving');
+    const leave = () => {
+      languageDialog.close();
+      languageDialog.classList.remove('is-leaving', 'is-intro');
+      closingLanguage = false;
+      if (startsOpening && doorReady) document.querySelector('.door-skip')?.focus({ preventScroll: true });
+      else if (startsOpening) document.querySelector('#invitation')?.focus({ preventScroll: true });
+      else document.querySelector('[data-language-popup]')?.focus({ preventScroll: true });
+    };
+    if (reduced.matches || motionPaused) leave(); else window.setTimeout(leave, 380);
+  };
+  document.querySelectorAll('[data-language-popup]').forEach(button => button.addEventListener('click', () => languageDialog?.showModal()));
+  document.querySelectorAll('[data-language-done]').forEach(button => button.addEventListener('click', () => languageDone(button.classList.contains('language-close'))));
+  languageDialog?.addEventListener('cancel', event => { event.preventDefault(); languageDone(true); });
+  if (languageDialog && cover && !cover.classList.contains('is-complete')) {
+    languageDialog.classList.add('is-intro');
+    languageDialog.showModal();
   }
   updateMotionPreference();
 })();
