@@ -41,3 +41,69 @@ body[data-page="rsvp"] h1,body[data-page="rsvp"] h2 {color:#624b20;}
 body[data-page="rsvp"] .form-layout {gap:32px;}
 @media(max-width:760px) {body[data-page="rsvp"] .form-aside {display:none;}body[data-page="rsvp"] .form-paper {margin:0 16px;}body[data-page="rsvp"] .page-intro {padding:80px 24px 40px;}}
 @media(max-width:760px) {body[data-page="rsvp"] .form-aside {display:block;margin:0 16px;}body[data-page="rsvp"] .form-aside > :not(.rsvp-invitation-art) {display:none;}.rsvp-invitation-art {max-height:480px;object-fit:contain;margin:0;}}
+/* One full-width scroll scene: doors, then the invitation over the same garden. */
+.garden-opening {height:310svh;width:100%;max-width:none;z-index:1;}
+.garden-opening.is-complete {height:100svh;}
+.garden-opening .door-stage {display:block;width:100%;max-width:none;margin:0;}
+.door-stage::before {display:none;}
+.garden-opening .door-film {position:absolute;inset:0;width:100%;max-width:none;height:100%;object-fit:cover;background:none;}
+body[data-page="home"] .garden-opening .home-hero {position:absolute;inset:0;min-height:0;height:100%;width:100%;margin:0;background:none;padding:clamp(85px,12vh,140px) 24px 24px;opacity:var(--invitation-progress,0);transform:translateY(calc((1 - var(--invitation-progress,0))*24px));pointer-events:none;}
+.garden-opening .home-hero .hero-copy {background:radial-gradient(ellipse,#e5f2f2e8,transparent 75%);max-width:850px;align-self:flex-start;}
+.garden-opening .home-hero:not([inert]) {pointer-events:auto;}
+.garden-opening.is-complete .door-prompt {display:none;}
+.door-prompt {pointer-events:none;}.door-skip {pointer-events:auto;}
+body[data-page="home"] .site-header {position:fixed;inset:0 0 auto;z-index:50;}
+body[data-page="home"] .closing-actions .button-ghost,body[data-page="home"] .closing-actions .button-light {color:#493514;background:#fffaf0;border:1px solid #806025;box-shadow:0 3px 12px #49351414;}
+body[data-page="home"] .closing-actions .button:hover {color:#fffaf0;background:#624b20;}
+body[data-page="home"] .closing-section h2 {color:#493514;}
+body[data-page="home"] .button-outline {color:#493514;border-color:#806025;background:#fffaf0e8;}
+/* A stable two-column dialog and equal-size choices in every language. */
+.language-dialog {padding:0;width:min(860px,94vw);height:min(660px,92svh);max-height:92svh;overflow:auto;}
+.language-dialog[open] {display:grid;grid-template-columns:minmax(0,42%) minmax(0,58%);}
+.language-ganesh {position:sticky;top:0;width:100%;height:100%;min-height:0;object-fit:cover;}
+.language-copy {min-width:0;padding:40px 28px;display:grid;grid-template-rows:auto 96px 64px auto 52px;align-content:center;gap:12px;}
+.language-copy h2 {margin:0;font-size:clamp(1.35rem,2.7vw,2rem);line-height:1.4;align-self:center;}
+.language-copy p {margin:0;line-height:1.6;}
+.language-options {grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:0;}
+.language-options button {height:88px;min-width:0;padding:10px 2px;justify-content:center;line-height:1.5!important;}
+.language-options strong {font:500 1rem/1.5 'DM Sans','Noto Sans Devanagari','Noto Sans Gujarati',sans-serif;}
+.language-options span {font:400 .65rem/1.5 'DM Sans',sans-serif;}
+.language-copy>.button {width:100%;min-height:52px;line-height:1.5!important;}
+@media(max-width:600px) {
+ .language-dialog {width:94vw;height:min(760px,94svh);max-height:94svh;}
+ .language-dialog[open] {grid-template-columns:1fr;grid-template-rows:210px 1fr;}
+ .language-ganesh {position:relative;height:210px;object-position:center 47%;}
+ .language-copy {padding:20px;grid-template-rows:auto 62px 44px 76px 48px;gap:8px;}
+ .language-copy h2 {font-size:1.4rem;}.language-options button {height:76px;}
+ .language-copy>.button {min-height:48px;}
+ .garden-opening .home-hero .hero-copy {padding:12px 0;}
+}
+@media(prefers-reduced-motion:reduce) {.garden-opening .home-hero {transform:none!important;}}
+
+.garden-opening .hero-tagline {
+  width: fit-content;
+  max-width: 100%;
+  margin-inline: auto;
+  padding: .18em .55em .25em;
+  color: #413012;
+  background: radial-gradient(ellipse, #f7f5e9e8 25%, transparent 75%);
+  font-size: clamp(1.25rem, 3vw, 2.15rem);
+  line-height: 1.25;
+}
+
+.language-dialog.is-intro::backdrop {
+  background: linear-gradient(#271c163f, #271c163f), url('/images/wedding/garden/doors.jpg') center / cover no-repeat;
+  backdrop-filter: none;
+}
+
+.language-dialog.is-leaving {
+  transform: none;
+}
+
+.door-prompt {
+  opacity: clamp(0, calc((.65 - var(--door-progress, 0)) * 3.25), 1);
+}
+
+.door-prompt:has(.door-skip:focus-visible) {
+  opacity: 1;
+}

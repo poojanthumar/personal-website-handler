@@ -62,13 +62,18 @@
 
   const cover = document.querySelector('.invite-cover');
   const content = document.querySelector('#site-content');
-  let openingTimer;
+  const doorFilmEnd = .68;
+  const halfwayThroughDoors = doorFilmEnd / 2;
+  const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorFilm.parentElement.offsetHeight);
   function finishOpening() {
     if (!cover || !content) return;
-    window.clearTimeout(openingTimer);
     content.hidden = false;
     content.inert = false;
-    cover.hidden = true;
+    cover.hidden = false;
+    cover.classList.add("is-complete");
+    cover.style.setProperty("--invitation-progress", 1);
+    document.querySelector("#invitation")?.removeAttribute("inert");
+    if (doorFilm?.readyState >= 1) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
     document.body.classList.remove('invite-in-motion');
     sessionStorage.setItem('weddingCurtainOpened', 'true');
     const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
@@ -79,11 +84,20 @@
   const doorFilm = document.querySelector('.door-film');
   let doorReady = false;
   function syncDoors() {
-    if (!doorReady || cover.hidden || !doorFilm || doorFilm.readyState < 1) return;
-    const progress = clamp(scrollY / Math.max(1, cover.offsetHeight - innerHeight));
-    const time = progress * Math.min(7.9, doorFilm.duration || 7.9);
-    if (!doorFilm.seeking && Math.abs(doorFilm.currentTime-time) > .035) doorFilm.currentTime = time;
+    if (!cover || !doorFilm) return;
+    if (cover.classList.contains('is-complete')) {
+      if (doorFilm.readyState >= 1 && Math.abs(doorFilm.currentTime - 7.9) > .05) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
+      return;
+    }
+    if (!doorReady) return;
+    const progress = clamp(-cover.getBoundingClientRect().top / openingScrollDistance());
+    const time = clamp(progress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
+    if (doorFilm.readyState >= 1 && !doorFilm.seeking && Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
     cover.style.setProperty('--door-progress', progress);
+    const invitationProgress = clamp((progress - .66) / .2);
+    cover.style.setProperty('--invitation-progress', invitationProgress);
+    const invitation = document.querySelector('#invitation');
+    if (invitation) invitation.inert = invitationProgress < .9;
     if (progress >= .98) sessionStorage.setItem('weddingCurtainOpened','true');
   }
   function openCover(instant = false) {
@@ -92,8 +106,10 @@
     content.hidden = false;
     content.inert = false;
     cover.setAttribute('aria-hidden','false');
-    window.scrollTo({top:0,behavior:'instant'});
+    document.querySelector('#invitation')?.setAttribute('inert','');
     doorReady = true;
+    const sceneTop = cover.getBoundingClientRect().top + window.scrollY;
+    window.scrollTo({ top: sceneTop + openingScrollDistance() * halfwayThroughDoors, behavior: 'instant' });
     syncDoors();
     paintScratchers();
   }
@@ -249,17 +265,25 @@
   const languageDone = (skip = false) => {
     if (closingLanguage || !languageDialog?.open) return;
     closingLanguage = true;
+    const startsOpening = cover && !doorReady && !cover.classList.contains('is-complete');
+    if (startsOpening) openCover(skip);
     languageDialog.classList.add('is-leaving');
     const leave = () => {
-      languageDialog.close(); languageDialog.classList.remove('is-leaving'); closingLanguage = false;
-      if (cover && !cover.hidden) openCover(skip);
-      else document.querySelector('[data-language-popup]')?.focus();
+      languageDialog.close();
+      languageDialog.classList.remove('is-leaving', 'is-intro');
+      closingLanguage = false;
+      if (startsOpening && doorReady) document.querySelector('.door-skip')?.focus({ preventScroll: true });
+      else if (startsOpening) document.querySelector('#invitation')?.focus({ preventScroll: true });
+      else document.querySelector('[data-language-popup]')?.focus({ preventScroll: true });
     };
-    if (reduced.matches) leave(); else window.setTimeout(leave, 380);
+    if (reduced.matches || motionPaused) leave(); else window.setTimeout(leave, 380);
   };
   document.querySelectorAll('[data-language-popup]').forEach(button => button.addEventListener('click', () => languageDialog?.showModal()));
   document.querySelectorAll('[data-language-done]').forEach(button => button.addEventListener('click', () => languageDone(button.classList.contains('language-close'))));
   languageDialog?.addEventListener('cancel', event => { event.preventDefault(); languageDone(true); });
-  if (cover && !cover.hidden) languageDialog?.showModal();
+  if (languageDialog && cover && !cover.classList.contains('is-complete')) {
+    languageDialog.classList.add('is-intro');
+    languageDialog.showModal();
+  }
   updateMotionPreference();
 })();

@@ -17,7 +17,7 @@
   <script src="/js/wedding-i18n.js" defer></script>
   <script src="/js/wedding-site.js" defer></script>
   <link rel="stylesheet" href="/css/wedding-garden.css">
-  <noscript><style>.invite-cover{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
+  <noscript><style>body .garden-opening{display:block!important;height:100svh!important}.door-prompt,.door-film{display:none!important}.garden-opening .home-hero{opacity:1!important;visibility:visible!important;background:url(/images/wedding/garden/aisle.jpg) center/cover!important}.invite-cover{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
 </head>
 <body data-page="home">
 
@@ -25,15 +25,14 @@
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
 
 <div th:replace="~{wedding/fragments/site :: languageDialog}"></div>
-<section class="invite-cover garden-opening" aria-label="Scroll to open the wedding doors">
- <div class="door-stage"><video class="door-film" muted playsinline preload="auto" aria-label="Flower-covered wedding doors opening into a garden"><source src="/video/wedding-doors.mp4" type="video/mp4"></video><div class="door-prompt"><p>Every beautiful beginning opens a door.</p><span>Scroll to open</span><button type="button" class="door-skip">Skip opening</button></div></div>
-</section>
+
 
 <div id="site-content" hidden>
   <div th:replace="~{wedding/fragments/site :: header}"></div>
   <div class="diya-footer" aria-hidden="true"><img src="/images/wedding/real/brass-diya.png" alt=""><img src="/images/wedding/real/brass-diya.png" alt=""></div>
   <main id="main">
-    <section class="home-hero motion-section" id="invitation" tabindex="-1">
+<section class="invite-cover garden-opening" aria-label="Scroll to open the wedding doors">
+ <div class="door-stage"><video class="door-film" poster="/images/wedding/garden/doors.jpg" muted playsinline preload="auto" aria-label="Flower-covered wedding doors opening into a garden"><source src="/video/wedding-doors.mp4" type="video/mp4"></video><div class="door-prompt"><p>Every beautiful beginning opens a door.</p><span>Scroll to open</span><button type="button" class="door-skip">Skip opening</button></div>    <section class="home-hero motion-section" id="invitation" tabindex="-1">
       <img class="hero-garland-art" src="/images/wedding/real/jasmine-marigold.png" alt="">
       <div class="invitation-frame" aria-hidden="true"></div>
       <div class="hero-copy">
@@ -41,10 +40,14 @@
         <p class="overline" data-i18n="heroPrelude">WITH THE BLESSINGS OF OUR FAMILIES</p>
         <h1>Dhriti <span>&amp;</span> Poojan</h1>
         <p class="hero-invite" data-i18n="heroInvite">Invite you to celebrate their wedding</p>
-        <p class="hero-tagline" data-i18n="heroTagline">Two traditions. One beautiful beginning.</p>
+        <p class="hero-tagline">
+          <span data-i18n="heroTaglineFirst">Two traditions.</span><br>
+          <span data-i18n="heroTaglineSecond">One beautiful beginning.</span>
+        </p>
         <div class="hero-actions"><a class="button button-primary" href="/events" data-i18n="exploreEvents">Explore the events</a><a class="button button-outline" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a></div>
       </div>
-    </section>
+    </section></div>
+</section>
 
     <section class="story-section motion-section" id="our-story">
       <div class="story-copy reveal-on-scroll"><span class="story-rule" aria-hidden="true"></span>
