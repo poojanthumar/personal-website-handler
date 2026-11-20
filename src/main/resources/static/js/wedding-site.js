@@ -62,8 +62,10 @@
 
   const cover = document.querySelector('.invite-cover');
   const content = document.querySelector('#site-content');
+  const invitation = document.querySelector('#invitation');
   const doorFilmEnd = .68;
-  const halfwayThroughDoors = doorFilmEnd / 2;
+  const doorLeadInEnd = 3.9;
+  const doorFrameRate = 30;
   const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorFilm.parentElement.offsetHeight);
   function finishOpening() {
     if (!cover || !content) return;
@@ -71,9 +73,9 @@
     content.inert = false;
     cover.hidden = false;
     cover.classList.add("is-complete");
+    doorFilm?.pause();
     cover.style.setProperty("--invitation-progress", 1);
     document.querySelector("#invitation")?.removeAttribute("inert");
-    if (doorFilm?.readyState >= 1) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
     document.body.classList.remove('invite-in-motion');
     sessionStorage.setItem('weddingCurtainOpened', 'true');
     const target = location.hash ? document.getElementById(location.hash.slice(1)) : null;
@@ -83,39 +85,88 @@
   }
   const doorFilm = document.querySelector('.door-film');
   let doorReady = false;
+  let playingDoorLeadIn = false;
+  let doorScrollStartTime = 0;
+  let doorProgress = 0;
+  let doorScrollFramePending = false;
+  function startDoorFilm() {
+    playingDoorLeadIn = true;
+    // Start inside the invitation tap, while iOS still recognizes the gesture.
+    doorFilm.play().then(() => {
+      if (!openingInProgress()) return;
+      doorFilm.classList.add('has-frame');
+      if (doorProgress > 0) finishDoorLeadIn();
+    }, () => {
+      playingDoorLeadIn = false;
+      seekDoorFrame();
+    });
+  }
+
+  function finishDoorLeadIn() {
+    doorFilm.pause();
+    doorScrollStartTime = doorFilm.currentTime;
+    playingDoorLeadIn = false;
+    if (doorProgress > 0) seekDoorFrame();
+  }
+
+  function openingInProgress() {
+    return doorReady && !cover.classList.contains('is-complete');
+  }
+
+  function seekDoorFrame() {
+    if (!openingInProgress() || playingDoorLeadIn || doorFilm.readyState < 1 || doorFilm.seeking) return;
+    const filmEnd = Math.min(7.9, doorFilm.duration || 7.9);
+    const seconds = doorScrollStartTime + clamp(doorProgress / doorFilmEnd) * (filmEnd - doorScrollStartTime);
+    const target = Math.round(seconds * doorFrameRate) / doorFrameRate;
+    if (Math.abs(doorFilm.currentTime - target) > .5 / doorFrameRate) doorFilm.currentTime = target;
+    else if (doorFilm.readyState >= 2) doorFilm.classList.add('has-frame');
+  }
+
   function syncDoors() {
-    if (!cover || !doorFilm) return;
-    if (cover.classList.contains('is-complete')) {
-      if (doorFilm.readyState >= 1 && Math.abs(doorFilm.currentTime - 7.9) > .05) doorFilm.currentTime = Math.min(7.9,doorFilm.duration);
-      return;
-    }
-    if (!doorReady) return;
+    if (!openingInProgress()) return;
     const progress = clamp(-cover.getBoundingClientRect().top / openingScrollDistance());
-    const time = clamp(progress / doorFilmEnd) * Math.min(7.9, doorFilm.duration || 7.9);
-    if (doorFilm.readyState >= 1 && !doorFilm.seeking && Math.abs(doorFilm.currentTime - time) > .035) doorFilm.currentTime = time;
+    if (progress === doorProgress) return;
+    const crossedEnd = doorProgress < .98 && progress >= .98;
+    doorProgress = progress;
     cover.style.setProperty('--door-progress', progress);
     const invitationProgress = clamp((progress - .66) / .2);
     cover.style.setProperty('--invitation-progress', invitationProgress);
-    const invitation = document.querySelector('#invitation');
-    if (invitation) invitation.inert = invitationProgress < .9;
-    if (progress >= .98) sessionStorage.setItem('weddingCurtainOpened','true');
+    if (invitation && invitation.inert !== (invitationProgress < .9)) invitation.inert = invitationProgress < .9;
+    if (crossedEnd) sessionStorage.setItem('weddingCurtainOpened', 'true');
+    if (playingDoorLeadIn && progress > 0 && doorFilm.classList.contains('has-frame')) finishDoorLeadIn();
+    else seekDoorFrame();
+  }
+
+  function queueDoorScroll() {
+    if (doorScrollFramePending || !openingInProgress()) return;
+    doorScrollFramePending = true;
+    requestAnimationFrame(() => {
+      doorScrollFramePending = false;
+      syncDoors();
+    });
   }
   function openCover(instant = false) {
-    if (!cover || !content || doorReady) return;
+    if (!cover || !content || !doorFilm || doorReady) return;
     if (instant || reduced.matches || motionPaused) { finishOpening(); return; }
     content.hidden = false;
     content.inert = false;
     cover.setAttribute('aria-hidden','false');
     document.querySelector('#invitation')?.setAttribute('inert','');
     doorReady = true;
-    const sceneTop = cover.getBoundingClientRect().top + window.scrollY;
-    window.scrollTo({ top: sceneTop + openingScrollDistance() * halfwayThroughDoors, behavior: 'instant' });
+    window.scrollTo({ top: cover.getBoundingClientRect().top + window.scrollY, behavior: 'instant' });
+    startDoorFilm();
     syncDoors();
     paintScratchers();
   }
-  addEventListener('scroll',syncDoors,{passive:true});
-  doorFilm?.addEventListener('loadedmetadata',syncDoors);
-  doorFilm?.addEventListener('seeked',syncDoors);
+  addEventListener('scroll', queueDoorScroll, { passive: true });
+  addEventListener('resize', queueDoorScroll, { passive: true });
+  doorFilm?.addEventListener('loadedmetadata', seekDoorFrame);
+  doorFilm?.addEventListener('loadeddata', seekDoorFrame);
+  doorFilm?.addEventListener('seeked', seekDoorFrame);
+  doorFilm?.addEventListener('timeupdate', () => {
+    if (openingInProgress() && playingDoorLeadIn && doorFilm.currentTime >= doorLeadInEnd) finishDoorLeadIn();
+  });
+  doorFilm?.addEventListener('error', () => doorFilm.classList.remove('has-frame'));
   document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
     if (reduced.matches && doorReady) finishOpening();

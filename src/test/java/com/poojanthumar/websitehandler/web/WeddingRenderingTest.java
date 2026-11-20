@@ -57,7 +57,7 @@ class WeddingRenderingTest {
         try (HttpClient client = HttpClient.newHttpClient()) {
             for (String path : new String[] {"/css/wedding-home.css", "/css/wedding-garden.css", "/video/wedding-doors.mp4", "/js/wedding-home.js", "/js/wedding-site.js", "/js/wedding-i18n.js",
                     "/images/wedding/real/couple-portraits.png", "/images/wedding/logo-1f.png", "/images/wedding/wedding-celebration.ics",
-                    "/images/wedding/garden.jpg", "/images/wedding/scene-engagement.jpg",
+                    "/images/wedding/garden.jpg", "/images/wedding/garden/ganesh.webp", "/images/wedding/scene-engagement.jpg",
                     "/images/wedding/scene-sangeet.jpg", "/images/wedding/scene-haldi.svg",
                     "/images/wedding/scene-wedding.svg"}) {
                 var response = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + path))
