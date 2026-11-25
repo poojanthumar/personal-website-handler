@@ -192,6 +192,19 @@
   }, { threshold: .13 }) : null;
   document.querySelectorAll('.reveal-on-scroll').forEach(node => revealObserver ? revealObserver.observe(node) : node.classList.add('is-visible'));
 
+  const chapters = document.querySelector('.invitation-chapters');
+  if (chapters && 'IntersectionObserver' in window) {
+    const chapterObserver = new IntersectionObserver(entries => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        entry.target.classList.add('is-visible');
+        chapterObserver.unobserve(entry.target);
+      }
+    }, { threshold: .14 });
+    chapters.classList.add('chapters-ready');
+    chapters.querySelectorAll('[data-chapter-reveal]').forEach(beat => chapterObserver.observe(beat));
+  }
+
   const scratchers = [];
   const revealLogo = new Image();
   revealLogo.src = '/images/wedding/logo-1f.png';
@@ -202,19 +215,20 @@
     const shower = document.createElement('div');
     shower.className = 'celebration-confetti'; shower.setAttribute('aria-hidden', 'true');
     const colours = ['#b99152', '#e0b5c0', '#fff9e9', '#8e5267', '#d9be7e'];
-    for (let i = 0; i < 64; i++) {
+    const fall = stage.offsetHeight + 120;
+    for (let i = 0; i < 28; i++) {
       const petal = document.createElement('i');
       petal.style.setProperty('--x', `${Math.random() * 100}%`);
       petal.style.setProperty('--drift', `${Math.random() * 180 - 90}px`);
-      petal.style.setProperty('--fall', `${stage.offsetHeight + 170}px`);
-      petal.style.setProperty('--delay', `${Math.random() * .65}s`);
-      petal.style.setProperty('--duration', `${3.2 + Math.random() * 1.6}s`);
+      petal.style.setProperty('--fall', `${fall}px`);
+      petal.style.setProperty('--delay', `${Math.random() * .35}s`);
+      petal.style.setProperty('--duration', `${1.7 + Math.random() * .9}s`);
       petal.style.setProperty('--spin', `${Math.random() * 720 - 360}deg`);
       petal.style.background = colours[i % colours.length];
       shower.append(petal);
     }
     stage.append(shower);
-    window.setTimeout(() => shower.remove(), 5600);
+    window.setTimeout(() => shower.remove(), 3000);
   }
   document.querySelectorAll('[data-scratch]').forEach(card => {
     const canvas = card.querySelector('canvas');

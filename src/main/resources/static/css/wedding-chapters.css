@@ -1,0 +1,91 @@
+/* Let the garden settle before the blessing, names and actions enter. */
+.garden-opening .hero-copy > * {
+  --beat-progress: clamp(0, (var(--invitation-progress, 1) - var(--beat-delay, 0)) * 2.2, 1);
+  opacity: var(--beat-progress);
+  translate: 0 calc((1 - var(--beat-progress)) * 13px);
+}
+.garden-opening .hero-copy h1 { --beat-delay: .13; }
+.garden-opening .hero-copy .hero-invite,
+.garden-opening .hero-copy .hero-tagline { --beat-delay: .29; }
+.garden-opening .hero-copy .hero-actions { --beat-delay: .45; }
+
+.invitation-chapters {
+  --chapter-paper: #fffbf2;
+  background:
+    radial-gradient(ellipse at 12% 26%, #f9ebde 0%, transparent 53%),
+    radial-gradient(ellipse at 94% 65%, #f6eadc 0%, transparent 50%),
+    var(--chapter-paper);
+}
+
+.invitation-chapters > section { position: relative; }
+
+body[data-page="home"] .invitation-chapters :is(.reveal-section, .parents-section, .story-section) {
+  background: none;
+  padding: clamp(62px, 9vw, 112px) clamp(20px, 6vw, 90px);
+  scroll-margin-top: 76px;
+}
+
+.invitation-chapters > section + section::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 auto;
+  width: min(210px, 55%);
+  height: 9px;
+  margin-inline: auto;
+  background:
+    linear-gradient(45deg, transparent 24%, #a17d30 25% 75%, transparent 76%) center / 7px 7px no-repeat,
+    linear-gradient(90deg, transparent, #a17d3066 30%, #a17d3066 70%, transparent) center / 100% 1px no-repeat;
+}
+
+.invitation-chapters .section-heading { margin-bottom: clamp(16px, 4vw, 38px); }
+.invitation-chapters .heart-stage { margin: 0 auto 18px; padding: 0 0 12px; }
+.invitation-chapters .heart-surface { width: min(400px, 100%); }
+.invitation-chapters .heart-paper { filter: drop-shadow(0 10px 18px #76522d2b); }
+.invitation-chapters .detail-actions { gap: 12px 26px; }
+.invitation-chapters .parents-grid { align-items: start; }
+.invitation-chapters .parent-divider { align-self: center; }
+.invitation-chapters .closing-copy { display: grid; justify-items: center; }
+.invitation-chapters .closing-copy > p:not(.overline) { color: #493c28; }
+
+[data-chapter-reveal] {
+  transition: opacity 520ms ease-out, transform 520ms cubic-bezier(.22,.61,.36,1);
+}
+.chapters-ready [data-chapter-reveal]:not(.is-visible):not(:focus-within) {
+  opacity: .66;
+  transform: translateY(14px);
+}
+
+@media (max-width: 760px) {
+  .invitation-chapters .parents-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .invitation-chapters .parent-card { min-height: 0; padding: 12px 4px; }
+  .invitation-chapters .parent-divider { display: none; }
+  .invitation-chapters .family-still-life {
+    width: 100%;
+    height: auto;
+    aspect-ratio: 4 / 5;
+    margin-bottom: 15px;
+  }
+  .invitation-chapters .parent-card h3 { font-size: clamp(1.15rem, 4.6vw, 1.8rem); }
+  .invitation-chapters .parent-card .overline { font-size: .57rem; letter-spacing: .12em; }
+  .invitation-chapters .parent-card strong { font-size: .91rem; }
+}
+
+.motion-paused .garden-opening .hero-copy > *,
+.motion-paused [data-chapter-reveal] {
+  opacity: 1 !important;
+  translate: none;
+  transform: none !important;
+  transition: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .garden-opening .hero-copy > *,
+  .chapters-ready [data-chapter-reveal] {
+    opacity: 1 !important;
+    translate: none;
+    transform: none !important;
+    transition: none;
+  }
+}

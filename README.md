@@ -119,7 +119,7 @@ and migrations/background writes disabled. The current script still recreates a 
 preview database; shared-data access and its read-only controls are not implemented yet.
 See `AGENTS.md` for the full workflow.
 
-For the wedding intro, see the [opening video guide](docs/wedding-opening-video.md) for encoding and iPhone testing.
+For the wedding intro, see the [opening video guide](docs/wedding-opening-video.md) for encoding and iPhone testing. The [motion reference](docs/wedding-motion-reference.md) captures the pacing to reuse on other wedding pages.
 
 ## Production deployment
 
