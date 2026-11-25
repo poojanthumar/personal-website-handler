@@ -4,7 +4,7 @@ body[data-page="home"],body[data-page="rsvp"] {--wine:#624b20;--ink:#493c28;--go
 .garden-opening[hidden] {display:none!important;}
 .door-stage {position:sticky;top:0;height:100svh;overflow:hidden;background:#dac9a4;}
 .door-film {width:100%;height:100%;object-fit:cover;object-position:center;}
-.door-prompt {position:absolute;inset:auto 0 7%;text-align:center;color:#fff8e8;text-shadow:0 2px 12px #291a09;background:linear-gradient(transparent,#392b1660,transparent);padding:20px;opacity:calc(1 - var(--door-progress,0)*3);}
+.door-prompt {position:absolute;inset:auto 0 7%;text-align:center;color:#fff8e8;text-shadow:0 2px 12px #291a09;background:linear-gradient(transparent,#392b1660,transparent);padding:20px;}
 .door-prompt p {font:italic clamp(1.3rem,3vw,2rem) 'Playfair Display',serif;margin:0 0 12px;}
 .door-prompt span {display:block;text-transform:uppercase;letter-spacing:.2em;font-size:.7rem;}
 .door-skip {margin-top:16px;border:1px solid #fff9;background:#fff2;border-radius:30px;padding:8px 18px;color:inherit;cursor:pointer;}
@@ -119,13 +119,10 @@ body[data-page="home"] .button-outline {color:#493514;border-color:#806025;backg
   transform: none;
 }
 
-.door-prompt {
-  opacity: clamp(0, calc((.65 - var(--door-progress, 0)) * 3.25), 1);
-}
-
-.door-prompt:has(.door-skip:focus-visible) {
-  opacity: 1;
-}
+/* Finish the prompt fade before the invitation starts at .66. */
+.door-prompt { opacity: clamp(0, calc((.64 - var(--door-progress, 0)) * 10), 1); }
+.door-prompt[inert] { visibility: hidden; }
+.garden-opening:focus { outline: none; }
 
 @media (max-width: 760px) {
   body[data-page="home"] .garden-opening .home-hero {

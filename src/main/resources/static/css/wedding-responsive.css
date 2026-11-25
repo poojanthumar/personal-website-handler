@@ -43,7 +43,28 @@ body[data-page="home"] .invitation-chapters .closing-section {
   .closing-art { width: min(100%, 300px); }
 }
 
+body[data-page="home"] { --margin-art: url('/images/wedding/decor/jharokha-margin.svg'); }
 .opening-ornaments { display: none; }
+
+/* Keep the center clear. Place the carved detail differently in each chapter. */
+@media (min-width: 860px) {
+  .invitation-chapters > section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: var(--margin-art) var(--chapter-margin-position, left 12px center) /
+      clamp(34px, 4vw, 68px) auto no-repeat;
+    opacity: var(--chapter-margin-opacity, .54);
+  }
+  .invitation-chapters .reveal-section { --chapter-margin-position: right 12px top 28%; }
+  .invitation-chapters .parents-section { --chapter-margin-position: left 12px bottom 32%; }
+  .invitation-chapters .story-section {
+    --chapter-margin-position: right 12px center;
+    --chapter-margin-opacity: .36;
+  }
+  .invitation-chapters .closing-section { --chapter-margin-position: left 12px bottom 20%; }
+}
 
 /* Give overlaid copy breathing room while the portrait scene fills the screen. */
 @media (min-aspect-ratio: 2/3) {
@@ -72,46 +93,14 @@ body[data-page="home"] .invitation-chapters .closing-section {
   .opening-ornaments {
     display: block;
     position: absolute;
-    inset: 74px 0 0;
+    inset: 76px 0 20px;
     pointer-events: none;
+    --margin-art-width: min(84px, calc(var(--opening-gutter) - 24px));
     background:
-      radial-gradient(ellipse at 16% 11%, #f5d4a952, transparent 37%),
-      radial-gradient(circle, #a17d301e 1px, transparent 1.4px) 0 0 / 20px 20px;
-    mask-image: linear-gradient(to right, #000, #000 58%, transparent 93%);
+      var(--margin-art) left 12px top 22% / var(--margin-art-width) auto no-repeat,
+      var(--margin-art) right 12px bottom 21% / var(--margin-art-width) auto no-repeat;
+    opacity: .76;
   }
-  .opening-ornaments::before,
-  .opening-ornaments::after {
-    content: "";
-    position: absolute;
-    pointer-events: none;
-  }
-  .opening-ornaments::before {
-    inset: 16px 0 28px max(18px, calc(var(--opening-gutter) - 32px));
-    border-block: 1px solid #a17d3038;
-    border-inline-start: 1px solid #a17d3038;
-  }
-  .opening-ornaments::after {
-    inset: 5px auto auto var(--opening-gutter);
-    width: min(32vw, 47svh, 500px);
-    aspect-ratio: 3 / 1;
-    background: url('/images/wedding/real/jasmine-marigold.webp') center / contain no-repeat;
-    filter: drop-shadow(0 9px 9px #74522e24);
-  }
-  .opening-ornaments i {
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    border-radius: 60% 40% 65% 35%;
-    background: #d69451;
-    box-shadow: 0 0 9px #e5a24b70;
-    opacity: .43;
-    animation: wedding-pollen 10s ease-in-out infinite alternate;
-  }
-  .opening-ornaments i:nth-child(1) { inset: 36% auto auto 4.3%; animation-delay: -6s; }
-  .opening-ornaments i:nth-child(2) { inset: 19% auto auto 43%; animation-delay: -2s; }
-  .opening-ornaments i:nth-child(3) { inset: 72% auto auto 51%; animation-delay: -8s; }
-  .opening-ornaments i:nth-child(4) { inset: 87% auto auto 24%; animation-delay: -4s; }
-  .opening-ornaments i:nth-child(5) { inset: 49% auto auto 49%; animation-delay: -7s; }
 
   .garden-opening .door-scene {
     inset: calc(50% + 28px) var(--opening-gutter) auto auto;
@@ -172,18 +161,8 @@ body[data-page="home"] .invitation-chapters .closing-section {
   .garden-opening .hero-actions { justify-content: flex-start; }
 }
 
-@keyframes wedding-pollen {
-  from { transform: translate3d(0, 5px, 0) scale(.8); opacity: .2; }
-  to { transform: translate3d(10px, -12px, 0) scale(1.15); opacity: .58; }
-}
-
 @media (min-width: 800px) and (min-aspect-ratio: 5/4) and (max-height: 550px) {
-  .opening-ornaments::after { display: none; }
   .garden-opening .hero-copy :is(.sanskrit-line, h1, .hero-tagline) { margin-block: 8px; }
   .garden-opening .hero-copy h1 { font-size: clamp(2.25rem, 4vw, 3.2rem); }
   .garden-opening .hero-tagline { font-size: 1.2rem; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .opening-ornaments i { animation: none; }
 }

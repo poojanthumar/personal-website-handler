@@ -67,6 +67,8 @@
   const doorLeadInEnd = 3.9;
   const doorFrameRate = 30;
   const doorStage = cover?.querySelector('.door-stage');
+  const doorPrompt = doorStage?.querySelector('.door-prompt');
+  const doorSkip = doorPrompt?.querySelector('.door-skip');
   const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorStage.offsetHeight);
   function finishOpening() {
     if (!cover || !content) return;
@@ -137,7 +139,16 @@
     cover.style.setProperty('--door-progress', progress);
     const invitationProgress = clamp((progress - .66) / .2);
     cover.style.setProperty('--invitation-progress', invitationProgress);
-    if (invitation && invitation.inert !== (invitationProgress < .9)) invitation.inert = invitationProgress < .9;
+    if (doorPrompt && doorPrompt.inert !== (progress >= .64)) {
+      if (progress >= .64 && document.activeElement === doorSkip) cover.focus({ preventScroll: true });
+      doorPrompt.inert = progress >= .64;
+      if (!doorPrompt.inert && document.activeElement === cover) doorSkip?.focus({ preventScroll: true });
+    }
+    if (invitation && invitation.inert !== (invitationProgress < .9)) {
+      if (invitationProgress < .9 && invitation.contains(document.activeElement)) cover.focus({ preventScroll: true });
+      invitation.inert = invitationProgress < .9;
+      if (!invitation.inert && document.activeElement === cover) invitation.focus({ preventScroll: true });
+    }
     if (crossedEnd) sessionStorage.setItem('weddingCurtainOpened', 'true');
     if (playingDoorLeadIn && progress > 0 && doorFilm.classList.contains('has-frame')) finishDoorLeadIn();
     else seekDoorFrame();
@@ -173,7 +184,7 @@
     if (openingInProgress() && playingDoorLeadIn && doorFilm.currentTime >= doorLeadInEnd) finishDoorLeadIn();
   });
   doorFilm?.addEventListener('error', () => doorFilm.classList.remove('has-frame'));
-  document.querySelector('.door-skip')?.addEventListener('click',finishOpening);
+  doorSkip?.addEventListener('click',finishOpening);
   reduced.addEventListener('change', () => {
     if (reduced.matches && doorReady) finishOpening();
   });
@@ -343,7 +354,7 @@
       languageDialog.close();
       languageDialog.classList.remove('is-leaving', 'is-intro');
       closingLanguage = false;
-      if (startsOpening && doorReady) document.querySelector('.door-skip')?.focus({ preventScroll: true });
+      if (startsOpening && doorReady) doorSkip?.focus({ preventScroll: true });
       else if (startsOpening) document.querySelector('#invitation')?.focus({ preventScroll: true });
       else document.querySelector('[data-language-popup]')?.focus({ preventScroll: true });
     };

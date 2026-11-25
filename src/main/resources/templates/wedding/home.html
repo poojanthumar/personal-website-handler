@@ -33,11 +33,9 @@
   <div th:replace="~{wedding/fragments/site :: header}"></div>
   <div class="diya-footer" aria-hidden="true"><img src="/images/wedding/real/brass-diya.png" alt=""><img src="/images/wedding/real/brass-diya.png" alt=""></div>
   <main id="main">
-<section class="invite-cover garden-opening" aria-label="Scroll to open the wedding doors">
+<section class="invite-cover garden-opening" tabindex="-1" aria-label="Scroll to open the wedding doors">
   <div class="door-stage">
-    <div class="opening-ornaments" aria-hidden="true">
-      <i></i><i></i><i></i><i></i><i></i>
-    </div>
+    <div class="opening-ornaments" aria-hidden="true"></div>
     <div class="door-scene">
       <video class="door-film" poster="/images/wedding/garden/doors.jpg" muted playsinline preload="auto"
              data-compact-src="/video/wedding-doors.mp4" data-wide-src="/video/wedding-doors-hd.mp4"
