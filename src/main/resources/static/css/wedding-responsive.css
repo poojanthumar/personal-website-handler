@@ -57,6 +57,13 @@ body[data-page="home"] .invitation-chapters .closing-section {
 
 /* On a wide screen, treat the footage as a portrait in a two-page invitation. */
 @media (min-width: 800px) and (min-aspect-ratio: 5/4) {
+  .language-dialog.is-intro::backdrop {
+    background:
+      linear-gradient(#372a1747, #372a1747),
+      url('/images/wedding/garden/doors-hd.jpg') center / auto 88svh no-repeat,
+      radial-gradient(ellipse at center, #e8d2ac, #fff5e5);
+  }
+
   .garden-opening .door-stage {
     --opening-gutter: max(6vw, calc((100% - 1180px) / 2));
     --opening-gap: clamp(20px, 5vw, 86px);
