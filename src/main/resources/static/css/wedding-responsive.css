@@ -1,0 +1,132 @@
+/* The closing message and its artwork have independent space at every width. */
+body[data-page="home"] .invitation-chapters .closing-section {
+  min-height: 0;
+  padding: clamp(56px, 8vw, 110px) clamp(22px, 6vw, 88px);
+  background: radial-gradient(ellipse at 75% 55%, #f8e8d3, transparent 62%), #fff9ed;
+  color: #493c28;
+}
+
+.closing-layout {
+  display: grid;
+  justify-items: center;
+  align-items: center;
+  gap: clamp(28px, 5vw, 70px);
+  width: min(100%, 1060px);
+}
+
+.closing-layout .closing-copy { min-width: 0; }
+.closing-layout h2 {
+  max-width: 15ch;
+  font-size: clamp(2rem, 4.3vw, 4.1rem);
+  line-height: 1.14;
+  text-wrap: balance;
+}
+.closing-layout .closing-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+.closing-art {
+  display: block;
+  width: min(100%, 250px);
+  height: auto;
+  border-radius: 48% 48% 5px 5px / 14% 14% 5px 5px;
+  outline: 1px solid #b9965c;
+  outline-offset: 5px;
+  box-shadow: 0 16px 40px #74522e24;
+}
+@media (min-width: 760px) {
+  .closing-layout {
+    grid-template-columns: minmax(0, 1.45fr) minmax(0, .85fr);
+  }
+  .closing-art { width: min(100%, 300px); }
+}
+
+/* Wider portrait tablets show the full artwork between paper margins. */
+@media (min-aspect-ratio: 2/3) {
+  .garden-opening .door-stage { background: radial-gradient(ellipse at center, #eadac0, #fff9ed); }
+  .garden-opening .door-scene {
+    inset: 0 auto 0 50%;
+    width: min(100%, 56.25svh);
+    translate: -50% 0;
+  }
+  .garden-opening .door-film { object-fit: contain; }
+  .garden-opening .home-hero .hero-copy { max-width: min(86vw, 51svh, 590px); }
+}
+
+/* On a wide screen, treat the footage as a portrait in a two-page invitation. */
+@media (min-width: 800px) and (min-aspect-ratio: 5/4) {
+  .garden-opening .door-stage {
+    --opening-gutter: max(6vw, calc((100% - 1180px) / 2));
+    --opening-gap: clamp(20px, 5vw, 86px);
+    --scene-height: min(calc(100svh - 100px), 860px);
+    --scene-width: calc(var(--scene-height) * .5625);
+    background:
+      radial-gradient(ellipse at 85% 65%, #ead8b8, transparent 60%),
+      radial-gradient(ellipse at 13% 18%, #f8e6d7, transparent 55%),
+      #fffaf0;
+  }
+  .garden-opening .door-scene {
+    inset: calc(50% + 28px) var(--opening-gutter) auto auto;
+    width: var(--scene-width);
+    height: var(--scene-height);
+    translate: 0 -50%;
+    background-image: url('/images/wedding/garden/doors-hd.jpg');
+    border-radius: 5px;
+    outline: 1px solid #a17d3080;
+    outline-offset: 7px;
+    box-shadow: 0 25px 58px #5a421e38;
+  }
+
+  .garden-opening .door-prompt,
+  body[data-page="home"] .garden-opening .home-hero {
+    inset: 0 calc(var(--opening-gutter) + var(--scene-width) + var(--opening-gap)) 0 var(--opening-gutter);
+    width: auto;
+    padding: 72px 0 24px;
+    background: none;
+    text-align: start;
+  }
+  .garden-opening .door-prompt {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+    color: #493c28;
+    text-shadow: none;
+  }
+  .garden-opening .door-prompt::before {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 1px;
+    background: #a17d30;
+    margin-bottom: 23px;
+  }
+  .garden-opening .door-prompt p {
+    max-width: 16ch;
+    font-size: clamp(2.1rem, 4vw, 4.3rem);
+    line-height: 1.12;
+    margin-bottom: 18px;
+  }
+  .garden-opening .door-skip { color: #493c28; border-color: #a17d30; background: #fffaf0ab; }
+  body[data-page="home"] .garden-opening .home-hero { align-items: center; justify-content: flex-start; }
+  .garden-opening .home-hero .hero-copy {
+    align-self: center;
+    width: 100%;
+    max-width: 590px;
+    padding: 0;
+    background: none;
+    text-align: start;
+    transform: none;
+  }
+  .garden-opening .hero-copy h1 { font-size: clamp(2.9rem, 5vw, 5.8rem); }
+  .garden-opening .hero-tagline { margin-inline: 0; padding-inline: 0; background: none; }
+  .garden-opening .hero-actions { justify-content: flex-start; }
+}
+
+@media (min-width: 800px) and (min-aspect-ratio: 5/4) and (max-height: 550px) {
+  .garden-opening .hero-copy :is(.sanskrit-line, h1, .hero-tagline) { margin-block: 8px; }
+  .garden-opening .hero-copy h1 { font-size: clamp(2.25rem, 4vw, 3.2rem); }
+  .garden-opening .hero-tagline { font-size: 1.2rem; }
+}

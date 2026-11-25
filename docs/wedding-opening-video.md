@@ -21,6 +21,12 @@ wc -c door-candidate.mp4
 
 Use source footage with the same 9:16 aspect ratio to avoid stretching. Check the image quality and seek response, and aim for 2–4 MB. Replace [wedding-doors.mp4](../src/main/resources/static/video/wedding-doors.mp4) once the candidate is ready. If the artwork changes, update the [closed-door still](../src/main/resources/static/images/wedding/garden/doors.jpg) and the [open-aisle still](../src/main/resources/static/images/wedding/garden/aisle.jpg) to match. If the frame rate or clip length changes, update the frame rate and time limits in [wedding-site.js](../src/main/resources/static/js/wedding-site.js) as well.
 
+## Wide and compact layouts
+
+Phones and portrait tablets use the compact clip. A viewport at least 800 CSS pixels wide with an aspect ratio of 5:4 or wider selects [wedding-doors-hd.mp4](../src/main/resources/static/video/wedding-doors-hd.mp4) before playback. Keep this query aligned in `wedding-site.js` and [wedding-responsive.css](../src/main/resources/static/css/wedding-responsive.css). The wide layout places text beside the full portrait scene, so the footage is never blown up to fill a landscape screen. Portrait tablets center the full scene on a paper background.
+
+The wide file is 1080 × 1920 at 30 fps and 9.75 MB. Use the same master and timing, with `-vf "fps=30,setsar=1"`, `-crf 25`, and `-g 4` for the wide encode. Verify both clips start and end at the same point, and check the laptop, landscape tablet, portrait tablet, and narrow phone layouts. The 2–4 MB budget applies to the compact clip.
+
 ## Keep iPhone startup and scrolling working
 
 - Keep `muted` and `playsinline` on the [video element](../src/main/resources/templates/wedding/home.html). Call `video.play()` directly from the invitation tap, before any timer or awaited work. A previous build sought into a paused clip as its first action. The physical iPhone trace logged `seeking` without `seeked`, leaving subsequent scroll seeks blocked.

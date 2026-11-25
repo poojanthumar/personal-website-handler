@@ -66,7 +66,8 @@
   const doorFilmEnd = .68;
   const doorLeadInEnd = 3.9;
   const doorFrameRate = 30;
-  const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorFilm.parentElement.offsetHeight);
+  const doorStage = cover?.querySelector('.door-stage');
+  const openingScrollDistance = () => Math.max(1, cover.offsetHeight - doorStage.offsetHeight);
   function finishOpening() {
     if (!cover || !content) return;
     content.hidden = false;
@@ -84,6 +85,11 @@
     requestRender(); paintScratchers();
   }
   const doorFilm = document.querySelector('.door-film');
+  if (doorFilm) {
+    const wideOpening = matchMedia('(min-width: 800px) and (min-aspect-ratio: 5/4)').matches;
+    if (wideOpening) doorFilm.poster = doorFilm.dataset.widePoster;
+    doorFilm.src = wideOpening ? doorFilm.dataset.wideSrc : doorFilm.dataset.compactSrc;
+  }
   let doorReady = false;
   let playingDoorLeadIn = false;
   let doorScrollStartTime = 0;

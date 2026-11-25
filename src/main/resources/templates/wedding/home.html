@@ -18,7 +18,8 @@
   <script src="/js/wedding-site.js" defer></script>
   <link rel="stylesheet" href="/css/wedding-garden.css">
   <link rel="stylesheet" href="/css/wedding-chapters.css">
-  <noscript><style>body .garden-opening{display:block!important;height:100svh!important}.door-prompt,.door-film{display:none!important}.garden-opening .home-hero{opacity:1!important;visibility:visible!important;background:url(/images/wedding/garden/aisle.jpg) center/cover!important}.invite-cover{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
+  <link rel="stylesheet" href="/css/wedding-responsive.css">
+  <noscript><style>body .garden-opening{--invitation-progress:1;display:block!important;height:100svh!important}.door-prompt,.door-film{display:none!important}#site-content[hidden]{display:block!important}.scratch-cover{display:none!important}</style></noscript>
 </head>
 <body data-page="home">
 
@@ -33,7 +34,19 @@
   <div class="diya-footer" aria-hidden="true"><img src="/images/wedding/real/brass-diya.png" alt=""><img src="/images/wedding/real/brass-diya.png" alt=""></div>
   <main id="main">
 <section class="invite-cover garden-opening" aria-label="Scroll to open the wedding doors">
- <div class="door-stage"><video class="door-film" poster="/images/wedding/garden/doors.jpg" muted playsinline preload="auto" aria-label="Flower-covered wedding doors opening into a garden"><source src="/video/wedding-doors.mp4" type="video/mp4"></video><div class="door-prompt"><p>Every beautiful beginning opens a door.</p><span>Scroll to open</span><button type="button" class="door-skip">Skip opening</button></div>    <section class="home-hero motion-section" id="invitation" tabindex="-1">
+  <div class="door-stage">
+    <div class="door-scene">
+      <video class="door-film" poster="/images/wedding/garden/doors.jpg" muted playsinline preload="auto"
+             data-compact-src="/video/wedding-doors.mp4" data-wide-src="/video/wedding-doors-hd.mp4"
+             data-wide-poster="/images/wedding/garden/doors-hd.jpg"
+             aria-label="Flower-covered wedding doors opening into a garden"></video>
+    </div>
+    <div class="door-prompt">
+      <p>Every beautiful beginning opens a door.</p>
+      <span>Scroll to open</span>
+      <button type="button" class="door-skip">Skip opening</button>
+    </div>
+    <section class="home-hero motion-section" id="invitation" tabindex="-1">
       <img class="hero-garland-art" src="/images/wedding/real/jasmine-marigold.png" alt="">
       <div class="invitation-frame" aria-hidden="true"></div>
       <div class="hero-copy">
@@ -47,7 +60,8 @@
         </p>
         <div class="hero-actions"><a class="button button-primary" href="#save-the-date" data-i18n="saveDate">Save the date</a><a class="button button-outline" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a></div>
       </div>
-    </section></div>
+    </section>
+  </div>
 </section>
 
     <div class="invitation-chapters">
@@ -85,7 +99,21 @@
       </div>
     </section>
 
-    <section class="closing-section motion-section garden-rsvp"><div class="closing-copy" data-chapter-reveal><div class="closing-monogram logo-crop" aria-hidden="true"><img src="/images/wedding/logo-1f.png" alt=""></div><p class="overline" data-i18n="closingPrelude">YOUR PRESENCE IS OUR GREATEST GIFT</p><h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2><p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p><div class="closing-actions"><a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a><a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a></div></div></section>
+    <section class="closing-section motion-section garden-rsvp">
+      <div class="closing-layout" data-chapter-reveal>
+        <div class="closing-copy">
+          <div class="closing-monogram logo-crop" aria-hidden="true"><img src="/images/wedding/logo-1f.png" alt=""></div>
+          <p class="overline" data-i18n="closingPrelude">YOUR PRESENCE IS OUR GREATEST GIFT</p>
+          <h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2>
+          <p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p>
+          <div class="closing-actions">
+            <a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a>
+            <a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a>
+          </div>
+        </div>
+        <img class="closing-art" src="/images/wedding/garden/envelope.webp" alt="" width="941" height="1672" loading="lazy" decoding="async">
+      </div>
+    </section>
     </div>
   </main>
   <div th:replace="~{wedding/fragments/site :: footer}"></div>
