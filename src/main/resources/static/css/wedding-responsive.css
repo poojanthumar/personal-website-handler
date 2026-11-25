@@ -156,7 +156,10 @@ body[data-page="home"] { --margin-art: url('/images/wedding/decor/jharokha-margi
     text-align: start;
     transform: none;
   }
-  .garden-opening .hero-copy h1 { font-size: clamp(2.9rem, 5vw, 5.8rem); }
+  .garden-opening .hero-copy h1 {
+    justify-content: flex-start;
+    font-size: clamp(2.9rem, 5vw, 5.8rem);
+  }
   .garden-opening .hero-tagline { margin-inline: 0; padding-inline: 0; background: none; }
   .garden-opening .hero-actions { justify-content: flex-start; }
 }
