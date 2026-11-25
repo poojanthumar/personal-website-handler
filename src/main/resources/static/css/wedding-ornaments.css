@@ -1,5 +1,5 @@
 body[data-page="home"] {
-  --daylight-silk: url('/images/wedding/garden/daylight-bandhani.webp');
+  --daylight-flowers: url('/images/wedding/garden/daylight-sprig.webp');
   --foil-grain: radial-gradient(ellipse at center, #b388465c 0 22%, transparent 28%);
 }
 
@@ -12,7 +12,7 @@ body[data-page="home"] {
   pointer-events: none;
 }
 
-/* Carry the paper shading right to the edge of the printed textile. */
+/* Let the flowers grow in from the page edges. */
 @media (min-width: 800px) and (min-aspect-ratio: 5/4) {
   .opening-ornaments { display: block; }
   .opening-ornaments::before {
@@ -20,9 +20,9 @@ body[data-page="home"] {
     position: absolute;
     left: -38px;
     bottom: -12px;
-    width: min(34vw, 70svh, 490px);
-    height: clamp(95px, 22svh, 190px);
-    background: var(--daylight-silk) left bottom / contain no-repeat;
+    width: min(19vw, 24svh, 250px);
+    aspect-ratio: 2 / 3;
+    background: var(--daylight-flowers) left bottom / contain no-repeat;
   }
   .opening-ornaments::after {
     content: "";
@@ -69,10 +69,10 @@ body[data-page="home"] {
     content: "";
     position: absolute;
     right: -34px;
-    bottom: -18px;
-    width: min(32vw, 420px);
-    height: clamp(140px, 17vw, 210px);
-    background: var(--daylight-silk) left bottom / contain no-repeat;
+    bottom: -32px;
+    width: min(17vw, 230px);
+    aspect-ratio: 2 / 3;
+    background: var(--daylight-flowers) left bottom / contain no-repeat;
     transform: scaleX(-1);
   }
 }
