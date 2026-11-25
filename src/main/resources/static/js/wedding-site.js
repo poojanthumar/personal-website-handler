@@ -201,7 +201,7 @@
     // Measure the stationary groups before translating their children.
     const beatProgress = chapterBeats.map(beat => {
       const { top } = beat.getBoundingClientRect();
-      return clamp((height * .97 - top) / (height * .36));
+      return clamp((height * .98 - top) / (height * .44));
     });
     sections.forEach((section, index) => {
       section.style.setProperty('--section-progress', sectionProgress[index].toFixed(3));
@@ -351,6 +351,7 @@
     languageDialog.classList.add('is-leaving');
     const leave = () => {
       languageDialog.close();
+      if (startsOpening) document.documentElement.classList.remove('language-intro-open');
       languageDialog.classList.remove('is-leaving', 'is-intro');
       closingLanguage = false;
       if (startsOpening && doorReady) doorSkip?.focus({ preventScroll: true });
@@ -362,7 +363,11 @@
   document.querySelectorAll('[data-language-popup]').forEach(button => button.addEventListener('click', () => languageDialog?.showModal()));
   document.querySelectorAll('[data-language-done]').forEach(button => button.addEventListener('click', () => languageDone(button.classList.contains('language-close'))));
   languageDialog?.addEventListener('cancel', event => { event.preventDefault(); languageDone(true); });
-  if (languageDialog && cover && !cover.classList.contains('is-complete')) {
+  if (languageDialog && cover && content && !cover.classList.contains('is-complete')) {
+    // Show the same responsive stage during the intro dialog and after its fade.
+    content.hidden = false;
+    document.documentElement.classList.add('language-intro-open');
+    window.scrollTo({ top: 0, behavior: 'instant' });
     languageDialog.classList.add('is-intro');
     languageDialog.showModal();
   }

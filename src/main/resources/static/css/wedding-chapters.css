@@ -50,9 +50,9 @@ body[data-page="home"] .invitation-chapters :is(.reveal-section, .parents-sectio
 /* Vertical scroll controls the entrance. Measure the group and move only its children. */
 [data-chapter-reveal] > * {
   --beat: clamp(0, (var(--chapter-progress, 1) - var(--chapter-delay, 0)) * 1.25, 1);
-  --settled: calc(1 - (1 - var(--beat)) * (1 - var(--beat)));
-  opacity: calc(.58 + .42 * var(--settled));
-  translate: 0 calc((1 - var(--settled)) * clamp(20px, 4vw, 42px));
+  --settled: calc(var(--beat) * (1.6 - .6 * var(--beat)));
+  opacity: calc(.44 + .56 * var(--settled));
+  translate: 0 calc((1 - var(--settled)) * clamp(30px, 8vw, 56px));
 }
 [data-chapter-reveal] > :nth-child(2) { --chapter-delay: .07; }
 [data-chapter-reveal] > :nth-child(3) { --chapter-delay: .13; }

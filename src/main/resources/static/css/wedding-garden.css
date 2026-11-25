@@ -110,8 +110,13 @@ body[data-page="home"] .button-outline {color:#493514;border-color:#806025;backg
   line-height: 1.25;
 }
 
+.language-intro-open {
+  overflow: hidden;
+  scrollbar-gutter: stable;
+}
+
 .language-dialog.is-intro::backdrop {
-  background: linear-gradient(#271c163f, #271c163f), url('/images/wedding/garden/doors.jpg') center / cover no-repeat;
+  background: #271c164f;
   backdrop-filter: none;
 }
 
