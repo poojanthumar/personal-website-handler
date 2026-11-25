@@ -28,9 +28,10 @@ body[data-page="home"] .invitation-chapters .closing-section {
   gap: 10px;
 }
 .closing-art {
-  display: block;
+  display: none;
   width: min(100%, 250px);
-  height: auto;
+  aspect-ratio: 941 / 1672;
+  background: url('/images/wedding/garden/envelope.webp') center / contain no-repeat;
   border-radius: 48% 48% 5px 5px / 14% 14% 5px 5px;
   outline: 1px solid #b9965c;
   outline-offset: 5px;
@@ -40,30 +41,7 @@ body[data-page="home"] .invitation-chapters .closing-section {
   .closing-layout {
     grid-template-columns: minmax(0, 1.45fr) minmax(0, .85fr);
   }
-  .closing-art { width: min(100%, 300px); }
-}
-
-body[data-page="home"] { --margin-art: url('/images/wedding/decor/jharokha-margin.svg'); }
-.opening-ornaments { display: none; }
-
-/* Keep the center clear. Place the carved detail differently in each chapter. */
-@media (min-width: 860px) {
-  .invitation-chapters > section::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    background: var(--margin-art) var(--chapter-margin-position, left 12px center) /
-      clamp(34px, 4vw, 68px) auto no-repeat;
-    opacity: var(--chapter-margin-opacity, .54);
-  }
-  .invitation-chapters .reveal-section { --chapter-margin-position: right 12px top 28%; }
-  .invitation-chapters .parents-section { --chapter-margin-position: left 12px bottom 32%; }
-  .invitation-chapters .story-section {
-    --chapter-margin-position: right 12px center;
-    --chapter-margin-opacity: .36;
-  }
-  .invitation-chapters .closing-section { --chapter-margin-position: left 12px bottom 20%; }
+  .closing-art { display: block; width: min(100%, 300px); }
 }
 
 /* Give overlaid copy breathing room while the portrait scene fills the screen. */
@@ -90,18 +68,6 @@ body[data-page="home"] { --margin-art: url('/images/wedding/decor/jharokha-margi
       radial-gradient(ellipse at 13% 18%, #f8e6d7, transparent 55%),
       #fffaf0;
   }
-  .opening-ornaments {
-    display: block;
-    position: absolute;
-    inset: 76px 0 20px;
-    pointer-events: none;
-    --margin-art-width: min(84px, calc(var(--opening-gutter) - 24px));
-    background:
-      var(--margin-art) left 12px top 22% / var(--margin-art-width) auto no-repeat,
-      var(--margin-art) right 12px bottom 21% / var(--margin-art-width) auto no-repeat;
-    opacity: .76;
-  }
-
   .garden-opening .door-scene {
     inset: calc(50% + 28px) var(--opening-gutter) auto auto;
     width: var(--scene-width);
@@ -168,4 +134,14 @@ body[data-page="home"] { --margin-art: url('/images/wedding/decor/jharokha-margi
   .garden-opening .hero-copy :is(.sanskrit-line, h1, .hero-tagline) { margin-block: 8px; }
   .garden-opening .hero-copy h1 { font-size: clamp(2.25rem, 4vw, 3.2rem); }
   .garden-opening .hero-tagline { font-size: 1.2rem; }
+}
+
+/* The original illustrated closing scene is one continuous panel on phones. */
+@media (max-width: 759px) {
+  body[data-page="home"] .invitation-chapters .closing-section {
+    min-height: 780px;
+    padding: 100px 24px 380px;
+    background: #daeaf0 url('/images/wedding/garden/envelope.webp') center bottom / cover no-repeat;
+  }
+  .closing-layout h2 { font-size: clamp(2.25rem, 8vw, 3.25rem); }
 }
