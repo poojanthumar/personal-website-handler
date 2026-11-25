@@ -43,15 +43,10 @@ body[data-page="home"] .invitation-chapters .closing-section {
   .closing-art { width: min(100%, 300px); }
 }
 
-/* Wider portrait tablets show the full artwork between paper margins. */
+.opening-ornaments { display: none; }
+
+/* Give overlaid copy breathing room while the portrait scene fills the screen. */
 @media (min-aspect-ratio: 2/3) {
-  .garden-opening .door-stage { background: radial-gradient(ellipse at center, #eadac0, #fff9ed); }
-  .garden-opening .door-scene {
-    inset: 0 auto 0 50%;
-    width: min(100%, 56.25svh);
-    translate: -50% 0;
-  }
-  .garden-opening .door-film { object-fit: contain; }
   .garden-opening .home-hero .hero-copy { max-width: min(86vw, 51svh, 590px); }
 }
 
@@ -74,6 +69,50 @@ body[data-page="home"] .invitation-chapters .closing-section {
       radial-gradient(ellipse at 13% 18%, #f8e6d7, transparent 55%),
       #fffaf0;
   }
+  .opening-ornaments {
+    display: block;
+    position: absolute;
+    inset: 74px 0 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse at 16% 11%, #f5d4a952, transparent 37%),
+      radial-gradient(circle, #a17d301e 1px, transparent 1.4px) 0 0 / 20px 20px;
+    mask-image: linear-gradient(to right, #000, #000 58%, transparent 93%);
+  }
+  .opening-ornaments::before,
+  .opening-ornaments::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+  }
+  .opening-ornaments::before {
+    inset: 16px 0 28px max(18px, calc(var(--opening-gutter) - 32px));
+    border-block: 1px solid #a17d3038;
+    border-inline-start: 1px solid #a17d3038;
+  }
+  .opening-ornaments::after {
+    inset: 5px auto auto var(--opening-gutter);
+    width: min(32vw, 47svh, 500px);
+    aspect-ratio: 3 / 1;
+    background: url('/images/wedding/real/jasmine-marigold.webp') center / contain no-repeat;
+    filter: drop-shadow(0 9px 9px #74522e24);
+  }
+  .opening-ornaments i {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    border-radius: 60% 40% 65% 35%;
+    background: #d69451;
+    box-shadow: 0 0 9px #e5a24b70;
+    opacity: .43;
+    animation: wedding-pollen 10s ease-in-out infinite alternate;
+  }
+  .opening-ornaments i:nth-child(1) { inset: 36% auto auto 4.3%; animation-delay: -6s; }
+  .opening-ornaments i:nth-child(2) { inset: 19% auto auto 43%; animation-delay: -2s; }
+  .opening-ornaments i:nth-child(3) { inset: 72% auto auto 51%; animation-delay: -8s; }
+  .opening-ornaments i:nth-child(4) { inset: 87% auto auto 24%; animation-delay: -4s; }
+  .opening-ornaments i:nth-child(5) { inset: 49% auto auto 49%; animation-delay: -7s; }
+
   .garden-opening .door-scene {
     inset: calc(50% + 28px) var(--opening-gutter) auto auto;
     width: var(--scene-width);
@@ -115,6 +154,7 @@ body[data-page="home"] .invitation-chapters .closing-section {
     font-size: clamp(2.1rem, 4vw, 4.3rem);
     line-height: 1.12;
     margin-bottom: 18px;
+    text-wrap: balance;
   }
   .garden-opening .door-skip { color: #493c28; border-color: #a17d30; background: #fffaf0ab; }
   body[data-page="home"] .garden-opening .home-hero { align-items: center; justify-content: flex-start; }
@@ -132,8 +172,18 @@ body[data-page="home"] .invitation-chapters .closing-section {
   .garden-opening .hero-actions { justify-content: flex-start; }
 }
 
+@keyframes wedding-pollen {
+  from { transform: translate3d(0, 5px, 0) scale(.8); opacity: .2; }
+  to { transform: translate3d(10px, -12px, 0) scale(1.15); opacity: .58; }
+}
+
 @media (min-width: 800px) and (min-aspect-ratio: 5/4) and (max-height: 550px) {
+  .opening-ornaments::after { display: none; }
   .garden-opening .hero-copy :is(.sanskrit-line, h1, .hero-tagline) { margin-block: 8px; }
   .garden-opening .hero-copy h1 { font-size: clamp(2.25rem, 4vw, 3.2rem); }
   .garden-opening .hero-tagline { font-size: 1.2rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .opening-ornaments i { animation: none; }
 }
