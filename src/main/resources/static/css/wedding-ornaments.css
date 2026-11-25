@@ -1,0 +1,78 @@
+body[data-page="home"] {
+  --daylight-silk: url('/images/wedding/garden/daylight-bandhani.webp');
+  --foil-grain: radial-gradient(ellipse at center, #b388465c 0 22%, transparent 28%);
+}
+
+.opening-ornaments,
+.chapter-ornaments {
+  display: none;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+/* Carry the paper shading right to the edge of the printed textile. */
+@media (min-width: 800px) and (min-aspect-ratio: 5/4) {
+  .opening-ornaments { display: block; }
+  .opening-ornaments::before {
+    content: "";
+    position: absolute;
+    left: -38px;
+    bottom: -12px;
+    width: min(34vw, 70svh, 490px);
+    height: clamp(95px, 22svh, 190px);
+    background: var(--daylight-silk) left bottom / contain no-repeat;
+  }
+  .opening-ornaments::after {
+    content: "";
+    position: absolute;
+    inset: 10% 0 auto auto;
+    width: min(13vw, 190px);
+    height: 38%;
+    background: var(--foil-grain) 0 0 / 18px 14px;
+    mask-image: radial-gradient(ellipse at right center, #000, transparent 68%);
+  }
+}
+
+@media (min-width: 860px) {
+  .chapter-ornaments {
+    display: block;
+    background: radial-gradient(ellipse at var(--wash-position, left bottom),
+      var(--edge-wash, #f3d4c266), transparent 46%);
+  }
+
+  .invitation-chapters > :is(.reveal-section, .parents-section, .story-section) > :not(.chapter-ornaments) {
+    position: relative;
+    z-index: 1;
+  }
+
+  .chapter-ornaments::before {
+    content: "";
+    position: absolute;
+    inset: 0 0 0 auto;
+    width: min(14vw, 220px);
+    background: var(--foil-grain) 0 0 / 18px 14px;
+    mask-image: radial-gradient(ellipse at right center, #000, transparent 72%);
+  }
+
+  .parents-section .chapter-ornaments {
+    --wash-position: right bottom;
+    --edge-wash: #dde3bd70;
+  }
+  .parents-section .chapter-ornaments::before {
+    inset-inline: 0 auto;
+    mask-image: radial-gradient(ellipse at left center, #000, transparent 72%);
+  }
+
+  .story-section .chapter-ornaments::after {
+    content: "";
+    position: absolute;
+    right: -34px;
+    bottom: -18px;
+    width: min(32vw, 420px);
+    height: clamp(140px, 17vw, 210px);
+    background: var(--daylight-silk) left bottom / contain no-repeat;
+    transform: scaleX(-1);
+  }
+}

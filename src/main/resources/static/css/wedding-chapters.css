@@ -47,12 +47,22 @@ body[data-page="home"] .invitation-chapters :is(.reveal-section, .parents-sectio
 .invitation-chapters .closing-copy { display: grid; justify-items: center; }
 .invitation-chapters .closing-copy > p:not(.overline) { color: #493c28; }
 
-[data-chapter-reveal] {
-  transition: opacity 520ms ease-out, transform 520ms cubic-bezier(.22,.61,.36,1);
+/* Vertical scroll controls the entrance. Measure the group and move only its children. */
+[data-chapter-reveal] > * {
+  --beat: clamp(0, (var(--chapter-progress, 1) - var(--chapter-delay, 0)) * 1.25, 1);
+  --settled: calc(1 - (1 - var(--beat)) * (1 - var(--beat)));
+  opacity: calc(.58 + .42 * var(--settled));
+  translate: 0 calc((1 - var(--settled)) * clamp(20px, 4vw, 42px));
 }
-.chapters-ready [data-chapter-reveal]:not(.is-visible):not(:focus-within) {
-  opacity: .66;
-  transform: translateY(14px);
+[data-chapter-reveal] > :nth-child(2) { --chapter-delay: .07; }
+[data-chapter-reveal] > :nth-child(3) { --chapter-delay: .13; }
+[data-chapter-reveal] > :nth-child(n + 4) { --chapter-delay: .2; }
+[data-chapter-reveal].groom-family > .family-still-life { --chapter-delay: .14; }
+[data-chapter-reveal].parent-card > :not(.family-still-life),
+[data-chapter-reveal] > .closing-actions,
+[data-chapter-reveal]:focus-within > * {
+  opacity: 1;
+  translate: none;
 }
 
 @media (max-width: 760px) {
@@ -74,18 +84,14 @@ body[data-page="home"] .invitation-chapters :is(.reveal-section, .parents-sectio
 }
 
 .motion-paused .garden-opening .hero-copy > *,
-.motion-paused [data-chapter-reveal] {
+.motion-paused [data-chapter-reveal] > * {
   opacity: 1 !important;
   translate: none;
-  transform: none !important;
-  transition: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .garden-opening .hero-copy > *,
-  .chapters-ready [data-chapter-reveal] {
+  [data-chapter-reveal] > * {
     opacity: 1 !important;
     translate: none;
-    transform: none !important;
-    transition: none;
   }
 }

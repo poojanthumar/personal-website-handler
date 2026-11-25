@@ -189,14 +189,26 @@
     if (reduced.matches && doorReady) finishOpening();
   });
   const sections = [...document.querySelectorAll('.motion-section')];
+  const chapterBeats = [...document.querySelectorAll('.invitation-chapters [data-chapter-reveal]')];
   function renderHomeMotion() {
     framePending = false;
     if (motionPaused || reduced.matches) return;
-    for (const section of sections) {
+    const height = innerHeight;
+    const sectionProgress = sections.map(section => {
       const rect = section.getBoundingClientRect();
-      const progress = clamp((innerHeight - rect.top) / (innerHeight + rect.height));
-      section.style.setProperty('--section-progress', progress.toFixed(3));
-    }
+      return clamp((height - rect.top) / (height + rect.height));
+    });
+    // Measure the stationary groups before translating their children.
+    const beatProgress = chapterBeats.map(beat => {
+      const { top } = beat.getBoundingClientRect();
+      return clamp((height * .97 - top) / (height * .36));
+    });
+    sections.forEach((section, index) => {
+      section.style.setProperty('--section-progress', sectionProgress[index].toFixed(3));
+    });
+    chapterBeats.forEach((beat, index) => {
+      beat.style.setProperty('--chapter-progress', beatProgress[index].toFixed(3));
+    });
   }
   function requestRender() {
     if (!framePending) { framePending = true; requestAnimationFrame(renderHomeMotion); }
@@ -208,19 +220,6 @@
     entries.forEach(entry => entry.target.classList.toggle('is-visible', entry.isIntersecting));
   }, { threshold: .13 }) : null;
   document.querySelectorAll('.reveal-on-scroll').forEach(node => revealObserver ? revealObserver.observe(node) : node.classList.add('is-visible'));
-
-  const chapters = document.querySelector('.invitation-chapters');
-  if (chapters && 'IntersectionObserver' in window) {
-    const chapterObserver = new IntersectionObserver(entries => {
-      for (const entry of entries) {
-        if (!entry.isIntersecting) continue;
-        entry.target.classList.add('is-visible');
-        chapterObserver.unobserve(entry.target);
-      }
-    }, { threshold: .14 });
-    chapters.classList.add('chapters-ready');
-    chapters.querySelectorAll('[data-chapter-reveal]').forEach(beat => chapterObserver.observe(beat));
-  }
 
   const scratchers = [];
   const revealLogo = new Image();
