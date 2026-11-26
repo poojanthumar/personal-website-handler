@@ -1,6 +1,8 @@
 package com.poojanthumar.websitehandler.web;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -51,6 +53,48 @@ class WeddingResponsesTest {
     .andExpect(redirectedUrl("/rsvp"));
   assertThat(blessings.count()).isEqualTo(before);
   assertThat(rsvps.findAll().stream().filter(r->r.getName().equals("Private Guest")).findFirst().orElseThrow().getPartySize()).isNull();
+ }
+ @Test void confirmsAttendanceWithoutAHouseholdAndCountsGuestsOnTheAdminHost() throws Exception {
+  long before = rsvps.confirmedHeadcount();
+  mvc.perform(post("/rsvp/confirm").header("Host", WEDDING).with(csrf())
+      .param("name", "Attendance fixture").param("partySize", "4"))
+    .andExpect(redirectedUrl("/rsvp#attendance"));
+  mvc.perform(post("/rsvp/confirm").header("Host", WEDDING).header("Accept", "application/json").with(csrf())
+      .param("name", "Invalid headcount").param("partySize", "0"))
+    .andExpect(status().isBadRequest());
+  mvc.perform(post("/rsvp/confirm").header("Host", "test-wedding.poojanthumar.in").with(csrf())
+      .param("name", "Preview fixture").param("partySize", "3"))
+    .andExpect(status().isForbidden());
+  assertThat(rsvps.confirmedHeadcount()).isEqualTo(before + 4);
+
+  mvc.perform(get("/wedding/rsvps").header("Host", WEDDING)).andExpect(status().isNotFound());
+  mvc.perform(get("/wedding/rsvps").header("Host", ADMIN)).andExpect(status().is3xxRedirection());
+  mvc.perform(get("/wedding/").header("Host", ADMIN).with(httpBasic("admin", "test-password")))
+    .andExpect(redirectedUrl("/wedding/rsvps"));
+  mvc.perform(get("/wedding/rsvps").header("Host", ADMIN).with(httpBasic("admin", "test-password")))
+    .andExpect(status().isOk()).andExpect(model().attribute("headcount", before + 4))
+    .andExpect(content().string(containsString("Attendance fixture")));
+ }
+
+ @Test void combinedPageShowsOnlySelectedBlessings() throws Exception {
+  mvc.perform(post("/guestbook").header("Host", WEDDING).with(csrf())
+      .param("name", "Guestbook fixture").param("message", "Have a wonderful day"))
+    .andExpect(redirectedUrl("/rsvp#guestbook"));
+  var blessing = blessings.findAll().stream().filter(row -> row.getName().equals("Guestbook fixture"))
+    .findFirst().orElseThrow();
+  mvc.perform(get("/rsvp").header("Host", WEDDING)).andExpect(status().isOk())
+    .andExpect(content().string(not(containsString(blessing.getMessage()))));
+  mvc.perform(get("/wedding/blessings").header("Host", ADMIN).with(httpBasic("admin", "test-password")))
+    .andExpect(status().isOk()).andExpect(content().string(containsString(blessing.getMessage())));
+  mvc.perform(post("/wedding/blessings/{id}/moderate", blessing.getId())
+      .header("Host", "TEST-Admin.poojanthumar.in").with(httpBasic("admin", "test-password"))
+      .with(csrf()).param("status", "APPROVED"))
+    .andExpect(status().isForbidden());
+  mvc.perform(post("/wedding/blessings/{id}/moderate", blessing.getId()).header("Host", ADMIN)
+      .with(httpBasic("admin", "test-password")).with(csrf()).param("status", "APPROVED"))
+    .andExpect(redirectedUrl("/wedding/blessings"));
+  mvc.perform(get("/rsvp").header("Host", WEDDING)).andExpect(status().isOk())
+    .andExpect(content().string(containsString(blessing.getMessage())));
  }
  @Test void validatesCsrfHostAdminAccessAndHoneypot() throws Exception {
   long before=blessings.count();

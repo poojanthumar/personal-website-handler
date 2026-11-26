@@ -24,11 +24,20 @@ public class SiteResolver {
 	}
 
 	public Site resolve(HttpServletRequest request) {
+		return resolveHost(requestHost(request));
+	}
+
+	public boolean isPreview(HttpServletRequest request) {
+		String host = normalize(requestHost(request));
+		return !host.equals(productionAlias(host));
+	}
+
+	private String requestHost(HttpServletRequest request) {
 		String hostHeader = request.getHeader("Host");
 		if (hostHeader == null || hostHeader.isBlank()) {
-			hostHeader = request.getServerName();
+			return request.getServerName();
 		}
-		return resolveHost(hostHeader);
+		return hostHeader;
 	}
 
 	public Site resolveHost(String hostHeader) {

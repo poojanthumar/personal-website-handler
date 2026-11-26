@@ -49,10 +49,30 @@
   Object.assign(dynamic.en, { heartMonth:'December 2026', heartReveal:'Reveal our celebration', heartHint:'Scratch a little love. Uncover two beautiful days.', heartScratch:'SCRATCH TO REVEAL' });
   Object.assign(translations.hi, { heartMonth:'दिसंबर २०२६', heartReveal:'हमारा उत्सव देखें', heartHint:'थोड़ा प्यार खुरचें। दो सुंदर दिन जानें।', heartScratch:'खुरचकर देखें' });
   Object.assign(translations.gu, { heartMonth:'ડિસેમ્બર ૨૦૨૬', heartReveal:'અમારી ઉજવણી જુઓ', heartHint:'થોડો પ્રેમ સ્ક્રેચ કરો. બે સુંદર દિવસ જાણો.', heartScratch:'સ્ક્રેચ કરીને જુઓ' });
+  Object.assign(translations.hi, {
+    engagementName: 'सुनहरी सगाई', mandvoName: 'शुभ मांडवो', haldiName: 'रंगी सारी',
+    sangeetName: 'ब्लाइंडिंग लाइट्स, बॉलीवुड नाइट्स', weddingName: 'मंगल मिलन',
+    eventDetails: 'विवरण', eventSchedule: 'कार्यक्रम', jumpToEvent: 'समारोह चुनें', nextScene: 'अगला दृश्य',
+    replyPageTitle: 'हाज़िरी और शुभकामनाएँ', confirmAttendance: 'आने की पुष्टि करें',
+    allEventsRsvp: 'एक जवाब सभी पाँच समारोहों के लिए है।',
+    attendingCount: 'आने वाले लोगों की संख्या, आपको मिलाकर', comingYes: 'हाँ, मैं आ रहा/रही हूँ',
+    guestbookChoiceNotice: 'धृति और पूजन आपका नाम और संदेश सार्वजनिक शुभकामना पृष्ठ पर दिखाने के लिए चुन सकते हैं।',
+    blessingPages: 'शुभकामनाओं के पन्ने', previousPage: 'पिछला', nextPage: 'अगला'
+  });
+  Object.assign(translations.gu, {
+    engagementName: 'સુનહેરી સગાઈ', mandvoName: 'શુભ માંડવો', haldiName: 'રંગી સારી',
+    sangeetName: 'બ્લાઇન્ડિંગ લાઇટ્સ, બોલિવૂડ નાઇટ્સ', weddingName: 'મંગલ મિલન',
+    eventDetails: 'વિગતો', eventSchedule: 'કાર્યક્રમ', jumpToEvent: 'પ્રસંગ પસંદ કરો', nextScene: 'આગળનો પ્રસંગ',
+    replyPageTitle: 'હાજરી અને શુભેચ્છાઓ', confirmAttendance: 'હાજરીની ખાતરી આપો',
+    allEventsRsvp: 'એક જવાબથી પાંચેય પ્રસંગો માટે હાજરી નોંધાય છે.',
+    attendingCount: 'તમારી સહિત આવનારા લોકોની સંખ્યા', comingYes: 'હા, હું આવીશ',
+    guestbookChoiceNotice: 'ધૃતિ અને પૂજન તમારું નામ અને સંદેશ જાહેર શુભેચ્છા પાનાં પર મૂકવા માટે પસંદ કરી શકે છે.',
+    blessingPages: 'શુભેચ્છાઓનાં પાનાં', previousPage: 'પાછળનું', nextPage: 'આગળનું'
+  });
   const metadata = {
     home: { hi: ['धृति और पूजन · विवाह निमंत्रण', '१२–१३ दिसंबर २०२६ को नर्मदा में हमारे विवाह उत्सव में शामिल हों।'], gu: ['ધૃતિ અને પૂજન · લગ્ન આમંત્રણ', '૧૨–૧૩ ડિસેમ્બર ૨૦૨૬ના રોજ નર્મદા ખાતે અમારી લગ્ન ઉજવણીમાં જોડાઓ.'] },
     events: { hi: ['समारोह · धृति और पूजन', '१२–१३ दिसंबर २०२६ के विवाह समारोहों की जानकारी।'], gu: ['પ્રસંગો · ધૃતિ અને પૂજન', '૧૨–૧૩ ડિસેમ્બર ૨૦૨૬ના લગ્ન પ્રસંગોની માહિતી.'] },
-    rsvp: { hi: ['जवाब दें · धृति और पूजन', 'धृति और पूजन के विवाह के लिए अपना जवाब दें।'], gu: ['જવાબ આપો · ધૃતિ અને પૂજન', 'ધૃતિ અને પૂજનના લગ્ન માટે તમારો જવાબ આપો.'] },
+    rsvp: { hi: ['हाज़िरी और शुभकामनाएँ · धृति और पूजन', 'धृति और पूजन के विवाह में अपनी हाज़िरी बताएँ या शुभकामना लिखें।'], gu: ['હાજરી અને શુભેચ્છાઓ · ધૃતિ અને પૂજન', 'ધૃતિ અને પૂજનના લગ્નમાં હાજરી નોંધાવો કે શુભેચ્છા લખો.'] },
     guestbook: { hi: ['शुभकामनाएँ · धृति और पूजन', 'धृति और पूजन के लिए आशीर्वाद और शुभकामनाएँ लिखें।'], gu: ['શુભેચ્છાઓ · ધૃતિ અને પૂજન', 'ધૃતિ અને પૂજન માટે આશીર્વાદ અને શુભેચ્છાઓ લખો.'] }
   };
   const defaults = new WeakMap();

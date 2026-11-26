@@ -1,13 +1,14 @@
 # Wedding responses
 
-Flyway migration `V3__wedding_responses.sql` creates private RSVP storage and a separate moderated Guestbook. An RSVP always covers all events. A blessing is copied to the moderation queue only when the guest explicitly opts in. Guestbook submissions start pending; only approved messages render publicly. Rejecting or returning a message to pending removes it from the public wall.
+Flyway migration `V3__wedding_responses.sql` creates private RSVP storage and a separate moderated Guestbook. The combined page at `/rsvp` accepts one attendance confirmation and party size for all five events. Guests can submit a separate blessing for consideration for the public wall. Blessings start pending and only selected messages appear. Hiding a blessing or returning it to pending removes it from the public wall. The legacy RSVP endpoint still honours the original opt-in for older callers.
 
 Admin routes (admin host and authentication required):
 
-- `/explorer/rsvps`: paginated private attendance, party size, contact information and messages.
-- `/explorer/blessings`: pending, approved and rejected queues; CSRF protected moderation actions.
+- `/wedding/rsvps` lists private RSVPs with a confirmed headcount. Older confirmed responses without a party size count as one.
+- `/wedding/blessings` shows pending, published and hidden messages, with CSRF-protected moderation actions.
+- The older `/explorer/rsvps` and `/explorer/blessings` links still resolve.
 
-Public POST routes `/rsvp` and `/guestbook` enforce the wedding host, validation, CSRF, a honeypot and ten submissions per client address per ten minutes. Addresses are held in a bounded in-memory limiter, not stored with responses. Client identity uses the server remote address; forwarded address handling relies on the trusted reverse proxy configuration. VM test host submissions are disabled. There are no public RSVP listing or contact detail endpoints.
+Public POST routes `/rsvp/confirm`, `/guestbook`, and the legacy `/rsvp` enforce the wedding host, validation, CSRF, a honeypot and ten submissions per client address per ten minutes. Addresses are held in a bounded in-memory limiter, not stored with responses. Client identity uses the server remote address; forwarded address handling relies on the trusted reverse proxy configuration. VM test hosts block submissions and blessing moderation. There are no public RSVP listing or contact detail endpoints.
 
 Run `./mvnw test` for H2 migration, integration and rendering coverage. The persistence/moderation tests also run against a disposable PostgreSQL database by overriding `spring.datasource.url`, `spring.datasource.driver-class-name`, `spring.datasource.username` and `spring.datasource.password` when running `WeddingResponsesTest`. Use a separate database; never run test fixtures or preview migrations against production.
 

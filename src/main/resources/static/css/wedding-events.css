@@ -1,0 +1,234 @@
+body[data-page="events"] {
+  --event-header: 76px;
+  --event-height: calc(100svh - var(--event-header));
+  --event-step: min(63svh, 570px);
+  overflow-x: clip;
+}
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+.event-stage { background: #e0cfaa; }
+.event-scene {
+  position: relative;
+  min-height: max(510px, var(--event-height));
+  overflow: clip;
+  isolation: isolate;
+  background: var(--scene-backdrop, #dfcfaa);
+  color: #362616;
+  scroll-margin-top: var(--event-header);
+}
+#mandvo { --scene-backdrop: #b87938; }
+#haldi { --scene-backdrop: #dac5d6; }
+#sangeet { --scene-backdrop: #151e3b; color: #fff3e2; }
+#wedding { --scene-backdrop: #c9c7a8; }
+.event-landscape, .event-landscape img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.event-landscape img { object-fit: cover; object-position: center 56%; }
+.event-scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, #fff3d8ee, #fff3d87d 36%, transparent 70%);
+  z-index: 0;
+  pointer-events: none;
+}
+#haldi::after { background: linear-gradient(90deg, #fff0efe8, #ffede57d 37%, transparent 70%); }
+#sangeet::after { background: linear-gradient(90deg, #10152de8, #1119348a 39%, transparent 72%); }
+.event-inscription {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  align-content: center;
+  justify-items: start;
+  gap: .8rem;
+  max-width: min(52%, 51rem);
+  min-height: inherit;
+  padding: 2rem 1.25rem 5rem clamp(2rem, 7vw, 8rem);
+}
+.event-inscription h2 {
+  font-size: clamp(2.65rem, 6.7vw, 7.8rem);
+  line-height: 1.04;
+  letter-spacing: -.053em;
+  text-wrap: balance;
+}
+#sangeet .event-inscription h2 { font-size: clamp(2.4rem, 5.3vw, 6.2rem); }
+#sangeet .overline { color: #ffe1a1; }
+.event-inscription time { font-weight: 600; font-size: clamp(.95rem, 1.55vw, 1.25rem); }
+.event-placard { position: relative; margin-top: .45rem; max-width: 100%; }
+.event-placard summary, .event-scene-controls summary, .event-next {
+  display: flex;
+  align-items: center;
+  gap: .65rem;
+  min-height: 44px;
+  padding: .45rem .9rem;
+  border: 1px solid currentColor;
+  border-radius: 5rem;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  list-style-type: none;
+  width: fit-content;
+}
+.event-placard summary::-webkit-details-marker, .event-schedule summary::-webkit-details-marker { display: none; }
+.event-placard summary::after { content: "+"; font-size: 1.05em; }
+.event-placard[open] summary::after { content: "−"; }
+.event-placard > div {
+  width: min(320px, 80vw);
+  margin-top: .55rem;
+  padding: .85rem 1.05rem;
+  border: 1px solid #d4b991;
+  border-radius: 3px;
+  background: #fff8e8;
+  color: #3b2d20;
+  font-size: .88rem;
+  line-height: 1.5;
+}
+.event-placard p + p { margin-top: .4rem; }
+.event-placard a { display: inline-block; margin-top: .6rem; color: #713b48; text-decoration: underline; }
+.event-scene-controls {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  gap: .6rem;
+  padding: .65rem clamp(.8rem, 4vw, 4rem);
+  background: #fff8e8;
+  color: #423125;
+}
+.event-scene-controls .sf-icon { width: .95rem; height: .95rem; object-fit: contain; }
+.event-schedule { position: relative; justify-self: start; }
+.event-schedule-sheet {
+  position: absolute;
+  left: 0;
+  bottom: calc(100% + .7rem);
+  width: min(325px, 85vw);
+  max-height: min(67svh, 29rem);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #fff8ed;
+  border: 1px solid #d4b991;
+  border-radius: .4rem;
+  box-shadow: 0 12px 28px #35190438;
+  padding: .6rem .9rem;
+}
+.event-schedule ol { list-style: none; margin: 0; padding: 0; }
+.event-schedule li + li { border-top: 1px solid #e5d5c1; }
+.event-schedule li a { display: grid; line-height: 1.32; padding: .52rem .45rem; }
+.event-schedule li a[aria-current="step"] { color: #823b47; background: #f7e7e7; }
+.event-schedule time { font-size: .77rem; }
+.schedule-calendar { display: flex; gap: .5rem; align-items: center; padding: .55rem .45rem; text-decoration: underline; }
+.event-position { display: flex; align-items: center; }
+.event-position a { display: grid; place-items: center; width: 27px; height: 44px; }
+.event-position a::before { content: ""; width: 7px; height: 7px; border: 1px solid #795f45; border-radius: 50%; }
+.event-position a[aria-current="step"]::before { background: #795f45; outline: 1px solid #795f45; outline-offset: 3px; }
+.event-next { justify-self: end; }
+.event-farewell {
+  text-align: center;
+  padding: clamp(3rem, 9vw, 7rem) 1rem;
+  background: radial-gradient(ellipse at top, #fff9f0, #f0dcdb);
+}
+.event-farewell p { margin: 1rem auto 1.5rem; }
+
+.event-track.is-pinned {
+  height: calc(var(--event-height) + 4 * var(--event-step));
+  overflow-anchor: none;
+}
+.is-pinned .event-stage {
+  position: sticky;
+  top: var(--event-header);
+  height: var(--event-height);
+  min-height: 0;
+  isolation: isolate;
+  overflow: clip;
+}
+.is-pinned .event-scene {
+  position: absolute;
+  inset: 0;
+  min-height: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.is-pinned .event-scene.is-current { z-index: 2; visibility: visible; pointer-events: auto; }
+.is-pinned .event-scene.is-leaving { z-index: 1; visibility: visible; }
+.is-pinned .event-inscription { height: 100%; }
+.is-pinned .event-placard > div { position: absolute; z-index: 1; }
+.is-pinned .event-scene-controls {
+  position: absolute;
+  inset: auto 0 0;
+  background: #fff8e9f0;
+  border-top: 1px solid #d4b991;
+}
+.is-pinned .event-scene.is-current.is-entering { animation: scene-in 800ms ease both; }
+.is-pinned [data-transition="mandvo"] .is-entering { animation-name: scene-drape; }
+.is-pinned [data-transition="haldi"] .is-entering { animation-name: scene-garland; }
+.is-pinned [data-transition="sangeet"] .is-entering { animation-name: scene-dusk; }
+.is-pinned [data-transition="mandvo"] .is-leaving .event-landscape { animation: scene-pan 850ms ease both; }
+.is-pinned [data-transition="sangeet"] .is-leaving .event-landscape { animation: scene-look-up 850ms ease both; }
+.is-pinned [data-transition="wedding"] .is-leaving .event-landscape {
+  transform-origin: 12% 80%;
+  animation: scene-lantern 850ms ease both;
+}
+.is-pinned [data-transition="wedding"] .is-entering::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 50% 62%, #fff4d2, #f5cc85ae 38%, transparent 78%);
+  animation: scene-glow 850ms ease-out both;
+}
+.is-pinned .event-landscape { transform: scale(1.035) translateY(var(--scene-drift, 0)); }
+.event-next.leads-to-rsvp { background: #713b48; color: #fff7e9; border-color: #713b48; }
+.event-next.leads-to-rsvp img { filter: brightness(0) invert(1); transform: rotate(-90deg); }
+@keyframes scene-in { from { opacity: 0; } to { opacity: 1; } }
+@keyframes scene-drape { from { clip-path: inset(0 0 0 100%); filter: brightness(1.12); } to { clip-path: inset(0); filter: brightness(1); } }
+@keyframes scene-garland { from { clip-path: ellipse(95% 0% at 50% 0%); } to { clip-path: ellipse(120% 145% at 50% 0%); } }
+@keyframes scene-dusk { from { opacity: 0; transform: translateY(-5%); } to { opacity: 1; transform: none; } }
+@keyframes scene-glow { from { opacity: .9; } to { opacity: 0; } }
+@keyframes scene-pan { from { transform: scale(1.035); } to { transform: translateX(-7%) scale(1.18); } }
+@keyframes scene-look-up { from { transform: scale(1.035); } to { transform: translateY(6%) scale(1.2); } }
+@keyframes scene-lantern { from { transform: scale(1.035); } to { transform: scale(1.7); filter: brightness(1.35); } }
+.motion-paused .is-pinned .event-scene,
+.motion-paused .is-pinned .event-scene::before,
+.motion-paused .is-pinned .event-landscape { animation: none !important; }
+.motion-paused .is-pinned .event-landscape { transform: none; }
+
+@media (max-width: 650px), (orientation: portrait) and (max-width: 950px) {
+  .event-inscription {
+    align-content: start;
+    justify-items: center;
+    max-width: none;
+    padding: clamp(1.2rem, 6svh, 4.5rem) 1.1rem 4.2rem;
+    text-align: center;
+    gap: .6rem;
+  }
+  .event-inscription h2 { font-size: clamp(2.5rem, 11vw, 5.8rem); }
+  #sangeet .event-inscription h2 { font-size: clamp(2.1rem, 9.5vw, 5rem); }
+  .event-scene::after, #haldi::after { background: linear-gradient(#fff4e4e6, #fff4e456 49%, transparent 74%); }
+  #sangeet::after { background: linear-gradient(#10162dd9, #10162d47 49%, transparent 75%); }
+  .event-landscape img { object-position: center 54%; }
+  .event-placard summary { margin-inline: auto; }
+  .is-pinned .event-placard > div { left: 50%; transform: translateX(-50%); }
+  .event-scene-controls { padding-inline: .65rem; gap: .2rem; }
+  .event-scene-controls summary, .event-next { gap: .35rem; padding-inline: .55rem; font-size: .73rem; }
+  .event-position a { width: 20px; }
+}
+@media (max-width: 650px) {
+  body[data-page="events"] { --event-header: 66px; }
+}
+@media (max-height: 480px) {
+  .is-pinned .event-inscription { align-content: start; padding-top: .7rem; }
+  .event-inscription h2, #sangeet .event-inscription h2 { font-size: clamp(2rem, 5vw, 4rem); }
+  .is-pinned .event-placard > div { max-height: 23svh; overflow: auto; }
+}

@@ -1,5 +1,22 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <th:block th:fragment="pageHead(title, description)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f7f0e4">
+    <meta name="description" th:content="${description}">
+    <title th:text="${title}"></title>
+    <link rel="icon" href="/images/wedding/logo-1f.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/css/wedding-home.css">
+    <link rel="stylesheet" href="/css/wedding-garden.css">
+    <script src="/js/wedding-i18n.js" defer></script>
+    <script src="/js/wedding-site.js" defer></script>
+  </th:block>
+</head>
 <body>
 <header th:fragment="header" class="site-header">
   <a class="header-brand" href="/" aria-label="Dhriti and Poojan, home">
@@ -9,8 +26,7 @@
   <nav id="site-nav" class="site-nav" aria-label="Main navigation">
     <a href="/" data-i18n="navHome">Home</a>
     <a href="/events" data-i18n="navEvents">Events</a>
-    <a href="/rsvp" data-i18n="navRsvp">RSVP</a>
-    <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
+    <a href="/rsvp" data-i18n="replyPageTitle">RSVP &amp; Guestbook</a>
   </nav>
   <div class="header-actions">
     <button class="language-popup-trigger" type="button" data-language-popup aria-label="Choose language"><img class="sf-icon" src="/images/wedding/sf/globe.png" alt=""><span data-current-language>EN</span></button>
@@ -31,8 +47,7 @@
     <nav aria-label="Footer navigation">
       <a href="/" data-i18n="navHome">Home</a>
       <a href="/events" data-i18n="navEvents">Events</a>
-      <a href="/rsvp" data-i18n="navRsvp">RSVP</a>
-      <a href="/guestbook" data-i18n="navGuestbook">Guestbook</a>
+      <a href="/rsvp" data-i18n="replyPageTitle">RSVP &amp; Guestbook</a>
     </nav>
     <div class="social-links">
       <a href="https://www.instagram.com/jabidlimetdhokla/" target="_blank" rel="noopener noreferrer"><img class="brand-icon" src="/images/wedding/icons/instagram-brand.svg" alt=""><span>Instagram</span></a>

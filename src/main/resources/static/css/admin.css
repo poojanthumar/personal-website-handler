@@ -83,3 +83,27 @@ input, textarea {
 	border-radius: 10px;
 }
 .login-card h1 { margin-top: 0; }
+
+.wedding-admin { max-width: 1100px; margin-inline: auto; }
+.wedding-admin h1 { margin-bottom: .45rem; }
+.wedding-admin-tabs { display: flex; flex-wrap: wrap; align-items: center; gap: .65rem; margin: 1.25rem 0; }
+.wedding-admin-tabs a { padding: .38rem .7rem; border-radius: .35rem; border: 1px solid var(--line); text-decoration: none; }
+.wedding-admin-tabs a[aria-current] { background: var(--panel); border-color: var(--accent); color: var(--text); }
+.guestbook-queues { font-size: .9rem; }
+.wedding-metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: .8rem; }
+.wedding-metrics > div, .admin-blessing, .wedding-admin-empty { padding: 1rem; border: 1px solid var(--line); border-radius: .4rem; background: var(--panel); }
+.wedding-metrics dt { color: var(--muted); }
+.wedding-metrics dd { margin: .2rem 0 0; font-size: 1.8rem; font-weight: 600; }
+.wedding-table { overflow-x: auto; border: 1px solid var(--line); border-radius: .4rem; }
+.wedding-table table { min-width: 535px; }
+.wedding-table td:first-child { width: 38%; overflow-wrap: anywhere; }
+.wedding-table summary { color: var(--accent); cursor: pointer; font-size: .87rem; }
+.attendance-yes { color: #9fe0b6; }
+.admin-blessing { margin-block: .75rem; }
+.admin-blessing h2 { margin: 0; font-size: 1.2rem; }
+.admin-blessing form { display: flex; flex-wrap: wrap; gap: .6rem; }
+.admin-message { overflow-wrap: anywhere; white-space: pre-wrap; }
+.secondary-admin-button { background: transparent; color: var(--text); border: 1px solid #6c8195; }
+@media (max-width: 620px) {
+	.top { flex-wrap: wrap; gap: .5rem .85rem; }
+}

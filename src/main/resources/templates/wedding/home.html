@@ -59,7 +59,7 @@
           <span data-i18n="heroTaglineFirst">Two traditions.</span><br>
           <span data-i18n="heroTaglineSecond">One beautiful beginning.</span>
         </p>
-        <div class="hero-actions"><a class="button button-primary" href="#save-the-date" data-i18n="saveDate">Save the date</a><a class="button button-outline" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a></div>
+        <div class="hero-actions"><a class="button button-primary" href="#save-the-date" data-i18n="saveDate">Save the date</a><a class="button button-outline" href="/rsvp" data-i18n="rsvpNow">RSVP now</a></div>
       </div>
     </section>
   </div>
@@ -115,8 +115,8 @@
           <h2 data-i18n="closingHeading">Join us in joy, music and blessings.</h2>
           <p data-i18n="closingText">We would love to celebrate these days with you at Narmada.</p>
           <div class="closing-actions">
-            <a class="button button-light" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a>
-            <a class="button button-ghost" href="/guestbook" data-i18n="leaveBlessing">Leave a blessing</a>
+            <a class="button button-light" href="/rsvp" data-i18n="rsvpNow">RSVP now</a>
+            <a class="button button-ghost" href="/rsvp#guestbook" data-i18n="leaveBlessing">Leave a blessing</a>
           </div>
         </div>
       </div>
@@ -124,7 +124,6 @@
     </div>
   </main>
   <div th:replace="~{wedding/fragments/site :: footer}"></div>
-  <div th:replace="~{wedding/fragments/forms :: rsvpDialog}"></div>
 </div>
 </body>
 </html>

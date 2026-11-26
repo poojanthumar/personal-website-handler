@@ -1,0 +1,73 @@
+.response-chapter { background: #fbf2e5; }
+.reply-cover {
+  isolation: isolate;
+  position: relative;
+  display: grid;
+  justify-items: center;
+  align-items: start;
+  text-align: center;
+  padding: clamp(3rem, 8svh, 6rem) 1.25rem 15rem;
+  min-height: min(680px, 75svh);
+}
+.reply-cover picture, .reply-cover img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+}
+.reply-cover img { object-fit: cover; object-position: center bottom; }
+.reply-cover::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(#fff9ee8a 0%, #fff9ee50 35%, transparent 75%);
+}
+.reply-cover h1 {
+  font-size: clamp(2.6rem, 7vw, 6.15rem);
+  letter-spacing: -.055em;
+  color: #572c3b;
+  text-wrap: balance;
+}
+.reply-cover p { font-size: 1.05rem; color: #4c392f; margin-top: .75rem; font-weight: 600; }
+.reply-jump { display: flex; justify-content: center; flex-wrap: wrap; gap: .7rem; margin-top: 1.45rem; }
+.reply-jump .button-outline { background: #fff9eddb; }
+.reply-paper {
+  background: radial-gradient(ellipse at 50% 4%, #fff9ec, #f4e4df 72%);
+  padding: clamp(2.4rem, 7vw, 6rem) clamp(1rem, 4vw, 3rem);
+}
+.reply-forms {
+  max-width: 1050px;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1rem, 3vw, 2.5rem);
+  margin-inline: auto;
+  align-items: start;
+}
+.reply-panel {
+  border: 1px solid #d9bd93;
+  border-radius: .35rem;
+  box-shadow: inset 0 0 0 5px #fff9ee, inset 0 0 0 6px #d9bd9367, 0 14px 40px #5b33280a;
+  padding: clamp(1.4rem, 4vw, 2.8rem);
+  background: #fff9ee;
+}
+.reply-panel > .sf-icon { width: 1.5rem; opacity: .8; }
+.reply-panel h2 { color: var(--wine); font-size: clamp(1.85rem, 3vw, 2.9rem); margin: .55rem 0; }
+.reply-panel > p { color: #554d42; font-size: .94rem; margin-bottom: 1.45rem; }
+.reply-panel input, .reply-panel textarea { font-size: 1rem; }
+.reply-panel input[type="number"] { max-width: 8rem; }
+.reply-panel .form-status:empty { display: none; }
+.reply-panel:target, .reply-wall:target { scroll-margin-top: 1.25rem; }
+.reply-wall { max-width: 1050px; margin: clamp(3rem, 8vw, 6rem) auto 0; text-align: center; }
+.reply-wall h2 { color: var(--wine); font-size: clamp(2.2rem, 4.5vw, 4.3rem); margin-bottom: .75rem; }
+.blessing-notes { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 240px), 1fr)); gap: 1rem; margin-top: 2rem; text-align: start; }
+.blessing-notes figure { margin: 0; background: #fff9ee; border: 1px solid #ddc4ad; padding: 1.25rem; overflow-wrap: anywhere; }
+.blessing-notes blockquote { white-space: pre-wrap; margin: 0 0 .9rem; }
+.blessing-notes figcaption { color: var(--wine); font-weight: 600; }
+.reply-pagination { display: flex; justify-content: center; gap: 1rem; margin-top: 1.25rem; text-decoration: underline; }
+@media (max-width: 720px) {
+  .reply-forms { grid-template-columns: 1fr; }
+  .reply-cover { min-height: min(615px, 75svh); padding-bottom: 12rem; }
+  .reply-cover img { object-position: center 65%; }
+}

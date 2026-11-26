@@ -34,7 +34,10 @@
     menu.setAttribute('aria-expanded', String(open));
   });
   nav?.querySelectorAll('a').forEach(link => {
-    if (link.pathname === location.pathname) link.classList.add('is-active');
+    if (link.pathname === location.pathname || (link.pathname === '/rsvp' && location.pathname === '/guestbook')) {
+      link.classList.add('is-active');
+      link.setAttribute('aria-current', 'page');
+    }
     link.addEventListener('click', () => {
       nav.classList.remove('is-open');
       menu?.setAttribute('aria-expanded', 'false');
@@ -308,14 +311,6 @@
     new ResizeObserver(paint).observe(canvas);scratchers.push(paint);
   });
 
-  const dialog = document.querySelector('.rsvp-dialog');
-  document.querySelectorAll('[data-rsvp-trigger]').forEach(link => link.addEventListener('click', event => {
-    if (!dialog?.showModal) return;
-    event.preventDefault(); dialog.showModal();
-  }));
-  dialog?.querySelector('[data-close-dialog]')?.addEventListener('click', () => dialog.close());
-  dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
-
   document.querySelectorAll('[data-response-form]').forEach(form => {
     form.addEventListener('submit', async event => {
       event.preventDefault();
@@ -329,7 +324,8 @@
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/x-www-form-urlencoded' },
           body: new URLSearchParams(new FormData(form)) });
         if (!response.ok) {
-          status.textContent = locale.text(response.status === 429 ? 'rateLimited' : 'submitError', language);
+          const preview = response.status === 403 && location.hostname.startsWith('test-');
+          status.textContent = locale.text(preview ? 'previewFormStatus' : response.status === 429 ? 'rateLimited' : 'submitError', language);
           button.disabled = false;
         } else {
           status.textContent = locale.text(form.dataset.responseForm === 'rsvp' ? 'rsvpSaved' : 'blessingSaved', language);

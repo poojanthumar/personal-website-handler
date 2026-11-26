@@ -1,37 +1,76 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#f7f0e4">
-  <meta name="description" content="Explore Dhriti and Poojan's wedding celebrations at Praveg Tent City Narmada on 12–13 December 2026.">
-  <title>Events · Dhriti &amp; Poojan</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/wedding-home.css"><link rel="stylesheet" href="/css/wedding-garden.css">
-  <script src="/js/wedding-i18n.js" defer></script><script src="/js/wedding-site.js" defer></script><script src="/js/wedding-home.js" defer></script>
+  <th:block th:replace="~{wedding/fragments/site :: pageHead('Events · Dhriti &amp; Poojan', 'Explore the five celebrations of Dhriti and Poojan’s wedding in Narmada on 12–13 December 2026.')}"></th:block>
+  <link rel="stylesheet" href="/css/wedding-events.css">
+  <script src="/js/wedding-events.js" defer></script>
 </head>
 <body data-page="events">
-<div th:replace="~{wedding/fragments/living-art :: definitions}"></div>
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
-<div th:replace="~{wedding/fragments/site :: header}"></div>
-<div th:replace="~{wedding/fragments/site :: languageDialog}"></div>
+<header th:replace="~{wedding/fragments/site :: header}"></header>
+<dialog th:replace="~{wedding/fragments/site :: languageDialog}"></dialog>
 <main id="main">
-  <section class="page-intro events-intro"><p class="overline" data-i18n="eventsPrelude">FIVE MOMENTS · ONE CELEBRATION</p><h1 data-i18n="eventsPageTitle">The celebration unfolds</h1><p data-i18n="eventsPageIntro">Follow the colours, music and blessings of two joyful days. Scroll to see each scene come to life.</p><div class="page-intro-actions"><a class="button button-primary" href="/images/wedding/wedding-celebration.ics" download><img class="sf-icon" src="/images/wedding/sf/calendar.png" alt=""><span data-i18n="saveCalendar">Save the dates</span></a><a class="button button-outline" href="https://maps.app.goo.gl/UufZscRbMpX2uvVe8" target="_blank" rel="noopener noreferrer"><img class="sf-icon" src="/images/wedding/sf/map.png" alt=""><span data-i18n="directions">Get directions</span></a></div><p class="venue-caption" data-i18n="allAtVenue">Every event takes place at Praveg Tent City Narmada, Statue of Unity.</p></section>
-  <nav class="event-index" aria-label="Jump to event"><a href="#engagement" data-i18n="engagement">Engagement</a><a href="#mandvo" data-i18n="mandvo">Mandvo</a><a href="#haldi" data-i18n="haldi">Haldi</a><a href="#sangeet" data-i18n="sangeet">Sangeet</a><a href="#wedding" data-i18n="wedding">Wedding</a></nav>
-
-  <article class="event engagement" id="engagement" data-event="engagement"><div class="scene-pin"><div class="event-copy"><p class="overline" data-i18n="eventOne">01 / ENGAGEMENT</p><h2>Sunheri <em>Sagai</em></h2><p class="event-description" data-i18n="engagementDescription">Two families come together to celebrate a beautiful beginning.</p><div class="event-time"><time datetime="2026-12-12T09:00:00+05:30" data-i18n="engagementTime">12 December · 9 AM</time><span>✦</span><span data-i18n="atVenue">Praveg Tent City Narmada</span></div><p class="event-mood" data-i18n="engagementMood">Golden beginnings</p></div><div th:replace="~{wedding/fragments/living-art :: engagement}"></div><div class="scene-caption"><span data-i18n="scrollScene">Scroll to bring the scene to life</span><span class="scene-progress"><i></i></span><span>↓</span></div></div></article>
-
-  <article class="event mandvo" id="mandvo" data-event="mandvo"><div class="scene-pin"><div class="event-copy"><p class="overline" data-i18n="eventTwo">02 / MANDVO</p><h2>Shubh <em>Mandvo</em></h2><p class="event-description" data-i18n="mandvoDescription">An auspicious gathering to bless the beginning of our wedding celebrations.</p><div class="event-time"><time datetime="2026-12-12T13:00:00+05:30" data-i18n="mandvoTime">12 December · 1 PM onwards</time><span>✦</span><span data-i18n="atVenue">Praveg Tent City Narmada</span></div><p class="event-mood" data-i18n="mandvoMood">Auspicious blessings</p></div><div th:replace="~{wedding/fragments/living-art :: mandvo}"></div><div class="scene-caption"><span data-i18n="scrollScene">Scroll to bring the scene to life</span><span class="scene-progress"><i></i></span><span>↓</span></div></div></article>
-
-  <article class="event haldi" id="haldi" data-event="haldi"><div class="scene-pin"><div class="event-copy"><p class="overline" data-i18n="eventThree">03 / HALDI</p><h2>Rangi <em>Saari</em></h2><p class="event-description" data-i18n="haldiDescription">An afternoon of colour, blessings and laughter.</p><div class="event-time"><time datetime="2026-12-12T16:00:00+05:30" data-i18n="haldiTime">12 December · 4 PM</time><span>✦</span><span data-i18n="atVenue">Praveg Tent City Narmada</span></div><p class="event-mood" data-i18n="haldiMood">Colour and laughter</p></div><div th:replace="~{wedding/fragments/living-art :: haldi}"></div><div class="scene-caption"><span data-i18n="scrollScene">Scroll to bring the scene to life</span><span class="scene-progress"><i></i></span><span>↓</span></div></div></article>
-
-  <article class="event sangeet" id="sangeet" data-event="sangeet"><div class="scene-pin"><div class="event-copy"><p class="overline" data-i18n="eventFour">04 / SANGEET</p><h2>Blinding Lights,<br><em>Bollywood Nights</em></h2><p class="event-description" data-i18n="sangeetDescription">An evening of music, dance and celebration beneath the stars.</p><div class="event-time"><time datetime="2026-12-12T21:00:00+05:30" data-i18n="sangeetTime">12 December · 9 PM</time><span>✦</span><span data-i18n="atVenue">Praveg Tent City Narmada</span></div><p class="event-mood" data-i18n="sangeetMood">Bollywood nights</p></div><div th:replace="~{wedding/fragments/living-art :: sangeet}"></div><div class="scene-caption"><span data-i18n="scrollScene">Scroll to bring the scene to life</span><span class="scene-progress"><i></i></span><span>↓</span></div></div></article>
-
-  <article class="event wedding" id="wedding" data-event="wedding"><div class="scene-pin"><div class="event-copy"><p class="overline" data-i18n="eventFive">05 / WEDDING</p><h2>Mangal <em>Milan</em></h2><p class="event-description" data-i18n="weddingDescription">Two families, two traditions and one beautiful forever.</p><div class="event-time"><time datetime="2026-12-13T08:00:00+05:30" data-i18n="weddingTime">13 December · 8 AM onwards</time><span>✦</span><span data-i18n="atVenue">Praveg Tent City Narmada</span></div><p class="event-mood" data-i18n="weddingMood">A beautiful beginning</p></div><div th:replace="~{wedding/fragments/living-art :: wedding}"></div><div class="scene-caption"><span data-i18n="scrollScene">Scroll to bring the scene to life</span><span class="scene-progress"><i></i></span><span>↓</span></div></div></article>
-
-  <section class="events-final"><p class="overline" data-i18n="eventsFinalPrelude">WE CAN’T WAIT TO SEE YOU</p><h2 data-i18n="eventsFinalHeading">Five celebrations. One unforgettable gathering.</h2><p data-i18n="eventsFinalText">From golden mornings to a night full of music, we hope you’ll be there for it all.</p><a class="button button-primary" href="/rsvp" data-rsvp-trigger data-i18n="rsvpNow">RSVP now</a></section>
+  <h1 class="visually-hidden" data-i18n="eventsPageTitle">The celebration unfolds</h1>
+  <section class="event-track" data-event-track>
+    <div class="event-stage" data-event-stage>
+      <article class="event-scene" th:each="event, step : ${celebrations}" th:id="${event.key}"
+               th:classappend="${step.first} ? ' is-current' : ''">
+        <picture class="event-landscape" aria-hidden="true">
+          <source media="(max-width: 650px), (orientation: portrait) and (max-width: 950px)"
+                  th:srcset="@{|/images/wedding/events/${event.key}-portrait.webp|}">
+          <img th:src="@{|/images/wedding/events/${event.key}.webp|}"
+               th:attr="fetchpriority=${step.first ? 'high' : 'auto'},loading=${step.index < 2 ? 'eager' : 'lazy'}"
+               alt="" width="1536" height="1024" decoding="async">
+        </picture>
+        <div class="event-inscription">
+          <p class="overline" th:attr="data-i18n=${event.key}" th:text="${event.type}"></p>
+          <h2 tabindex="-1" th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></h2>
+          <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
+          <details class="event-placard">
+            <summary data-i18n="eventDetails">Details</summary>
+            <div>
+              <p th:attr="data-i18n=|${event.key}Description|" th:text="${event.description}"></p>
+              <p data-i18n="allAtVenue">Every event takes place at Praveg Tent City Narmada, Statue of Unity.</p>
+              <a href="https://maps.app.goo.gl/UufZscRbMpX2uvVe8" target="_blank" rel="noopener noreferrer" data-i18n="directions">Get directions</a>
+            </div>
+          </details>
+        </div>
+      </article>
+      <div class="event-scene-controls">
+        <details class="event-schedule">
+          <summary><img class="sf-icon" src="/images/wedding/sf/list.bullet.png" alt=""><span data-i18n="eventSchedule">Schedule</span></summary>
+          <div class="event-schedule-sheet">
+            <ol>
+              <li th:each="event, step : ${celebrations}">
+                <a th:href="|#${event.key}|" th:attr="aria-current=${step.first ? 'step' : null}" data-event-jump>
+                  <strong th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></strong>
+                  <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
+                </a>
+              </li>
+            </ol>
+            <a class="schedule-calendar" href="/images/wedding/wedding-celebration.ics" download>
+              <img class="sf-icon" src="/images/wedding/sf/calendar.png" alt=""><span data-i18n="saveCalendar">Save the dates</span>
+            </a>
+          </div>
+        </details>
+        <nav class="event-position" aria-label="Jump to an event" data-i18n-aria="jumpToEvent">
+          <a th:each="event, step : ${celebrations}" th:href="|#${event.key}|" data-event-jump
+             th:aria-label="${event.type}" th:attr="data-i18n-aria=${event.key},aria-current=${step.first ? 'step' : null}"></a>
+        </nav>
+        <a class="event-next" href="#mandvo" data-event-next>
+          <span data-next-hint data-i18n="nextScene">Next scene</span>
+          <span data-rsvp-hint data-i18n="navRsvp" hidden>RSVP</span>
+          <img class="sf-icon" src="/images/wedding/sf/arrow.down.png" alt="">
+        </a>
+      </div>
+    </div>
+  </section>
+  <section class="event-farewell" id="event-rsvp">
+    <h2 data-i18n="eventsFinalPrelude">We can’t wait to see you</h2>
+    <p data-i18n="allAtVenue">Every event takes place at Praveg Tent City Narmada, Statue of Unity.</p>
+    <a class="button button-primary" href="/rsvp" data-i18n="rsvpNow">RSVP now</a>
+  </section>
 </main>
-<div th:replace="~{wedding/fragments/site :: footer}"></div>
-<div th:replace="~{wedding/fragments/forms :: rsvpDialog}"></div>
+<footer th:replace="~{wedding/fragments/site :: footer}"></footer>
 </body>
 </html>

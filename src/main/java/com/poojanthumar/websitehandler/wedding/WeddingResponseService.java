@@ -15,16 +15,26 @@ public class WeddingResponseService {
   this.rsvps = rsvps; this.blessings = blessings;
  }
  @Transactional
+ public void confirm(AttendanceConfirmation request) {
+  rsvps.save(attendance(request.name(), "", "yes", request.partySize()));
+ }
+ @Transactional
  public void submit(RsvpRequest request) {
-  WeddingRsvp row = new WeddingRsvp();
-  row.setName(request.name().strip()); row.setFamilyName(request.familyName().strip());
-  row.setAttendance(request.attendance()); row.setPartySize("no".equals(request.attendance()) ? null : request.partySize());
+  WeddingRsvp row = attendance(request.name(), request.familyName(), request.attendance(), request.partySize());
   row.setPhone(clean(request.phone())); row.setEmail(clean(request.email())); row.setBlessing(clean(request.blessing()));
   rsvps.save(row);
   if (Boolean.TRUE.equals(request.shareBlessing()) && row.getBlessing() != null) {
    WeddingBlessing blessing = pending(row.getName(), row.getFamilyName(), row.getBlessing());
    blessing.setRsvpId(row.getId()); blessings.save(blessing);
   }
+ }
+ private WeddingRsvp attendance(String name, String family, String status, Integer partySize) {
+  WeddingRsvp row = new WeddingRsvp();
+  row.setName(name.strip());
+  row.setFamilyName(family.strip());
+  row.setAttendance(status);
+  row.setPartySize("no".equals(status) ? null : partySize);
+  return row;
  }
  @Transactional
  public void submit(BlessingRequest request) { blessings.save(pending(request.name().strip(), clean(request.relation()), request.message().strip())); }

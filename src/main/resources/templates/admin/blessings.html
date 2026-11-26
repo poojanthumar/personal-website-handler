@@ -1,1 +1,46 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Wedding responses</title><link rel="stylesheet" href="/css/admin.css"></head><body><div th:replace="~{admin/fragments :: nav}"></div><main class="wrap"><h1>Guestbook moderation</h1><nav><a href="?status=PENDING">Pending</a> · <a href="?status=APPROVED">Approved</a> · <a href="?status=REJECTED">Rejected</a></nav><p>Only approved messages are public. Return a message to Pending to remove it from the public wall.</p><article th:each="row : ${page.content}"><h2 th:text="${row.name}"></h2><p th:text="${row.relation}"></p><p style="white-space:pre-wrap" th:text="${row.message}"></p><small th:text="${row.receivedAt}"></small><form method="post" th:action="@{|/explorer/blessings/${row.id}/moderate|}"><select name="status" aria-label="Moderation decision"><option value="PENDING" th:selected="${row.status == 'PENDING'}">Pending</option><option value="APPROVED" th:selected="${row.status == 'APPROVED'}">Approved</option><option value="REJECTED" th:selected="${row.status == 'REJECTED'}">Rejected</option></select><button type="submit">Save decision</button></form></article><p th:if="${page.empty}">No messages in this queue.</p><nav class="pager" th:if="${page.totalPages > 1}"><a th:if="${page.hasPrevious()}" th:href="@{/explorer/blessings(page=${page.number - 1},status=${status})}">Previous</a><span th:text="${page.number + 1}"></span><a th:if="${page.hasNext()}" th:href="@{/explorer/blessings(page=${page.number + 1},status=${status})}">Next</a></nav></main></body></html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guestbook · Wedding admin</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<nav th:replace="~{admin/fragments :: nav}"></nav>
+<main class="wrap wedding-admin">
+  <header>
+    <h1>Wedding guestbook</h1>
+    <p class="muted">Choose which blessings appear on the invitation.</p>
+    <nav class="wedding-admin-tabs" aria-label="Wedding responses">
+      <a href="/wedding/rsvps">Guest list</a>
+      <a href="/wedding/blessings" aria-current="page">Guestbook</a>
+    </nav>
+  </header>
+  <nav class="wedding-admin-tabs guestbook-queues" aria-label="Guestbook queues">
+    <a href="?status=PENDING" th:attr="aria-current=${status == 'PENDING' ? 'page' : null}">Pending</a>
+    <a href="?status=APPROVED" th:attr="aria-current=${status == 'APPROVED' ? 'page' : null}">Published</a>
+    <a href="?status=REJECTED" th:attr="aria-current=${status == 'REJECTED' ? 'page' : null}">Hidden</a>
+  </nav>
+  <p th:if="${page.empty}" class="wedding-admin-empty">No messages in this queue.</p>
+  <section aria-label="Blessings">
+    <article class="admin-blessing" th:each="row : ${page.content}">
+      <h2 th:text="${row.name}" dir="auto"></h2>
+      <p th:if="${row.relation}" th:text="${row.relation}" dir="auto"></p>
+      <p class="admin-message" th:text="${row.message}" dir="auto"></p>
+      <form method="post" th:action="@{|/wedding/blessings/${row.id}/moderate|}">
+        <input type="hidden" name="queue" th:value="${status}">
+        <button type="submit" name="status" value="APPROVED" th:if="${row.status != 'APPROVED'}">Publish blessing</button>
+        <button type="submit" name="status" value="REJECTED" th:if="${row.status != 'REJECTED'}" class="secondary-admin-button">Hide blessing</button>
+        <button type="submit" name="status" value="PENDING" th:if="${row.status != 'PENDING'}" class="secondary-admin-button">Return to pending</button>
+      </form>
+    </article>
+  </section>
+  <nav class="pager" th:if="${page.totalPages > 1}" aria-label="Guestbook pages">
+    <a th:if="${page.hasPrevious()}" th:href="@{/wedding/blessings(page=${page.number - 1},status=${status})}">Previous</a>
+    <span th:text="${page.number + 1}"></span>
+    <a th:if="${page.hasNext()}" th:href="@{/wedding/blessings(page=${page.number + 1},status=${status})}">Next</a>
+  </nav>
+</main>
+</body>
+</html>

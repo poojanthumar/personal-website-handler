@@ -1,22 +1,97 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="theme-color" content="#f7f0e4">
-  <meta name="description" content="RSVP for Dhriti and Poojan's wedding celebrations on 12–13 December 2026 at Praveg Tent City Narmada.">
-  <title>RSVP · Dhriti &amp; Poojan</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Italianno&amp;family=Noto+Sans+Devanagari:wght@400;500;600&amp;family=Noto+Sans+Gujarati:wght@400;500;600&amp;family=Noto+Serif+Devanagari:wght@400;600&amp;family=Noto+Serif+Gujarati:wght@400;600&amp;family=Playfair+Display:wght@400;500;600&amp;display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/css/wedding-home.css"><link rel="stylesheet" href="/css/wedding-pastel.css"><link rel="stylesheet" href="/css/wedding-garden.css"><script src="/js/wedding-i18n.js" defer></script><script src="/js/wedding-site.js" defer></script>
+  <th:block th:replace="~{wedding/fragments/site :: pageHead('RSVP &amp; Guestbook · Dhriti &amp; Poojan', 'Confirm attendance or leave a blessing for Dhriti and Poojan.')}"></th:block>
+  <link rel="stylesheet" href="/css/wedding-chapters.css">
+  <link rel="stylesheet" href="/css/wedding-replies.css">
 </head>
 <body data-page="rsvp">
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
-<div th:replace="~{wedding/fragments/site :: header}"></div>
-<div th:replace="~{wedding/fragments/site :: languageDialog}"></div>
-<main id="main" class="form-page">
-  <p class="form-status" th:if="${saved}" data-i18n="rsvpSaved">Thank you. Your RSVP has been saved.</p><p class="form-status" th:if="${submissionError}" data-i18n="submitError">Please check your details and try again.</p><section class="page-intro rsvp-intro"><p class="overline" data-i18n="rsvpPrelude">WE HOPE TO SEE YOU</p><h1 data-i18n="rsvpTitle">We saved you a place in our hearts.</h1><p data-i18n="rsvpIntro">Let us know whether you can celebrate with us on 12 and 13 December.</p><div class="page-ornament" aria-hidden="true">✺</div></section>
-  <section class="form-layout"><div class="form-aside"><img class="rsvp-invitation-art" src="/images/wedding/garden/invitation.png" alt="Dhriti and Poojan wedding invitation, framed by flowers and a garden mandap"><p class="overline" data-i18n="ourCelebration">OUR CELEBRATION</p><h2 data-i18n="rsvpAsideTitle">Every moment, together.</h2><p data-i18n="rsvpAsideText">Your response covers all five celebrations. There is no need to reply separately for each event.</p><div class="date-pill"><span>12 — 13</span><small data-i18n="datePill">DECEMBER 2026</small></div><p>Praveg Tent City Narmada<br>Statue of Unity, Gujarat</p></div><div class="form-paper"><div th:replace="~{wedding/fragments/forms :: rsvpForm}"></div></div></section>
-  <section class="form-after"><p data-i18n="rsvpAfter">Whether you can join us or send your love from afar, we’re grateful you’re part of our story.</p><a href="/events" class="text-link"><img class="sf-icon" src="/images/wedding/sf/list.bullet.png" alt=""><span data-i18n="viewSchedule">View full schedule</span></a></section>
+<header th:replace="~{wedding/fragments/site :: header}"></header>
+<dialog th:replace="~{wedding/fragments/site :: languageDialog}"></dialog>
+<main id="main" class="invitation-chapters response-chapter">
+  <section class="reply-cover">
+    <picture aria-hidden="true">
+      <source media="(max-width: 720px), (orientation: portrait) and (max-width: 1050px)" srcset="/images/wedding/garden/envelope.webp">
+      <img src="/images/wedding/garden/envelope-wide.webp" alt="" width="1536" height="1024" fetchpriority="high">
+    </picture>
+    <div class="reply-cover-copy">
+      <h1 data-i18n="replyPageTitle">RSVP &amp; Guestbook</h1>
+      <p data-i18n="heroDate">12 &amp; 13 December 2026</p>
+      <div class="reply-jump">
+        <a class="button button-primary" href="#attendance" data-i18n="confirmAttendance">Confirm attendance</a>
+        <a class="button button-outline" href="#guestbook" data-i18n="leaveBlessing">Leave a blessing</a>
+      </div>
+    </div>
+  </section>
+
+  <div class="reply-paper">
+    <div class="reply-forms">
+      <section id="attendance" class="reply-panel" aria-labelledby="attendance-heading">
+        <img class="sf-icon" src="/images/wedding/sf/envelope.open.png" alt="">
+        <h2 id="attendance-heading" data-i18n="confirmAttendance">Confirm attendance</h2>
+        <p data-i18n="allEventsRsvp">One RSVP covers all five celebrations.</p>
+        <form class="rsvp-form" data-response-form="rsvp" th:action="@{/rsvp/confirm}" method="post">
+          <label>
+            <span data-i18n="guestName">Your name</span>
+            <input name="name" autocomplete="name" required maxlength="100">
+          </label>
+          <label>
+            <span data-i18n="attendingCount">Number attending, including you</span>
+            <input name="partySize" type="number" min="1" max="30" inputmode="numeric" required value="1">
+          </label>
+          <label class="submission-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" maxlength="200"></label>
+          <button class="button button-primary" type="submit" data-response-submit data-i18n="comingYes">Yes, I’m coming</button>
+          <p class="form-status" role="status" aria-live="polite">
+            <span th:if="${saved}" data-i18n="rsvpSaved">Thank you. Your RSVP has been saved.</span>
+            <span th:if="${submissionError}" data-i18n="submitError">Please check your details and try again.</span>
+          </p>
+        </form>
+      </section>
+
+      <section id="guestbook" class="reply-panel" aria-labelledby="blessing-heading">
+        <img class="sf-icon" src="/images/wedding/sf/sparkles.png" alt="">
+        <h2 id="blessing-heading" data-i18n="leaveBlessing">Leave a blessing</h2>
+        <p data-i18n="guestbookFormIntro">Share a wish, prayer or favourite memory with us.</p>
+        <form class="guestbook-form" data-response-form="guestbook" th:action="@{/guestbook}" method="post">
+          <label>
+            <span data-i18n="guestName">Your name</span>
+            <input name="name" autocomplete="name" required maxlength="100">
+          </label>
+          <label>
+            <span data-i18n="yourMessage">Your blessing or prayer</span>
+            <textarea name="message" rows="4" required maxlength="1500"></textarea>
+          </label>
+          <p class="form-privacy" data-i18n="guestbookChoiceNotice">Dhriti and Poojan may select your name and message to display in the public guestbook.</p>
+          <label class="submission-trap" aria-hidden="true">Website<input name="website" tabindex="-1" autocomplete="off" maxlength="200"></label>
+          <button class="button button-primary" type="submit" data-response-submit data-i18n="postBlessing">Leave a blessing</button>
+          <p class="form-status" role="status" aria-live="polite">
+            <span th:if="${blessingSaved}" data-i18n="blessingSaved">Thank you. Your blessing has been sent for approval.</span>
+            <span th:if="${blessingError}" data-i18n="submitError">Please check your details and try again.</span>
+          </p>
+        </form>
+      </section>
+    </div>
+
+    <section class="reply-wall" id="blessings" aria-labelledby="blessing-wall-heading">
+      <div data-chapter-reveal>
+        <h2 id="blessing-wall-heading" data-i18n="guestbookWallTitle">Words to carry with us.</h2>
+        <p th:if="${blessings.empty}" data-i18n="guestbookEmpty">Our guestbook is waiting for your blessings.</p>
+      </div>
+      <div class="blessing-notes" th:unless="${blessings.empty}">
+        <figure th:each="blessing : ${blessings.content}">
+          <blockquote th:text="${blessing.message}" dir="auto"></blockquote>
+          <figcaption th:text="${blessing.name}" dir="auto"></figcaption>
+          <small th:if="${blessing.relation}" th:text="${blessing.relation}" dir="auto"></small>
+        </figure>
+      </div>
+      <nav class="reply-pagination" th:if="${blessings.totalPages > 1}" aria-label="Blessing pages" data-i18n-aria="blessingPages">
+        <a th:if="${blessings.hasPrevious()}" th:href="@{/rsvp(page=${blessings.number - 1})} + '#blessings'" data-i18n="previousPage">Previous</a>
+        <a th:if="${blessings.hasNext()}" th:href="@{/rsvp(page=${blessings.number + 1})} + '#blessings'" data-i18n="nextPage">Next</a>
+      </nav>
+    </section>
+  </div>
 </main>
-<div th:replace="~{wedding/fragments/site :: footer}"></div>
+<footer th:replace="~{wedding/fragments/site :: footer}"></footer>
 </body>
 </html>

@@ -39,14 +39,15 @@ class WeddingRenderingTest {
             assertThat(events.statusCode()).isEqualTo(200);
             assertThat(events.body()).contains("2026-12-12T09:00:00+05:30", "2026-12-12T13:00:00+05:30",
                     "2026-12-12T16:00:00+05:30", "2026-12-12T21:00:00+05:30",
-                    "2026-12-13T08:00:00+05:30", "8 AM onwards");
+                    "2026-12-13T08:00:00+05:30", "8 AM onwards", "data-event-stage",
+                    "/images/wedding/events/sangeet-portrait.webp", "data-event-jump");
             assertThat(events.body()).doesNotContain("12:21", "Abhijit Muhurat");
 
             for (String path : new String[] {"/rsvp", "/guestbook"}) {
                 var page = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + path))
                         .GET().build(), HttpResponse.BodyHandlers.ofString());
                 assertThat(page.statusCode()).as(path).isEqualTo(200);
-                assertThat(page.body()).contains("method=\"post\"", "_csrf");
+                assertThat(page.body()).contains("method=\"post\"", "_csrf", "action=\"/rsvp/confirm\"", "action=\"/guestbook\"");
                 assertThat(page.body()).doesNotContain("responses are not being saved yet");
             }
         }

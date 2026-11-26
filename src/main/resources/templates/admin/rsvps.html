@@ -1,1 +1,59 @@
-<!DOCTYPE html><html lang="en" xmlns:th="http://www.thymeleaf.org"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Wedding responses</title><link rel="stylesheet" href="/css/admin.css"></head><body><div th:replace="~{admin/fragments :: nav}"></div><main class="wrap"><h1>Wedding RSVPs</h1><p>Private contact details and responses for all celebrations.</p><table><thead><tr><th>Received</th><th>Guest / family</th><th>Attendance</th><th>Party size</th><th>Contact</th><th>Private message</th></tr></thead><tbody><tr th:each="row : ${page.content}"><td th:text="${row.receivedAt}"></td><td><strong th:text="${row.name}"></strong><p th:text="${row.familyName}"></p></td><td th:text="${row.attendance}"></td><td th:text="${row.partySize}"></td><td><p th:text="${row.phone}"></p><p th:text="${row.email}"></p></td><td style="white-space:pre-wrap" th:text="${row.blessing}"></td></tr></tbody></table><p th:if="${page.empty}">No RSVPs yet.</p><nav class="pager" th:if="${page.totalPages > 1}"><a th:if="${page.hasPrevious()}" th:href="@{/explorer/rsvps(page=${page.number - 1})}">Previous</a><span th:text="${page.number + 1}"></span><a th:if="${page.hasNext()}" th:href="@{/explorer/rsvps(page=${page.number + 1})}">Next</a></nav></main></body></html>
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Guest list · Wedding admin</title>
+  <link rel="stylesheet" href="/css/admin.css">
+</head>
+<body>
+<nav th:replace="~{admin/fragments :: nav}"></nav>
+<main class="wrap wedding-admin">
+  <header>
+    <h1>Wedding guest list</h1>
+    <p class="muted">Private RSVP responses for all five celebrations.</p>
+    <nav class="wedding-admin-tabs" aria-label="Wedding responses">
+      <a href="/wedding/rsvps" aria-current="page">Guest list</a>
+      <a href="/wedding/blessings">Guestbook</a>
+    </nav>
+  </header>
+  <dl class="wedding-metrics">
+    <div><dt>Confirmed guests</dt><dd th:text="${headcount}">0</dd></div>
+    <div><dt>Confirmations</dt><dd th:text="${guestCount}">0</dd></div>
+    <div><dt>Total responses</dt><dd th:text="${page.totalElements}">0</dd></div>
+  </dl>
+  <p th:if="${page.empty}" class="wedding-admin-empty">No RSVPs yet.</p>
+  <div class="wedding-table" th:unless="${page.empty}" tabindex="0" role="region" aria-label="Wedding RSVP responses">
+    <table>
+      <thead><tr><th scope="col">Guest</th><th scope="col">Attendance</th><th scope="col">Number attending</th><th scope="col">Received (UTC)</th></tr></thead>
+      <tbody>
+      <tr th:each="row : ${page.content}">
+        <td>
+          <strong th:text="${row.name}"></strong>
+          <details th:if="${!#strings.isEmpty(row.familyName) || row.phone != null || row.email != null || row.blessing != null}">
+            <summary>Response details</summary>
+            <p th:if="${!#strings.isEmpty(row.familyName)}" th:text="${row.familyName}"></p>
+            <p th:if="${row.phone}" th:text="${row.phone}"></p>
+            <p th:if="${row.email}" th:text="${row.email}"></p>
+            <p class="admin-message" th:if="${row.blessing}" th:text="${row.blessing}"></p>
+          </details>
+        </td>
+        <td th:switch="${row.attendance}">
+          <span th:case="'yes'" class="attendance-yes">Confirmed</span>
+          <span th:case="'maybe'">Maybe</span>
+          <span th:case="'no'">Declined</span>
+        </td>
+        <td th:text="${row.attendance == 'yes' && row.partySize == null ? '1' : row.partySize ?: '—'}"></td>
+        <td><time th:datetime="${row.receivedAt}" th:text="${#strings.substring(row.receivedAt.toString(),0,16).replace('T',' ')}"></time></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+  <nav class="pager" th:if="${page.totalPages > 1}" aria-label="RSVP pages">
+    <a th:if="${page.hasPrevious()}" th:href="@{/wedding/rsvps(page=${page.number - 1})}">Previous</a>
+    <span th:text="${page.number + 1}"></span>
+    <a th:if="${page.hasNext()}" th:href="@{/wedding/rsvps(page=${page.number + 1})}">Next</a>
+  </nav>
+</main>
+</body>
+</html>
