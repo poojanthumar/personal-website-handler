@@ -11,7 +11,7 @@
 <dialog th:replace="~{wedding/fragments/site :: languageDialog}"></dialog>
 <main id="main">
   <h1 class="visually-hidden" data-i18n="eventsPageTitle">The celebration unfolds</h1>
-  <section class="event-track" data-event-track>
+  <section class="event-track" data-event-track th:style="|--event-intervals: ${celebrations.size() - 1}|">
     <div class="event-stage" data-event-stage>
       <article class="event-scene" th:each="event, step : ${celebrations}" th:id="${event.key}"
                th:classappend="${step.first} ? ' is-current' : ''">
@@ -23,7 +23,6 @@
                alt="" width="1536" height="1024" decoding="async">
         </picture>
         <div class="event-inscription">
-          <p class="overline" th:attr="data-i18n=${event.key}" th:text="${event.type}"></p>
           <h2 tabindex="-1" th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></h2>
           <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
           <details class="event-placard">
@@ -65,12 +64,6 @@
       </div>
     </div>
   </section>
-  <section class="event-farewell" id="event-rsvp">
-    <h2 data-i18n="eventsFinalPrelude">We can’t wait to see you</h2>
-    <p data-i18n="allAtVenue">Every event takes place at Praveg Tent City Narmada, Statue of Unity.</p>
-    <a class="button button-primary" href="/rsvp" data-i18n="rsvpNow">RSVP now</a>
-  </section>
 </main>
-<footer th:replace="~{wedding/fragments/site :: footer}"></footer>
 </body>
 </html>

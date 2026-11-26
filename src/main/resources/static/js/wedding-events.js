@@ -7,42 +7,30 @@
   const jumps = [...stage.querySelectorAll('[data-event-jump]')];
   const next = stage.querySelector('[data-event-next]');
   const schedule = stage.querySelector('.event-schedule');
-  const header = document.querySelector('.site-header');
-  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
-  const prefersStill = () => reduced.matches || document.body.classList.contains('motion-paused');
+  const lastScene = scenes.length - 1;
+  const clamp = value => Math.max(0, Math.min(1, value));
+  const smooth = value => value * value * (3 - 2 * value);
+  const prefersStill = () => document.body.classList.contains('motion-paused');
   let active = 0;
   let frame = 0;
-  let cleanupTimer = 0;
 
-  function clearTransition() {
-    clearTimeout(cleanupTimer);
-    delete stage.dataset.transition;
-    scenes.forEach(scene => scene.classList.remove('is-leaving', 'is-entering'));
-  }
-
-  function show(index, animate) {
+  function show(index) {
     if (active === index) return;
     const previous = scenes[active];
     const incoming = scenes[index];
     const restoreFocus = previous.contains(document.activeElement);
-    clearTransition();
     previous.querySelector('.event-placard').open = false;
     previous.classList.remove('is-current');
     previous.inert = true;
     incoming.inert = false;
     incoming.classList.add('is-current');
-    if (animate && !prefersStill()) {
-      if (index === active + 1) stage.dataset.transition = incoming.id;
-      previous.classList.add('is-leaving');
-      incoming.classList.add('is-entering');
-      cleanupTimer = setTimeout(clearTransition, 920);
-    }
+    document.body.classList.toggle('event-night', incoming.id === 'sangeet');
     active = index;
     jumps.forEach(link => {
       if (link.hash === '#' + incoming.id) link.setAttribute('aria-current', 'step');
       else link.removeAttribute('aria-current');
     });
-    const last = index === scenes.length - 1;
+    const last = index === lastScene;
     next.href = last ? '/rsvp' : '#' + scenes[index + 1].id;
     next.querySelector('[data-next-hint]').hidden = last;
     next.querySelector('[data-rsvp-hint]').hidden = !last;
@@ -52,18 +40,42 @@
 
   function position() {
     const rect = track.getBoundingClientRect();
-    const distance = rect.height - stage.offsetHeight;
-    return { offset: header.offsetHeight - rect.top, step: distance / (scenes.length - 1) };
+    return { offset: -rect.top, step: (rect.height - stage.offsetHeight) / lastScene };
+  }
+
+  function paintScene(scene, opacity, copy, pullback, pan) {
+    scene.style.setProperty('--scene-alpha', opacity);
+    scene.style.setProperty('--copy-alpha', copy);
+    scene.style.setProperty('--scene-scale', 1.02 - pullback * .048);
+    scene.style.setProperty('--scene-pan', (pan * 1.25) + '%');
+  }
+
+  function paint(progress) {
+    const still = prefersStill();
+    const index = Math.round(progress);
+    const from = still ? index : Math.floor(progress);
+    const to = Math.min(lastScene, from + 1);
+    // Rest briefly on either side of each dissolve so each ceremony can be read.
+    const amount = still ? 0 : smooth(clamp((progress - from - .13) / .74));
+    const blending = from !== to && amount > 0;
+    const pullback = Math.sin(Math.PI * amount);
+
+    scenes.forEach((scene, index) => {
+      scene.classList.toggle('is-base', index === from);
+      scene.classList.toggle('is-overlay', blending && index === to);
+    });
+    paintScene(scenes[from], 1, 1 - smooth(clamp(amount / .48)), pullback, -pullback);
+    if (blending) paintScene(scenes[to], amount, smooth(clamp((amount - .5) / .36)), pullback, pullback);
+
+    stage.style.setProperty('--event-progress', (still ? index : progress) / lastScene);
+    show(index);
   }
 
   function render() {
     frame = 0;
     const { offset, step } = position();
     if (step <= 0) return;
-    const progress = Math.min(scenes.length - 1, Math.max(0, offset / step));
-    const index = Math.round(progress);
-    show(index, true);
-    stage.style.setProperty('--scene-drift', prefersStill() ? '0px' : (progress - index) * -16 + 'px');
+    paint(Math.min(lastScene, Math.max(0, offset / step)));
   }
 
   function queueRender() {
@@ -73,8 +85,9 @@
   function go(index, focus) {
     if (index < 0) return;
     const { offset, step } = position();
-    window.scrollTo({ top: window.scrollY - offset + step * index, behavior: 'instant' });
-    show(index, focus);
+    window.scrollTo({ top: Math.min(document.documentElement.scrollHeight - innerHeight,
+      window.scrollY - offset + step * index), behavior: 'instant' });
+    paint(index);
     if (focus) scenes[index].querySelector('h2').focus({ preventScroll: true });
     queueRender();
   }
@@ -114,10 +127,7 @@
   window.addEventListener('hashchange', () => go(indexFromHash(location.hash), false));
   window.addEventListener('scroll', queueRender, { passive: true });
   window.addEventListener('resize', queueRender);
-  document.addEventListener('wedding:motion', () => {
-    if (prefersStill()) clearTransition();
-    queueRender();
-  });
+  document.addEventListener('wedding:motion', queueRender);
   go(indexFromHash(location.hash), false);
-  queueRender();
+  render();
 })();

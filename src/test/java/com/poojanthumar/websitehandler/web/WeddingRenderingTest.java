@@ -41,7 +41,7 @@ class WeddingRenderingTest {
                     "2026-12-12T16:00:00+05:30", "2026-12-12T21:00:00+05:30",
                     "2026-12-13T08:00:00+05:30", "8 AM onwards", "data-event-stage",
                     "/images/wedding/events/sangeet-portrait.webp", "data-event-jump");
-            assertThat(events.body()).doesNotContain("12:21", "Abhijit Muhurat");
+            assertThat(events.body()).doesNotContain("12:21", "Abhijit Muhurat", "We can’t wait to see you", "site-footer");
 
             for (String path : new String[] {"/rsvp", "/guestbook"}) {
                 var page = client.send(HttpRequest.newBuilder(URI.create("http://localhost:" + port + path))
