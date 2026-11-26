@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:replace="~{wedding/fragments/site :: pageHead('Events · Dhriti &amp; Poojan', 'Explore the five celebrations of Dhriti and Poojan’s wedding in Narmada on 12–13 December 2026.')}"></th:block>
+  <th:block th:replace="~{wedding/fragments/site :: pageHead('Events · Dhriti &amp; Poojan', 'Explore the five celebrations of Dhriti and Poojan’s wedding in Narmada on 12–13 December 2026.', true)}"></th:block>
+  <link rel="stylesheet" href="/css/wedding-chapters.css">
   <link rel="stylesheet" href="/css/wedding-events.css">
   <script src="/js/wedding-events.js" defer></script>
 </head>
@@ -9,61 +10,84 @@
 <a class="skip-link" href="#main" data-i18n="skipMain">Skip to content</a>
 <header th:replace="~{wedding/fragments/site :: header}"></header>
 <dialog th:replace="~{wedding/fragments/site :: languageDialog}"></dialog>
-<main id="main">
-  <h1 class="visually-hidden" data-i18n="eventsPageTitle">The celebration unfolds</h1>
-  <section class="event-track" data-event-track th:style="|--event-intervals: ${celebrations.size() - 1}|">
-    <div class="event-stage" data-event-stage>
-      <article class="event-scene" th:each="event, step : ${celebrations}" th:id="${event.key}"
-               th:classappend="${step.first} ? ' is-current' : ''">
-        <picture class="event-landscape" aria-hidden="true">
-          <source media="(max-width: 650px), (orientation: portrait) and (max-width: 950px)"
-                  th:srcset="@{|/images/wedding/events/${event.key}-portrait.webp|}">
-          <img th:src="@{|/images/wedding/events/${event.key}.webp|}"
-               th:attr="fetchpriority=${step.first ? 'high' : 'auto'},loading=${step.index < 2 ? 'eager' : 'lazy'}"
-               alt="" width="1536" height="1024" decoding="async">
-        </picture>
-        <div class="event-inscription">
-          <h2 tabindex="-1" th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></h2>
-          <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
-          <details class="event-placard">
-            <summary data-i18n="eventDetails">Details</summary>
-            <div>
-              <p th:attr="data-i18n=|${event.key}Description|" th:text="${event.description}"></p>
-              <p data-i18n="allAtVenue">Every event takes place at Praveg Tent City Narmada, Statue of Unity.</p>
-              <a href="https://maps.app.goo.gl/UufZscRbMpX2uvVe8" target="_blank" rel="noopener noreferrer" data-i18n="directions">Get directions</a>
-            </div>
-          </details>
-        </div>
-      </article>
-      <div class="event-scene-controls">
-        <details class="event-schedule">
-          <summary><img class="sf-icon" src="/images/wedding/sf/list.bullet.png" alt=""><span data-i18n="eventSchedule">Schedule</span></summary>
-          <div class="event-schedule-sheet">
-            <ol>
-              <li th:each="event, step : ${celebrations}">
-                <a th:href="|#${event.key}|" th:attr="aria-current=${step.first ? 'step' : null}" data-event-jump>
-                  <strong th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></strong>
-                  <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
-                </a>
-              </li>
-            </ol>
-            <a class="schedule-calendar" href="/images/wedding/wedding-celebration.ics" download>
-              <img class="sf-icon" src="/images/wedding/sf/calendar.png" alt=""><span data-i18n="saveCalendar">Save the dates</span>
-            </a>
-          </div>
-        </details>
-        <nav class="event-position" aria-label="Jump to an event" data-i18n-aria="jumpToEvent">
-          <a th:each="event, step : ${celebrations}" th:href="|#${event.key}|" data-event-jump
-             th:aria-label="${event.type}" th:attr="data-i18n-aria=${event.key},aria-current=${step.first ? 'step' : null}"></a>
-        </nav>
-        <a class="event-next" href="#mandvo" data-event-next>
-          <span data-next-hint data-i18n="nextScene">Next scene</span>
-          <span data-rsvp-hint data-i18n="navRsvp" hidden>RSVP</span>
-          <img class="sf-icon" src="/images/wedding/sf/arrow.down.png" alt="">
-        </a>
-      </div>
+<main id="main" class="invitation-chapters event-timeline">
+  <section class="timeline-intro" aria-labelledby="events-title">
+    <p class="timeline-date" data-i18n="heroDate">12 &amp; 13 December 2026</p>
+    <h1 id="events-title" data-i18n="eventsPageTitle">The celebration unfolds</h1>
+    <p class="timeline-venue" data-i18n="heroVenue">Praveg Tent City Narmada · Statue of Unity</p>
+    <div class="timeline-actions">
+      <button class="button button-primary" type="button" data-open-event="0" hidden>
+        <img src="/images/wedding/sf/play.fill.png" class="sf-icon" alt="">
+        <span data-i18n="playEvents">Play the events</span>
+      </button>
+      <a class="timeline-link" href="/images/wedding/wedding-celebration.ics" download data-i18n="saveCalendar">Save the dates</a>
     </div>
   </section>
+  <ol class="timeline-events">
+    <li th:each="event, step : ${celebrations}" th:id="${event.key}" th:attr="data-event=${event.key}">
+      <article class="timeline-entry" data-chapter-reveal th:aria-labelledby="|timeline-title-${event.key}|">
+        <div class="timeline-copy">
+          <p class="timeline-kind" th:attr="data-i18n=${event.key}" th:text="${event.type}"></p>
+          <h2 th:id="|timeline-title-${event.key}|" th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></h2>
+          <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
+          <p th:attr="data-i18n=|${event.key}Description|" th:text="${event.description}"></p>
+          <button type="button" class="timeline-link" th:attr="data-open-event=${step.index}" hidden>
+            <span data-i18n="openEvent">Open event</span><span aria-hidden="true">↗</span>
+          </button>
+        </div>
+        <img class="timeline-art" th:src="@{|/images/wedding/events/${event.key}.webp|}" loading="lazy"
+             decoding="async" width="1536" height="1024" alt="">
+      </article>
+    </li>
+  </ol>
 </main>
+<footer th:replace="~{wedding/fragments/site :: footer}"></footer>
+
+<dialog class="event-reels" id="event-placards" aria-labelledby="event-reels-title">
+  <h2 id="event-reels-title" class="visually-hidden" data-i18n="playEvents">Play the events</h2>
+  <div class="reel-top">
+    <button type="button" class="reel-button" data-close-events autofocus data-i18n-aria="closeEvents" aria-label="Close event placards">
+      <span aria-hidden="true">×</span>
+    </button>
+    <div class="reel-progress" aria-hidden="true">
+      <i th:each="event : ${celebrations}"></i>
+    </div>
+    <button type="button" class="reel-button motion-toggle" aria-label="Pause motion">Ⅱ</button>
+  </div>
+  <div class="reel-strip" tabindex="0" data-reel-strip aria-label="Ceremony placards" data-i18n-aria="eventPlacards">
+    <article class="reel-slide" th:each="event : ${celebrations}" th:attr="data-event=${event.key}"
+             th:aria-labelledby="|placard-title-${event.key}|">
+      <picture class="reel-art" aria-hidden="true">
+        <source media="(orientation: portrait)" th:srcset="@{|/images/wedding/events/${event.key}-portrait.webp|}">
+        <img th:src="@{|/images/wedding/events/${event.key}.webp|}" loading="lazy" decoding="async"
+             width="1536" height="1024" alt="">
+      </picture>
+      <div class="reel-atmosphere" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i></div>
+      <div class="reel-copy">
+        <h3 th:id="|placard-title-${event.key}|" th:attr="data-i18n=|${event.key}Name|" th:text="${event.name}"></h3>
+        <time th:datetime="${event.startsAt}" th:attr="data-i18n=|${event.key}Time|" th:text="${event.time}"></time>
+        <p class="reel-theme" th:attr="data-i18n=|${event.key}Theme|" th:text="${event.theme}"></p>
+        <p class="reel-description" th:attr="data-i18n=|${event.key}Description|" th:text="${event.description}"></p>
+      </div>
+      <button type="button" class="reel-button reel-effect" data-reel-effect
+              data-i18n-aria="eventEffect" aria-label="Play the scene effect">
+        <img class="sf-icon" src="/images/wedding/sf/sparkles.png" alt="">
+      </button>
+    </article>
+  </div>
+  <div class="reel-bottom">
+    <button type="button" class="reel-button reel-previous" data-reel-prev data-i18n-aria="previousEvent" aria-label="Previous event">
+      <img class="sf-icon" src="/images/wedding/sf/arrow.down.png" alt="">
+    </button>
+    <span class="reel-swipe" data-reel-hint data-i18n="swipeEvents">Swipe up for the next event</span>
+    <div class="reel-finish" data-reel-finish hidden>
+      <a href="/rsvp" data-i18n="rsvpNow">RSVP</a>
+      <button type="button" data-close-events data-i18n="backToTimeline">Back to timeline</button>
+    </div>
+    <button type="button" class="reel-button" data-reel-next data-i18n-aria="nextEvent" aria-label="Next event">
+      <img class="sf-icon" src="/images/wedding/sf/arrow.down.png" alt="">
+    </button>
+  </div>
+</dialog>
 </body>
 </html>

@@ -44,10 +44,10 @@
     });
   });
 
-  const toggle = document.querySelector('.motion-toggle');
+  const toggles = document.querySelectorAll('.motion-toggle');
   function updateMotionPreference() {
     document.body.classList.toggle('motion-paused', motionPaused || reduced.matches);
-    if (toggle) {
+    toggles.forEach(toggle => {
       toggle.hidden = reduced.matches;
       toggle.setAttribute('aria-pressed', String(motionPaused));
       toggle.setAttribute('aria-label', locale?.text(motionPaused ? 'resumeMotion' : 'pauseMotion', language) || (motionPaused ? 'Resume motion' : 'Pause motion'));
@@ -55,11 +55,11 @@
       const icon = document.createElement('img'); icon.className = 'sf-icon'; icon.alt = '';
       icon.src = '/images/wedding/sf/' + (motionPaused ? 'play.fill' : 'pause.fill') + '.png';
       toggle.append(icon);
-    }
+    });
     document.dispatchEvent(new Event('wedding:motion'));
     requestRender();
   }
-  toggle?.addEventListener('click', () => { motionPaused = !motionPaused; updateMotionPreference(); });
+  toggles.forEach(toggle => toggle.addEventListener('click', () => { motionPaused = !motionPaused; updateMotionPreference(); }));
   reduced.addEventListener('change', updateMotionPreference);
   document.addEventListener('wedding:language', updateMotionPreference);
 

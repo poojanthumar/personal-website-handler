@@ -22,17 +22,17 @@ public class WeddingController {
 	private final SiteResolver siteResolver;
 	private static final List<Celebration> CELEBRATIONS = List.of(
 			new Celebration("engagement", "Engagement", "Sunheri Sagai", "2026-12-12T09:00:00+05:30",
-					"12 December · 9 AM", "Two families come together to celebrate a beautiful beginning."),
+					"12 December · 9 AM", "Two families come together to celebrate a beautiful beginning.", "Sun Kissed · Effortlessly Boho · Golden"),
 			new Celebration("mandvo", "Mandvo", "Shubh Mandvo", "2026-12-12T13:00:00+05:30",
-					"12 December · 1 PM onwards", "An auspicious gathering to bless the beginning of our wedding celebrations."),
+					"12 December · 1 PM onwards", "An auspicious gathering to bless the beginning of our wedding celebrations.", "Marigolds · Prayer · Blessings"),
 			new Celebration("haldi", "Haldi", "Rangi Saari", "2026-12-12T16:00:00+05:30",
-					"12 December · 4 PM", "An afternoon of colour, blessings and laughter."),
+					"12 December · 4 PM", "An afternoon of colour, blessings and laughter.", "Vibrant · Colourful · Joyful"),
 			new Celebration("sangeet", "Sangeet", "Blinding Lights, Bollywood Nights", "2026-12-12T21:00:00+05:30",
-					"12 December · 9 PM", "An evening of music, dance and celebration beneath the stars."),
+					"12 December · 9 PM", "An evening of music, dance and celebration beneath the stars.", "Dazzling · Western · Cocktail"),
 			new Celebration("wedding", "Wedding", "Mangal Milan", "2026-12-13T08:00:00+05:30",
-					"13 December · 8 AM onwards", "Two families, two traditions and one beautiful forever."));
+					"13 December · 8 AM onwards", "Two families, two traditions and one beautiful forever.", "Konkani · Gujarati · Wedding Traditions"));
 
-	public record Celebration(String key, String type, String name, String startsAt, String time, String description) {}
+	public record Celebration(String key, String type, String name, String startsAt, String time, String description, String theme) {}
 
 	private final WeddingBlessingRepository blessings;
 	private final WeddingContentService weddingContentService;

@@ -1,133 +1,116 @@
 (() => {
   'use strict';
-  const track = document.querySelector('[data-event-track]');
-  if (!track) return;
-  const stage = track.querySelector('[data-event-stage]');
-  const scenes = [...stage.querySelectorAll('.event-scene')];
-  const jumps = [...stage.querySelectorAll('[data-event-jump]')];
-  const next = stage.querySelector('[data-event-next]');
-  const schedule = stage.querySelector('.event-schedule');
-  const lastScene = scenes.length - 1;
-  const clamp = value => Math.max(0, Math.min(1, value));
-  const smooth = value => value * value * (3 - 2 * value);
-  const prefersStill = () => document.body.classList.contains('motion-paused');
+  const dialog = document.querySelector('#event-placards');
+  if (!dialog?.showModal) return;
+
+  const root = document.documentElement;
+  const theme = document.querySelector('meta[name="theme-color"]');
+  const pageTheme = theme?.content;
+  const strip = dialog.querySelector('[data-reel-strip]');
+  const slides = [...strip.querySelectorAll('.reel-slide')];
+  const dots = [...dialog.querySelectorAll('.reel-progress i')];
+  const previous = dialog.querySelector('[data-reel-prev]');
+  const next = dialog.querySelector('[data-reel-next]');
+  const hint = dialog.querySelector('[data-reel-hint]');
+  const finish = dialog.querySelector('[data-reel-finish]');
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+  const chromeByEvent = {
+    engagement: '#eadbc3', mandvo: '#efd7b1', haldi: '#f1dce4', sangeet: '#151b3c', wedding: '#e9cec1'
+  };
+  const motionPaused = () => reduced.matches || document.body.classList.contains('motion-paused');
   let active = 0;
   let frame = 0;
+  let returnFocus;
+  let returnScroll = 0;
 
-  function show(index) {
-    if (active === index) return;
-    const previous = scenes[active];
-    const incoming = scenes[index];
-    const restoreFocus = previous.contains(document.activeElement);
-    previous.querySelector('.event-placard').open = false;
-    previous.classList.remove('is-current');
-    previous.inert = true;
-    incoming.inert = false;
-    incoming.classList.add('is-current');
-    document.body.classList.toggle('event-night', incoming.id === 'sangeet');
+  function setActive(index) {
+    const old = slides[active];
+    const moveFocus = old !== slides[index] && old.contains(document.activeElement);
+    old.classList.remove('is-celebrating');
     active = index;
-    jumps.forEach(link => {
-      if (link.hash === '#' + incoming.id) link.setAttribute('aria-current', 'step');
-      else link.removeAttribute('aria-current');
+    const last = active === slides.length - 1;
+    slides.forEach((slide, i) => {
+      slide.inert = i !== active;
+      slide.classList.toggle('is-current', i === active);
+      dots[i].classList.toggle('is-seen', i <= active);
     });
-    const last = index === lastScene;
-    next.href = last ? '/rsvp' : '#' + scenes[index + 1].id;
-    next.querySelector('[data-next-hint]').hidden = last;
-    next.querySelector('[data-rsvp-hint]').hidden = !last;
-    next.classList.toggle('leads-to-rsvp', last);
-    if (restoreFocus) incoming.querySelector('h2').focus({ preventScroll: true });
+    hint.hidden = last;
+    finish.hidden = !last;
+    if (last && document.activeElement === next) {
+      finish.querySelector('a').focus({ preventScroll: true });
+    } else if (moveFocus || (active === 0 && document.activeElement === previous)) {
+      strip.focus({ preventScroll: true });
+    }
+    previous.disabled = active === 0;
+    next.disabled = last;
+    const color = chromeByEvent[slides[active].dataset.event];
+    root.style.setProperty('--event-chrome', color);
+    if (theme) theme.content = color;
   }
 
-  function position() {
-    const rect = track.getBoundingClientRect();
-    return { offset: -rect.top, step: (rect.height - stage.offsetHeight) / lastScene };
+  function scrollToSlide(index, smooth) {
+    if (index < 0 || index >= slides.length) return;
+    strip.scrollTo({ top: index * strip.clientHeight, behavior: smooth && !motionPaused() ? 'smooth' : 'auto' });
+    if (!smooth || motionPaused()) setActive(index);
   }
 
-  function paintScene(scene, opacity, copy, pullback, pan) {
-    scene.style.setProperty('--scene-alpha', opacity);
-    scene.style.setProperty('--copy-alpha', copy);
-    scene.style.setProperty('--scene-scale', 1.02 - pullback * .048);
-    scene.style.setProperty('--scene-pan', (pan * 1.25) + '%');
+  function openPlacards(button) {
+    if (dialog.open) return;
+    returnFocus = button;
+    returnScroll = window.scrollY;
+    root.classList.add('events-modal-open');
+    dialog.showModal();
+    scrollToSlide(Number(button.dataset.openEvent), false);
   }
 
-  function paint(progress) {
-    const still = prefersStill();
-    const index = Math.round(progress);
-    const from = still ? index : Math.floor(progress);
-    const to = Math.min(lastScene, from + 1);
-    // Rest briefly on either side of each dissolve so each ceremony can be read.
-    const amount = still ? 0 : smooth(clamp((progress - from - .13) / .74));
-    const blending = from !== to && amount > 0;
-    const pullback = Math.sin(Math.PI * amount);
-
-    scenes.forEach((scene, index) => {
-      scene.classList.toggle('is-base', index === from);
-      scene.classList.toggle('is-overlay', blending && index === to);
+  document.querySelectorAll('[data-open-event]').forEach(button => {
+    button.hidden = false;
+    const entry = button.closest('.timeline-entry');
+    (entry || button).addEventListener('click', event => {
+      if (button.contains(event.target) || !window.getSelection()?.toString()) openPlacards(button);
     });
-    paintScene(scenes[from], 1, 1 - smooth(clamp(amount / .48)), pullback, -pullback);
-    if (blending) paintScene(scenes[to], amount, smooth(clamp((amount - .5) / .36)), pullback, pullback);
-
-    stage.style.setProperty('--event-progress', (still ? index : progress) / lastScene);
-    show(index);
-  }
-
-  function render() {
+  });
+  dialog.querySelectorAll('[data-close-events]').forEach(button => button.addEventListener('click', () => dialog.close()));
+  dialog.addEventListener('close', () => {
+    cancelAnimationFrame(frame);
     frame = 0;
-    const { offset, step } = position();
-    if (step <= 0) return;
-    paint(Math.min(lastScene, Math.max(0, offset / step)));
-  }
+    root.classList.remove('events-modal-open');
+    root.style.removeProperty('--event-chrome');
+    if (theme) theme.content = pageTheme;
+    window.scrollTo({ top: returnScroll, behavior: 'instant' });
+    returnFocus?.focus({ preventScroll: true });
+  });
 
-  function queueRender() {
-    if (!frame) frame = requestAnimationFrame(render);
-  }
+  previous.addEventListener('click', () => scrollToSlide(active - 1, true));
+  next.addEventListener('click', () => scrollToSlide(active + 1, true));
+  strip.addEventListener('scroll', () => {
+    if (frame || !dialog.open) return;
+    frame = requestAnimationFrame(() => {
+      frame = 0;
+      const index = Math.min(slides.length - 1, Math.max(0, Math.round(strip.scrollTop / strip.clientHeight)));
+      if (index !== active) setActive(index);
+    });
+  }, { passive: true });
 
-  function go(index, focus) {
-    if (index < 0) return;
-    const { offset, step } = position();
-    window.scrollTo({ top: Math.min(document.documentElement.scrollHeight - innerHeight,
-      window.scrollY - offset + step * index), behavior: 'instant' });
-    paint(index);
-    if (focus) scenes[index].querySelector('h2').focus({ preventScroll: true });
-    queueRender();
-  }
-
-  function indexFromHash(hash) {
-    return scenes.findIndex(scene => '#' + scene.id === hash);
-  }
-
-  function activateLink(event) {
-    const link = event.currentTarget;
-    const index = indexFromHash(link.hash);
-    if (index < 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+  dialog.addEventListener('keydown', event => {
+    const direction = { ArrowUp: -1, PageUp: -1, ArrowDown: 1, PageDown: 1 }[event.key];
+    if (!direction || event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
     event.preventDefault();
-    schedule.open = false;
-    history.replaceState(history.state, '', link.hash);
-    go(index, true);
-  }
+    scrollToSlide(active + direction, true);
+  });
+  new ResizeObserver(() => {
+    if (dialog.open) scrollToSlide(active, false);
+  }).observe(strip);
 
-  track.classList.add('is-pinned');
-  scenes.forEach((scene, index) => { scene.inert = index !== active; });
-  jumps.forEach(link => link.addEventListener('click', activateLink));
-  next.addEventListener('click', activateLink);
-  const placards = scenes.map(scene => scene.querySelector('.event-placard'));
-  schedule.addEventListener('toggle', () => {
-    if (schedule.open) placards.forEach(placard => { placard.open = false; });
+  slides.forEach(slide => {
+    slide.querySelector('[data-reel-effect]').addEventListener('click', () => {
+      if (!motionPaused()) slide.classList.add('is-celebrating');
+    });
+    slide.addEventListener('animationend', event => {
+      if (event.animationName === 'reel-glow') slide.classList.remove('is-celebrating');
+    });
   });
-  placards.forEach(placard => placard.addEventListener('toggle', () => {
-    if (placard.open) schedule.open = false;
-  }));
-  stage.addEventListener('keydown', event => {
-    if (event.key !== 'Escape') return;
-    const disclosure = stage.querySelector('details[open]');
-    if (!disclosure) return;
-    disclosure.open = false;
-    disclosure.querySelector('summary').focus({ preventScroll: true });
+  document.addEventListener('wedding:motion', () => {
+    if (motionPaused()) slides[active].classList.remove('is-celebrating');
   });
-  window.addEventListener('hashchange', () => go(indexFromHash(location.hash), false));
-  window.addEventListener('scroll', queueRender, { passive: true });
-  window.addEventListener('resize', queueRender);
-  document.addEventListener('wedding:motion', queueRender);
-  go(indexFromHash(location.hash), false);
-  render();
 })();

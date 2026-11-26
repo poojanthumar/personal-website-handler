@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <th:block th:fragment="pageHead(title, description)">
+  <th:block th:fragment="pageHead(title, description, edgeToEdge)">
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" th:content="${edgeToEdge} ? 'width=device-width, initial-scale=1, viewport-fit=cover' : 'width=device-width, initial-scale=1'">
     <meta name="theme-color" content="#f7f0e4">
     <meta name="description" th:content="${description}">
     <title th:text="${title}"></title>
